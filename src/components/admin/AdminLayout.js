@@ -1,8 +1,60 @@
+/**
+ * ============================================================================
+ * FILE: AdminLayout.js
+ * LOCATION: src/components/admin/AdminLayout.js
+ * PURPOSE: Layout wrapper for all admin pages with responsive sidebar navigation
+ * 
+ * WHAT THIS FILE DOES:
+ * ====================
+ * This component provides a consistent layout for all admin pages including:
+ * 1. A sidebar navigation menu with links to different admin sections
+ * 2. Responsive design - sidebar slides in/out on mobile, fixed on desktop
+ * 3. Sign out button for logging out
+ * 4. Active state highlighting for current page
+ * 
+ * DEPENDENCIES:
+ * =============
+ * External Libraries:
+ * - react: useState hook for managing sidebar open/close state
+ * - next/link: Next.js Link component for client-side navigation
+ * - next/router: useRouter hook to detect current page for active styling
+ * - @clerk/nextjs: useAuth for checking login status, SignOutButton for logout
+ * 
+ * Related Files:
+ * - Used by: src/pages/admin/index.js and other admin pages
+ * - Works with: src/components/admin/ProtectedPage.js for auth protection
+ * 
+ * USAGE:
+ * ======
+ * import AdminLayout from '@/components/admin/AdminLayout';
+ * 
+ * export default function AdminPage() {
+ *   return (
+ *     <AdminLayout>
+ *       <h1>Your page content here</h1>
+ *     </AdminLayout>
+ *   );
+ * }
+ * 
+ * ============================================================================
+ */
+
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth, SignOutButton } from '@clerk/nextjs';
 
+/**
+ * NAVIGATION ITEMS CONFIGURATION
+ * 
+ * Array of objects defining the sidebar navigation links.
+ * Each item has:
+ * - name: Display text shown in the sidebar
+ * - href: URL path the link navigates to
+ * - icon: React component for the icon
+ * 
+ * To add a new nav item, add an object to this array.
+ */
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: HomeIcon },
   { name: 'Guests', href: '/admin/guests', icon: UsersIcon },
@@ -68,11 +120,30 @@ function XIcon({ className }) {
   );
 }
 
+/**
+ * ADMINLAYOUT COMPONENT
+ * 
+ * Main layout component that wraps admin page content.
+ * Provides sidebar navigation and responsive design.
+ * 
+ * @param {ReactNode} children - The page content to render inside the layout
+ */
 export default function AdminLayout({ children }) {
+  // ========== STATE ==========
+  // Controls whether mobile sidebar is open or closed
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  // Get current route to highlight active nav item
   const router = useRouter();
+  
+  // Get user ID to conditionally show sign out button
   const { userId } = useAuth();
 
+  /**
+   * Check if a nav item should be highlighted as active
+   * Dashboard (/admin) only matches exact path
+   * Other items match if current path starts with their href
+   */
   const isActive = (href) => {
     if (href === '/admin') {
       return router.pathname === '/admin';
@@ -134,7 +205,7 @@ export default function AdminLayout({ children }) {
 
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-grow bg-white border-r border-gray-200">
+        <div className="flex flex-col grow bg-white border-r border-gray-200">
           <div className="flex items-center h-16 px-4 border-b border-gray-200">
             <h1 className="text-xl font-bold text-rose-600">Wedding Admin</h1>
           </div>
