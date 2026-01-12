@@ -1,5 +1,39 @@
+/**
+ * ============================================================================
+ * FILE: globals.css
+ * LOCATION: src/styles/globals.css
+ * PURPOSE: Global styles applied to all pages in the application
+ * 
+ * WHAT THIS FILE DOES:
+ * ====================
+ * 1. Imports Google Fonts (Parisienne, Cormorant Garamond)
+ * 2. Imports Tailwind CSS for utility classes
+ * 3. Defines CSS custom properties (variables) for theming
+ * 4. Provides font utility classes for the wedding theme
+ * 
+ * FONTS INCLUDED:
+ * ===============
+ * - Parisienne: Elegant cursive font for headings and decorative text
+ * - Cormorant Garamond: Sophisticated serif font for body text
+ * 
+ * IMPORTANT: @import rules must come before all other CSS rules.
+ * Google Fonts import MUST be before @import "tailwindcss"
+ * 
+ * ============================================================================
+ */
+
+/* ============================================================================
+   GOOGLE FONTS (must be first!)
+   Import Parisienne (cursive) and Cormorant Garamond (serif) from Google Fonts
+   ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Parisienne&display=swap');
+
 @import "tailwindcss";
 
+/* ============================================================================
+   CSS CUSTOM PROPERTIES (Variables)
+   These define the color scheme for light and dark modes
+   ============================================================================ */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,4 +57,76 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ============================================================================
+   FONT UTILITY CLASSES
+   Use these classes to apply the wedding fonts to elements
+   ============================================================================ */
+
+/**
+ * Parisienne Font
+ * An elegant cursive font perfect for:
+ * - Wedding titles and headings
+ * - Names and signatures
+ * - Decorative text
+ * 
+ * Usage: <h1 className="parisienne-regular">Elegant Title</h1>
+ */
+.parisienne-regular {
+  font-family: "Parisienne", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/**
+ * Cormorant Garamond Font
+ * A sophisticated serif font with multiple weights (300-700)
+ * Perfect for:
+ * - Body text
+ * - Formal invitations
+ * - Elegant paragraphs
+ * 
+ * Available classes:
+ * - .cormorant-garamond-light (300)
+ * - .cormorant-garamond-regular (400)
+ * - .cormorant-garamond-medium (500)
+ * - .cormorant-garamond-semibold (600)
+ * - .cormorant-garamond-bold (700)
+ * 
+ * Usage: <p className="cormorant-garamond-regular">Elegant text</p>
+ */
+.cormorant-garamond-light {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.cormorant-garamond-regular {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.cormorant-garamond-medium {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.cormorant-garamond-semibold {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.cormorant-garamond-bold {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }

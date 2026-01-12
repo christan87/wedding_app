@@ -220,11 +220,11 @@ export default function ImageDisplay({
 
   // ========== RENDER ==========
   return (
-    <div ref={ref} className={`${containerClassName}`}>
+    <div ref={ref} className={`${containerClassName} ${fill ? 'w-full h-full' : ''}`}>
       {/* FILL MODE: Image fills its parent container */}
       {fill ? (
         <div 
-          className={`relative ${animationClasses} ${className}`}
+          className={`relative w-full h-full ${animationClasses} ${className}`}
           style={transitionStyle}
         >
           <Image
