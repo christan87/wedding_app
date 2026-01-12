@@ -419,7 +419,7 @@ export default function HeroImage({
 
         {/* ROW 6: Text row - same display as row 3 (fade-in, spans full width) */}
         {row6TextProps && row6Text && (
-          <div className="flex justify-center w-full pb-8">
+          <div className="flex justify-center w-full pb-2">
             <AnimatedText
               animation={row6Animation}
               className={row6ClassName}

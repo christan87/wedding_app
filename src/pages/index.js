@@ -97,25 +97,25 @@ export default function Home() {
           maxHeight: 200,
         }}
         leftTextProps={{
-          text: "John",
-          className: "parisienne-regular text-5xl md:text-7xl text-white drop-shadow-lg",
+          text: "We",
+          className: "windsong-regular text-5xl md:text-7xl text-white drop-shadow-lg",
           delay: 500,
           duration: 1000,
         }}
         rightTextProps={{
-          text: "Jane",
-          className: "parisienne-regular text-5xl md:text-7xl text-white drop-shadow-lg",
+          text: "Do",
+          className: "windsong-regular text-5xl md:text-7xl text-white drop-shadow-lg",
           delay: 500,
           duration: 1000,
         }}
         bottomTextProps={{
-          text: "Are Getting Married",
-          className: "cormorant-garamond-regular text-2xl md:text-3xl text-white drop-shadow-md",
+          text: "Together with the families",
+          className: "cormorant-garamond-light text-xl md:text-2xl text-white drop-shadow-md",
           delay: 800,
           duration: 2000,
         }}
         fuzzyText1Props={{
-          text: "January",
+          text: "Chris",
           className: "parisienne-regular text-4xl md:text-6xl text-white drop-shadow-md",
           delay: 1200,
           duration: 1200,
@@ -127,50 +127,50 @@ export default function Home() {
           duration: 1200,
         }}
         fuzzyText3Props={{
-          text: "2026",
+          text: "Jenn",
           className: "parisienne-regular text-4xl md:text-6xl text-white drop-shadow-md",
           delay: 1200,
           duration: 1200,
         }}
         row5TextProps={{
-          text: "Save the Date",
-          className: "cormorant-garamond-regular text-2xl md:text-3xl text-white drop-shadow-md",
+          text: "Invite You",
+          className: "cormorant-garamond-regular text-lg md:text-xl text-white drop-shadow-md",
           delay: 1500,
           duration: 1000,
         }}
         row6TextProps={{
-          text: "Celebration details coming soon",
+          text: "To Their Wedding Celebration",
           className: "cormorant-garamond-light text-lg md:text-xl text-white drop-shadow-md",
           delay: 1800,
           duration: 1000,
         }}
         textBannerProps={{
           row1Props: {
-            text: "Please Join Us",
+            text: "JUNE",
             className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-md",
             delay: 2000,
             duration: 1000,
           },
           row2LeftProps: {
-            text: "John",
-            className: "parisienne-regular text-3xl md:text-4xl text-white drop-shadow-lg",
+            text: "TUESDAY",
+            className: "cormorant-garamond-regular text-3xl md:text-4xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
           row2CenterProps: {
-            text: "&",
-            className: "windsong-regular text-4xl md:text-5xl text-white drop-shadow-lg",
+            text: "09",
+            className: "cormorant-garamond-regular text-4xl md:text-5xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
           row2RightProps: {
-            text: "Jane",
-            className: "parisienne-regular text-3xl md:text-4xl text-white drop-shadow-lg",
+            text: "AT 3:00 PM",
+            className: "cormorant-garamond-regular text-3xl md:text-4xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
           row3Props: {
-            text: "Forever & Always",
+            text: "2026",
             className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-md",
             delay: 2600,
             duration: 1000,
