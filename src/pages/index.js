@@ -7,12 +7,14 @@
  * WHAT THIS FILE DOES:
  * ====================
  * This is the home page that displays when users visit the root URL (/).
- * It features a full-screen hero section with:
- * 1. A background image with slide-up animation
- * 2. A layout at the bottom with multiple rows:
- *    - Row 1: Left text, center heart image, right text
- *    - Row 2: Bottom text with fade-in animation
- *    - Row 3: Fuzzy slide text with alternating blur effect
+ * It features:
+ * 1. A full-screen hero section with:
+ *    - A background image with slide-up animation
+ *    - A layout at the bottom with multiple rows:
+ *      - Row 1: Left text, center heart image, right text
+ *      - Row 2: Bottom text with fade-in animation
+ *      - Row 3: Fuzzy slide text with alternating blur effect
+ * 2. A grayscale animated background section below the hero
  * 
  * DEPENDENCIES:
  * =============
@@ -21,9 +23,14 @@
  *   Location: src/components/public/HeroImage.js
  *   Purpose: Combines background image + animated overlay + animated text
  * 
+ * - GrayscaleBackground: Displays a GIF/image in grayscale with opacity control
+ *   Location: src/components/public/Images/GrayscaleBackground.js
+ *   Purpose: Creates subtle animated backgrounds with grayscale filter
+ * 
  * Assets:
  * - /images/image_001.jpg: Main background image (public/images folder)
  * - /images/heart_white.png: Heart overlay image (public/images folder)
+ * - GIF image: Used in GrayscaleBackground (update path as needed)
  * 
  * Fonts (from globals.css):
  * - parisienne-regular: Elegant cursive font for headings
@@ -41,6 +48,7 @@
  */
 
 import HeroImage from "@/components/public/HeroImage";
+import GrayscaleBackground from "@/components/public/Images/GrayscaleBackground";
 
 /**
  * HOME COMPONENT
@@ -56,7 +64,7 @@ import HeroImage from "@/components/public/HeroImage";
 export default function Home() {
   return (
     // Full-screen container - no padding needed as HeroImage fills the space
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* 
         HeroImage Component
         ===================
@@ -94,7 +102,7 @@ export default function Home() {
           startOpacity: 0.4,
           endOpacity: 0.6,
           interval: 600,
-          maxHeight: 200,
+          maxHeight: 100,
         }}
         leftTextProps={{
           text: "We",
@@ -153,7 +161,7 @@ export default function Home() {
           },
           row2LeftProps: {
             text: "TUESDAY",
-            className: "cormorant-garamond-regular text-3xl md:text-4xl text-white drop-shadow-lg",
+            className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
@@ -165,7 +173,7 @@ export default function Home() {
           },
           row2RightProps: {
             text: "AT 3:00 PM",
-            className: "cormorant-garamond-regular text-3xl md:text-4xl text-white drop-shadow-lg",
+            className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
@@ -178,6 +186,34 @@ export default function Home() {
           borderColor: "white",
         }}
         height="h-screen"
+      />
+
+      {/* 
+        GrayscaleBackground Component
+        ==============================
+        Displays a GIF image with grayscale (black & white) filter applied.
+        This creates a subtle, elegant animated background section.
+        
+        Props explained:
+        - src: Path to the GIF image to display
+        - alt: Accessibility description for screen readers
+        - opacity: Controls visibility (0 = invisible, 1 = fully visible)
+                   Lower values create a more subtle effect
+        - height: Height of the section (uses Tailwind classes)
+        
+        CUSTOMIZATION TIPS:
+        - Increase opacity for a more prominent background
+        - Decrease opacity for a more subtle effect
+        - Change height to 'h-screen' for full viewport height
+        - Add 'fixed={true}' for a parallax scrolling effect
+        
+        NOTE: Replace the src with your actual GIF path in /public/images/
+      */}
+      <GrayscaleBackground
+        src="/images/silhouette.gif"  // TODO: Replace with your actual GIF path
+        alt="Animated grayscale background"
+        opacity={0.1}  // 30% opacity for subtle effect
+        height="h-96"  // Fixed height section (384px)
       />
     </div>
   );
