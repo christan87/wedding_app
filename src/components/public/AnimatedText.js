@@ -20,6 +20,8 @@
  * - 'slide-right': Text slides in from the left while fading in
  * - 'zoom-in': Text scales up from smaller while fading in
  * - 'zoom-out': Text scales down from larger while fading in
+ * - 'fuzzy-slide': Each letter slides in from left with alternating blur levels
+ *   (odd letters start at 50% blur, even letters start at 70% blur, all become clear)
  * - 'none': No animation
  * 
  * DEPENDENCIES:
@@ -53,6 +55,15 @@
  *   triggerOnScroll={false}
  * >
  *   Welcome to Our Wedding
+ * </AnimatedText>
+ * 
+ * // Fuzzy slide example (each letter animates with alternating blur)
+ * <AnimatedText
+ *   animation="fuzzy-slide"
+ *   className="text-4xl font-bold text-white"
+ *   duration={1000}
+ * >
+ *   January 15, 2026
  * </AnimatedText>
  * 
  * ============================================================================
@@ -182,7 +193,47 @@ export default function AnimatedText({
     };
   }, [triggerOnScroll, delay, threshold]);
 
-  // ========== BUILD CSS CLASSES ==========
+  // ========== FUZZY-SLIDE ANIMATION ==========
+  // Special handling for fuzzy-slide: renders each letter individually
+  // with alternating blur levels that animate to clear
+  if (animation === 'fuzzy-slide') {
+    // Convert children to string for letter-by-letter rendering
+    const text = typeof children === 'string' ? children : String(children);
+    
+    return (
+      <div ref={ref} className={containerClassName}>
+        <Component className={className}>
+          {text.split('').map((letter, index) => {
+            // Alternate blur levels: odd letters = 4px blur, even letters = 6px blur
+            // Both animate to 0px blur (clear)
+            const initialBlur = index % 2 === 0 ? 4 : 6; // 4px ≈ 50%, 6px ≈ 70% blur
+            const initialTranslate = -20; // Start 20px to the left
+            
+            return (
+              <span
+                key={index}
+                style={{
+                  display: 'inline-block',
+                  filter: isVisible ? 'blur(0px)' : `blur(${initialBlur}px)`,
+                  transform: isVisible ? 'translateX(0)' : `translateX(${initialTranslate}px)`,
+                  opacity: isVisible ? 1 : 0,
+                  transition: `filter ${duration}ms ease-out, transform ${duration}ms ease-out, opacity ${duration}ms ease-out`,
+                  // Stagger the animation slightly for each letter
+                  transitionDelay: `${index * 30}ms`,
+                  // Preserve spaces
+                  whiteSpace: letter === ' ' ? 'pre' : 'normal',
+                }}
+              >
+                {letter}
+              </span>
+            );
+          })}
+        </Component>
+      </div>
+    );
+  }
+
+  // ========== BUILD CSS CLASSES (Standard Animations) ==========
   // Get the animation configuration (or default to fade-in)
   const animationConfig = animationStyles[animation] || animationStyles['fade-in'];
   
@@ -198,7 +249,7 @@ export default function AnimatedText({
     transitionDuration: `${duration}ms`,
   };
 
-  // ========== RENDER ==========
+  // ========== RENDER (Standard Animations) ==========
   return (
     <div ref={ref} className={containerClassName}>
       <Component

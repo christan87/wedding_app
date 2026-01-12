@@ -15,6 +15,7 @@
  * ===============
  * - Parisienne: Elegant cursive font for headings and decorative text
  * - Cormorant Garamond: Sophisticated serif font for body text
+ * - WindSong: Flowing cursive font for romantic text
  * 
  * IMPORTANT: @import rules must come before all other CSS rules.
  * Google Fonts import MUST be before @import "tailwindcss"
@@ -24,9 +25,10 @@
 
 /* ============================================================================
    GOOGLE FONTS (must be first!)
-   Import Parisienne (cursive) and Cormorant Garamond (serif) from Google Fonts
+   Import Parisienne, Cormorant Garamond, and WindSong from Google Fonts
    ============================================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Parisienne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=WindSong:wght@400;500&display=swap');
 
 @import "tailwindcss";
 
@@ -128,5 +130,30 @@ body {
   font-family: "Cormorant Garamond", serif;
   font-optical-sizing: auto;
   font-weight: 700;
+  font-style: normal;
+}
+
+/**
+ * WindSong Font
+ * A flowing cursive font perfect for:
+ * - Romantic text and quotes
+ * - Decorative headings
+ * - Wedding dates and special text
+ * 
+ * Available classes:
+ * - .windsong-regular (400)
+ * - .windsong-medium (500)
+ * 
+ * Usage: <span className="windsong-regular">Beautiful Text</span>
+ */
+.windsong-regular {
+  font-family: "WindSong", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.windsong-medium {
+  font-family: "WindSong", cursive;
+  font-weight: 500;
   font-style: normal;
 }
