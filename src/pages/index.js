@@ -224,6 +224,14 @@ export default function Home() {
         backgroundAlt="Animated grayscale background"
         backgroundOpacity={0.1}  // 10% opacity for subtle effect
         height="h-full"  // Fixed height section (384px)
+        title={{           
+          animation:"type",
+          className:"cormorant-garamond-regular text-5xl md:text-6xl text-gray-700 drop-shadow-lg",
+          duration:1000,
+          delay:200,
+          triggerOnScroll:true,
+          text:"PROGRAM"
+        }}
         events={[
           // Example Event 1: Wedding Ceremony (normal layout - text left, icon right)
           {

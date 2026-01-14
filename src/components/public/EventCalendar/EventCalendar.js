@@ -113,6 +113,7 @@ export default function EventCalendar({
   height = 'h-auto',
   events = [],
   className = '',
+  title = {},
 }) {
   // ========== RENDER ==========
   return (
@@ -174,13 +175,13 @@ export default function EventCalendar({
         */}
         <div className="mb-8">
           <AnimatedText
-            animation="type"
-            className="cormorant-garamond-regular text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
-            duration={1000}
-            delay={200}
-            triggerOnScroll={true}
+            animation={title.animation}
+            className={title.className}
+            duration={title.duration}
+            delay={title.delay}
+            triggerOnScroll={title.triggerOnScroll}
           >
-            PROGRAM
+            {title.text}
           </AnimatedText>
         </div>
         {/* 
