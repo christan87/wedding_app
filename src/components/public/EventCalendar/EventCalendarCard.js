@@ -246,13 +246,13 @@ export default function EventCalendarCard({
      *   - Col 1 (1fr): Equal flexible width
      *   - Col 2 (auto): Fits dividerImage content, always centered
      *   - Col 3 (1fr): Equal flexible width
-     * - 'gap-4': Adds spacing between columns
-     * - 'min-h-[200px]': Minimum height to ensure proper proportions
+     * - 'gap-2 md:gap-4': Smaller gap on mobile, larger on desktop
+     * - 'min-h-[150px] md:min-h-[200px]': Responsive minimum height
      * 
      * Using symmetric columns (1fr_auto_1fr) ensures Col 2 is always
      * centered across all cards, creating a flowing visual display.
      */
-    <div className="grid grid-cols-[1fr_auto_1fr] gap-4 min-h-[200px]">
+    <div className="grid grid-cols-[1fr_auto_1fr] gap-2 md:gap-4 min-h-[150px] md:min-h-[200px]">
       {/* 
         Column order depends on flip prop:
         - flip=false: TextColumn | DividerColumn | IconColumn

@@ -231,7 +231,7 @@ export default function Home() {
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
             iconImage: "/images/icons/rings.png",  // TODO: Replace with ceremony icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "3:00 PM",
+            time: "3:30 PM",
             event: "Wedding Ceremony",
             location: "St. Mary's Church",
           },
@@ -241,10 +241,19 @@ export default function Home() {
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
             iconImage: "/images/icons/martini.png",  // TODO: Replace with reception icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "6:00 PM",
-            event: "Reception",
+            time: "4:30 PM",
+            event: "Cocktails",
             location: "Grand Ballroom",
           },
+          {
+            flip: false,
+            dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
+            iconImage: "/images/icons/camera.png",  // TODO: Replace with reception icon
+            ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
+            time: "5:00 PM",
+            event: "Photos",
+            location: "Grand Ballroom",
+          }
         ]}
       />
     </div>

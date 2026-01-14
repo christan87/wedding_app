@@ -115,13 +115,16 @@ export default function EventCalendar({
   return (
     /**
      * Main container:
-     * - 'relative': Establishes positioning context for absolute children
+     * - 'relative': Establishes positioning context for absolute background
      * - 'w-full': Full width of parent
-     * - height prop: Controls the container height
+     * - 'min-h-0': Allows container to shrink if needed
      * - 'overflow-hidden': Prevents content from spilling outside
      * - className: Any additional custom classes
+     * 
+     * Height grows automatically based on content (event cards).
+     * The GrayscaleBackground is absolutely positioned to fill this container.
      */
-    <div className={`relative w-full ${height} overflow-hidden ${className}`}>
+    <div className={`relative w-full overflow-hidden ${className}`}>
       {/* 
         LAYER 1: Grayscale Background
         ==============================
@@ -147,18 +150,18 @@ export default function EventCalendar({
       {/* 
         LAYER 2: Event Cards Container
         ================================
-        This container is positioned absolutely over the background.
-        It holds all the EventCalendarCard components.
+        This container is positioned relatively so it determines the
+        parent's height based on content. Cards stack and grow naturally.
         
         Styling:
-        - 'absolute inset-0': Fills the entire parent container
+        - 'relative': Normal flow, determines parent height
         - 'z-10': Places cards above the background
         - 'flex flex-col': Stacks cards vertically
-        - 'items-center justify-center': Centers cards in container
+        - 'items-center': Centers cards horizontally
         - 'px-4 md:px-8': Horizontal padding for responsiveness
         - 'py-8': Vertical padding
       */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 md:px-8 py-8">
+      <div className="relative z-10 flex flex-col items-center px-4 md:px-8 py-8">
         {/* 
           Cards Wrapper
           ==============
