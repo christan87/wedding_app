@@ -223,7 +223,7 @@ export default function Home() {
         backgroundSrc="/images/silhouette.gif"  // TODO: Replace with your actual GIF path
         backgroundAlt="Animated grayscale background"
         backgroundOpacity={0.1}  // 10% opacity for subtle effect
-        height="h-96"  // Fixed height section (384px)
+        height="h-full"  // Fixed height section (384px)
         events={[
           // Example Event 1: Wedding Ceremony (normal layout - text left, icon right)
           {
@@ -231,7 +231,7 @@ export default function Home() {
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
             iconImage: "/images/icons/rings.png",  // TODO: Replace with ceremony icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "3:30 PM",
+            time: "3:00 PM",
             event: "Wedding Ceremony",
             location: "St. Mary's Church",
           },
@@ -252,6 +252,24 @@ export default function Home() {
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "5:00 PM",
             event: "Photos",
+            location: "Grand Ballroom",
+          },
+          {
+            flip: true,
+            dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
+            iconImage: "/images/icons/plating.png",  // TODO: Replace with reception icon
+            ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
+            time: "6:30 PM",
+            event: "Dinner",
+            location: "Grand Ballroom",
+          },
+          {
+            flip: false,
+            dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
+            iconImage: "/images/icons/speaker.png",  // TODO: Replace with reception icon
+            ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
+            time: "8:00 PM",
+            event: "Party",
             location: "Grand Ballroom",
           }
         ]}

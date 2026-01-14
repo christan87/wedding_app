@@ -22,6 +22,7 @@
  * - 'zoom-out': Text scales down from larger while fading in
  * - 'fuzzy-slide': Each letter slides in from left with alternating blur levels
  *   (odd letters start at 50% blur, even letters start at 70% blur, all become clear)
+ * - 'type': Typewriter effect where text appears as if being typed (width animates from 0 to 100%)
  * - 'none': No animation
  * 
  * DEPENDENCIES:
@@ -116,6 +117,11 @@ const animationStyles = {
   'zoom-out': {
     initial: 'opacity-0 scale-110',
     animate: 'opacity-100 scale-100',
+  },
+  // Typewriter effect - text appears as if being typed
+  'type': {
+    initial: 'overflow-hidden whitespace-nowrap',
+    animate: 'overflow-hidden whitespace-nowrap',
   },
   // No animation - show immediately
   'none': {
@@ -228,6 +234,36 @@ export default function AnimatedText({
               </span>
             );
           })}
+        </Component>
+      </div>
+    );
+  }
+
+  // ========== TYPEWRITER ANIMATION ==========
+  // Special handling for type: text appears as if being typed
+  // Reveals characters one by one with opacity transitions
+  if (animation === 'type') {
+    // Convert children to string for character-by-character rendering
+    const text = typeof children === 'string' ? children : String(children);
+    
+    return (
+      <div ref={ref} className={containerClassName}>
+        <Component className={`${className} overflow-hidden whitespace-nowrap`}>
+          {text.split('').map((letter, index) => (
+            <span
+              key={index}
+              style={{
+                display: 'inline-block',
+                opacity: isVisible ? 1 : 0,
+                transition: `opacity 50ms ease-out`,
+                transitionDelay: isVisible ? `${delay + (index * duration / text.length)}ms` : '0ms',
+                // Preserve spaces
+                whiteSpace: letter === ' ' ? 'pre' : 'normal',
+              }}
+            >
+              {letter}
+            </span>
+          ))}
         </Component>
       </div>
     );

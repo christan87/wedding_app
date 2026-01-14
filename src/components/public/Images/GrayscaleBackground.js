@@ -102,17 +102,19 @@ export default function GrayscaleBackground({
   // ========== POSITION STYLE ==========
   // If fixed is true, the background will stay in place while scrolling
   // This creates a parallax-like effect
-  const positionClass = fixed ? 'fixed inset-0' : 'relative';
+  // If className contains 'absolute', use that instead of default positioning
+  const hasAbsolutePosition = className.includes('absolute');
+  const positionClass = fixed ? 'fixed inset-0' : (hasAbsolutePosition ? '' : 'relative');
 
   // ========== RENDER ==========
   return (
     /**
      * Container div:
-     * - 'relative' or 'fixed': Positioning context for the absolute Image
+     * - 'relative', 'fixed', or 'absolute': Positioning context for the absolute Image
      * - 'w-full': Full width of parent
      * - height prop: Controls the height (e.g., 'h-96', 'h-screen')
      * - 'overflow-hidden': Prevents image from spilling outside container
-     * - className: Any additional custom classes
+     * - className: Any additional custom classes (can override positioning)
      */
     <div 
       className={`${positionClass} w-full ${height} overflow-hidden ${className}`}

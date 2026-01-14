@@ -36,6 +36,8 @@
  *   Location: src/components/public/Images/GrayscaleBackground.js
  * - EventCalendarCard: Individual event card component
  *   Location: src/components/public/EventCalendar/EventCalendarCard.js
+ * - AnimatedText: Text component with entrance animations
+ *   Location: src/components/public/AnimatedText.js
  * 
  * Related Files:
  * - Used by: src/pages/index.js (or any page needing an event calendar)
@@ -94,6 +96,7 @@
 
 import GrayscaleBackground from '../Images/GrayscaleBackground';
 import EventCalendarCard from './EventCalendarCard';
+import AnimatedText from '../AnimatedText';
 
 /**
  * EVENTCALENDAR COMPONENT
@@ -143,6 +146,7 @@ export default function EventCalendar({
         alt={backgroundAlt}
         opacity={backgroundOpacity}
         height="h-full"
+        fixed={false}
         zIndex={0}
         className="absolute inset-0"
       />
@@ -162,6 +166,23 @@ export default function EventCalendar({
         - 'py-8': Vertical padding
       */}
       <div className="relative z-10 flex flex-col items-center px-4 md:px-8 py-8">
+        {/* 
+          Program Header
+          ===============
+          Animated "Program" title at the top of the event calendar.
+          Uses typewriter animation for elegant entrance effect.
+        */}
+        <div className="mb-8">
+          <AnimatedText
+            animation="type"
+            className="cormorant-garamond-regular text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
+            duration={1000}
+            delay={200}
+            triggerOnScroll={true}
+          >
+            PROGRAM
+          </AnimatedText>
+        </div>
         {/* 
           Cards Wrapper
           ==============
