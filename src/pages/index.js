@@ -14,7 +14,8 @@
  *      - Row 1: Left text, center heart image, right text
  *      - Row 2: Bottom text with fade-in animation
  *      - Row 3: Fuzzy slide text with alternating blur effect
- * 2. A grayscale animated background section below the hero
+ * 2. An EventCalendar section below the hero that displays wedding events
+ *    over a grayscale animated background
  * 
  * DEPENDENCIES:
  * =============
@@ -23,14 +24,16 @@
  *   Location: src/components/public/HeroImage.js
  *   Purpose: Combines background image + animated overlay + animated text
  * 
- * - GrayscaleBackground: Displays a GIF/image in grayscale with opacity control
- *   Location: src/components/public/Images/GrayscaleBackground.js
- *   Purpose: Creates subtle animated backgrounds with grayscale filter
+ * - EventCalendar: Displays event cards over a grayscale background
+ *   Location: src/components/public/EventCalendar/EventCalendar.js
+ *   Purpose: Shows wedding event schedule with decorative elements
+ *   Depends on: GrayscaleBackground, EventCalendarCard
  * 
  * Assets:
  * - /images/image_001.jpg: Main background image (public/images folder)
  * - /images/heart_white.png: Heart overlay image (public/images folder)
- * - GIF image: Used in GrayscaleBackground (update path as needed)
+ * - GIF image: Used in EventCalendar background (update path as needed)
+ * - Event images: Icons, dividers, and rule decorations for event cards
  * 
  * Fonts (from globals.css):
  * - parisienne-regular: Elegant cursive font for headings
@@ -48,7 +51,7 @@
  */
 
 import HeroImage from "@/components/public/HeroImage";
-import GrayscaleBackground from "@/components/public/Images/GrayscaleBackground";
+import EventCalendar from "@/components/public/EventCalendar/EventCalendar";
 
 /**
  * HOME COMPONENT
@@ -189,31 +192,60 @@ export default function Home() {
       />
 
       {/* 
-        GrayscaleBackground Component
-        ==============================
-        Displays a GIF image with grayscale (black & white) filter applied.
-        This creates a subtle, elegant animated background section.
+        EventCalendar Component
+        =======================
+        Displays wedding event cards over a grayscale animated background.
+        Each event card shows time, event name, location with decorative elements.
         
         Props explained:
-        - src: Path to the GIF image to display
-        - alt: Accessibility description for screen readers
-        - opacity: Controls visibility (0 = invisible, 1 = fully visible)
-                   Lower values create a more subtle effect
-        - height: Height of the section (uses Tailwind classes)
+        - backgroundSrc: Path to the GIF image for the grayscale background
+        - backgroundAlt: Accessibility description for the background
+        - backgroundOpacity: Controls background visibility (0-1)
+        - height: Height of the calendar section (uses Tailwind classes)
+        - events: Array of event objects containing:
+          - flip: If true, swaps layout (icon left, text right)
+          - dividerImage: Path to center column divider image
+          - iconImage: Path to event icon image
+          - ruleImage: Path to horizontal rule decoration image
+          - time: Event time string
+          - event: Event name string
+          - location: Event location string
         
         CUSTOMIZATION TIPS:
-        - Increase opacity for a more prominent background
-        - Decrease opacity for a more subtle effect
-        - Change height to 'h-screen' for full viewport height
-        - Add 'fixed={true}' for a parallax scrolling effect
+        - Add more events to the events array as needed
+        - Alternate 'flip' values for visual variety
+        - Replace placeholder images with your actual event icons
+        - Adjust backgroundOpacity for desired background intensity
         
-        NOTE: Replace the src with your actual GIF path in /public/images/
+        NOTE: Replace the image paths with your actual images in /public/images/
       */}
-      <GrayscaleBackground
-        src="/images/silhouette.gif"  // TODO: Replace with your actual GIF path
-        alt="Animated grayscale background"
-        opacity={0.1}  // 30% opacity for subtle effect
+      <EventCalendar
+        backgroundSrc="/images/silhouette.gif"  // TODO: Replace with your actual GIF path
+        backgroundAlt="Animated grayscale background"
+        backgroundOpacity={0.1}  // 10% opacity for subtle effect
         height="h-96"  // Fixed height section (384px)
+        events={[
+          // Example Event 1: Wedding Ceremony (normal layout - text left, icon right)
+          {
+            flip: false,
+            dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
+            iconImage: "/images/icons/rings.png",  // TODO: Replace with ceremony icon
+            ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
+            time: "3:00 PM",
+            event: "Wedding Ceremony",
+            location: "St. Mary's Church",
+          },
+          // Example Event 2: Reception (flipped layout - icon left, text right)
+          {
+            flip: true,
+            dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
+            iconImage: "/images/icons/martini.png",  // TODO: Replace with reception icon
+            ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
+            time: "6:00 PM",
+            event: "Reception",
+            location: "Grand Ballroom",
+          },
+        ]}
       />
     </div>
   );
