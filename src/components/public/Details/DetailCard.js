@@ -68,30 +68,29 @@ export default function DetailCard({
      * - 'w-full': Full width of parent
      * - 'min-h-[300px]': Minimum height for proper proportions
      */
-    <div className="grid grid-rows-4 gap-0 w-full min-h-[300px]">
+    <div className="grid grid-rows-[1fr_auto_1fr_auto] gap-0 w-full min-h-[220px]">
       {/* 
         ROWS 1-3: RULE SECTION
         =======================
-        Each row has 2 columns with vertical rules and divider image.
-        Col 1 is empty, Col 2 contains the decorative elements.
+        Using a single 3-column grid with col 2 as a flex column container.
+        This ensures all col 2 content (rules and divider) are centered together.
+        Col 1: Empty space (flexible)
+        Col 2: Decorative elements (auto width, centered using flex column)
+        Col 3: Empty space with 50px max width
       */}
       
-      {/* Row 1: Top vertical rule */}
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-[1fr_auto_20px] row-span-3">
         {/* Col 1: Empty space */}
         <div className="w-full" />
-        {/* Col 2: Vertical rule centered horizontally */}
-        <div className="flex justify-center w-full">
-          <div className="w-px h-full bg-black/50" />
-        </div>
-      </div>
-
-      {/* Row 2: Divider image */}
-      <div className="grid grid-cols-2">
-        {/* Col 1: Empty space */}
-        <div className="w-full" />
-        {/* Col 2: Divider image, fits content horizontally and vertically */}
-        <div className="flex justify-center items-center w-full">
+        
+        {/* Col 2: Flex column container for all decorative elements */}
+        <div className="flex flex-col items-center h-full">
+          {/* Row 1: Top vertical rule - flex-1 to fill space */}
+          <div className="flex-1 flex items-center justify-center">
+            <div className="w-px h-full bg-black/50" />
+          </div>
+          
+          {/* Row 2: Divider image - fits content */}
           {dividerImage && (
             <div className="relative w-8 h-8 shrink-0">
               <Image
@@ -103,17 +102,15 @@ export default function DetailCard({
               />
             </div>
           )}
+          
+          {/* Row 3: Bottom vertical rule - flex-1 to fill space */}
+          <div className="flex-1 flex max-h-[20px] items-center justify-center">
+            <div className="w-px h-full bg-black/50" />
+          </div>
         </div>
-      </div>
-
-      {/* Row 3: Bottom vertical rule */}
-      <div className="grid grid-cols-2">
-        {/* Col 1: Empty space */}
-        <div className="w-full" />
-        {/* Col 2: Vertical rule centered horizontally */}
-        <div className="flex justify-center w-full">
-          <div className="w-px h-full bg-black/50" />
-        </div>
+        
+        {/* Col 3: Empty space with 50px max width */}
+        <div className="w-full max-w-[20px]" />
       </div>
 
       {/* 

@@ -129,24 +129,24 @@ export default function DetailList({
         LAYER 2: Content Container
         ============================
         This container is positioned relatively so it determines the
-        parent's height based on content. Content is right-aligned.
+        parent's height based on content. Content is centered.
         
         Styling:
         - 'relative': Normal flow, determines parent height
         - 'z-10': Places content above the background
         - 'flex flex-col': Stacks content vertically
-        - 'items-end': Right-aligns content
+        - 'items-center': Centers content horizontally
         - 'justify-start': Aligns content to top
         - 'px-4 md:px-8': Horizontal padding for responsiveness
         - 'py-8': Vertical padding
         - 'h-full': Full height of parent
       */}
-      <div className="relative z-10 flex flex-col items-end justify-start px-4 md:px-8 py-8 h-full">
+      <div className="relative z-10 flex flex-col items-center justify-start px-4 md:px-8 py-8 h-full">
         {/* 
           Content Wrapper
           ===============
           Contains the accent text, animated title, and detail cards.
-          Right-aligned with max width for readability.
+          Centered with max width for readability.
         */}
         <div className="w-full max-w-2xl">
           {/* 
@@ -155,8 +155,8 @@ export default function DetailList({
             Small accent text displayed above the main title.
             Styled with cormorant font and subtle appearance.
           */}
-          <div className="mb-4 text-right">
-            <span className="cormorant-garamond-light text-sm md:text-base text-gray-600/80 drop-shadow-sm uppercase tracking-wider">
+          <div className="text-left">
+            <span className="windsong-medium text-2xl md:text-3xl text-gray-600/80 drop-shadow-sm tracking-wider">
               {accent}
             </span>
           </div>
@@ -165,14 +165,14 @@ export default function DetailList({
             Animated Title
             ==============
             Main title with typewriter animation effect.
-            Right-aligned with responsive sizing and styling.
+            Centered with responsive sizing and styling.
           */}
-          <div className="mb-12 text-right">
+          <div className="mb-12 pl-10 text-left">
             <AnimatedText
               animation="type"
-              className="cormorant-garamond-regular text-3xl md:text-4xl text-gray-700 drop-shadow-lg"
-              duration={2000}
-              delay={500}
+              className="cormorant-garamond-regular text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
+              duration={1000}
+              delay={200}
               triggerOnScroll={true}
             >
               {title}

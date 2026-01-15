@@ -61,6 +61,7 @@
 import HeroImage from "@/components/public/HeroImage";
 import EventCalendar from "@/components/public/EventCalendar/EventCalendar";
 import DetailList from "@/components/public/Details/DetailList";
+import RSVP from "@/components/public/RSVP/RSVP";
 
 /**
  * HOME COMPONENT
@@ -305,11 +306,11 @@ export default function Home() {
         - 'w-full': Full width of viewport
         - 'py-16': Vertical padding for section spacing
       */}
-      <div className="w-full py-16">
+      <div className="w-full">
         <DetailList
           title="Wedding Details"
-          accent="Important Information"
-          backgroundImage="/images/silhouette.gif"  // TODO: Replace with your actual GIF path
+          accent="The"
+          backgroundImage="/images/image_002.jpg"  // TODO: Replace with your actual GIF path
           details={[
             // Detail 1: Accommodations
             {
@@ -319,25 +320,41 @@ export default function Home() {
             },
             // Detail 2: Registry
             {
-              dividerImage: "/images/icons/rings.png",  // TODO: Replace with your divider image
+              dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Registry",
               text: "Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we have registered at Macy's and Bed Bath & Beyond.",
             },
             // Detail 3: Transportation
             {
-              dividerImage: "/images/icons/camera.png",  // TODO: Replace with your divider image
+              dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Transportation",
               text: "Shuttle service will be provided between the hotel and ceremony/reception venues. Please check the schedule in your welcome packet for specific pickup and drop-off times.",
             },
             // Detail 4: Dress Code
             {
-              dividerImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with your divider image
+              dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Dress Code",
               text: "Cocktail attire is requested for the evening reception. Please avoid wearing white to respect the bride. The ceremony will be held outdoors, so comfortable shoes are recommended.",
             },
           ]}
         />
       </div>
+
+      {/* 
+        RSVP SECTION
+        ============
+        Displays RSVP call-to-action with background image and animated text.
+        
+        Props explained:
+        - backgroundImage: Path to the background image
+        - month: Month for RSVP deadline
+        - day: Day for RSVP deadline
+      */}
+      <RSVP
+        backgroundImage="/images/image_001.jpg"
+        month="May"
+        day="15"
+      />
     </div>
   );
 }

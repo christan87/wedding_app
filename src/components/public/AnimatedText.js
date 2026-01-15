@@ -23,6 +23,7 @@
  * - 'fuzzy-slide': Each letter slides in from left with alternating blur levels
  *   (odd letters start at 50% blur, even letters start at 70% blur, all become clear)
  * - 'type': Typewriter effect where text appears as if being typed (width animates from 0 to 100%)
+ * - 'pop': Text expands onto screen and contracts into place with scale animation
  * - 'none': No animation
  * 
  * DEPENDENCIES:
@@ -122,6 +123,11 @@ const animationStyles = {
   'type': {
     initial: 'overflow-hidden whitespace-nowrap',
     animate: 'overflow-hidden whitespace-nowrap',
+  },
+  // Pop effect - expands and contracts into place
+  'pop': {
+    initial: 'inline-block',
+    animate: 'inline-block',
   },
   // No animation - show immediately
   'none': {
@@ -235,6 +241,51 @@ export default function AnimatedText({
             );
           })}
         </Component>
+      </div>
+    );
+  }
+
+  // ========== POP ANIMATION ==========
+  // Special handling for pop: text expands onto screen and contracts into place
+  // Uses scale transform to create expand/contract effect
+  if (animation === 'pop') {
+    return (
+      <div ref={ref} className={containerClassName}>
+        <Component
+          className={`${className} inline-block`}
+          style={{
+            transform: isVisible ? 'scale(1)' : 'scale(0)',
+            opacity: isVisible ? 1 : 0,
+            transition: `transform ${duration}ms ease-in-out, opacity ${duration}ms ease-in-out`,
+            animation: isVisible ? `expandContract ${duration}ms ease-in-out` : 'none',
+          }}
+        >
+          {children}
+        </Component>
+        <style jsx>{`
+          @keyframes expandContract {
+            0% {
+              transform: scale(0);
+              opacity: 0;
+            }
+            25% {
+              transform: scale(1.2);
+              opacity: 1;
+            }
+            50% {
+              transform: scale(1);
+              opacity: 1;
+            }
+            75% {
+              transform: scale(1.2);
+              opacity: 1;
+            }
+            100% {
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+        `}</style>
       </div>
     );
   }
