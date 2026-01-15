@@ -33,6 +33,7 @@
 
 import PageBanner from "@/components/public/PageBanner";
 import RSVPFormMessage from "@/components/public/RSVP/RSVPFormMessage";
+import RSVPForm from "@/components/public/RSVP/RSVPForm";
 
 /**
  * RSVP COMPONENT
@@ -89,15 +90,10 @@ export default function RSVP() {
       {/* 
         RSVP Form Section
         =================
-        TODO: Add RSVP form component here
-        This section will contain the actual form for guests to fill out
+        RSVPForm component with all fields from the MongoDB model
       */}
-      <div className="w-full px-4 md:px-8 py-8">
-        <div className="max-w-2xl mx-auto">
-          <p className="cormorant-garamond-regular text-lg text-gray-600 text-center">
-            RSVP Form Coming Soon
-          </p>
-        </div>
+      <div className="w-full px-4 md:px-8 py-12">
+        <RSVPForm />
       </div>
     </div>
   );
