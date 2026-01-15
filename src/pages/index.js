@@ -16,6 +16,8 @@
  *      - Row 3: Fuzzy slide text with alternating blur effect
  * 2. An EventCalendar section below the hero that displays wedding events
  *    over a grayscale animated background
+ * 3. A DetailList section that displays wedding details and information
+ *    with right-aligned detail cards over a grayscale animated background
  * 
  * DEPENDENCIES:
  * =============
@@ -29,11 +31,17 @@
  *   Purpose: Shows wedding event schedule with decorative elements
  *   Depends on: GrayscaleBackground, EventCalendarCard
  * 
+ * - DetailList: Displays detail cards with wedding information
+ *   Location: src/components/public/Details/DetailList.js
+ *   Purpose: Shows wedding details with right-aligned cards and decorative dividers
+ *   Depends on: GrayscaleBackground, DetailCard, AnimatedText
+ * 
  * Assets:
  * - /images/image_001.jpg: Main background image (public/images folder)
  * - /images/heart_white.png: Heart overlay image (public/images folder)
- * - GIF image: Used in EventCalendar background (update path as needed)
+ * - GIF image: Used in EventCalendar and DetailList backgrounds (update path as needed)
  * - Event images: Icons, dividers, and rule decorations for event cards
+ * - Detail images: Divider icons for detail cards
  * 
  * Fonts (from globals.css):
  * - parisienne-regular: Elegant cursive font for headings
@@ -52,6 +60,7 @@
 
 import HeroImage from "@/components/public/HeroImage";
 import EventCalendar from "@/components/public/EventCalendar/EventCalendar";
+import DetailList from "@/components/public/Details/DetailList";
 
 /**
  * HOME COMPONENT
@@ -63,6 +72,8 @@ import EventCalendar from "@/components/public/EventCalendar/EventCalendar";
  *    - Row 1: Names with heart in center
  *    - Row 2: Fade-in text spanning full width
  *    - Row 3: Fuzzy slide text with alternating blur effect
+ * 3. EventCalendar section below with wedding events
+ * 4. DetailList section with wedding details and information
  */
 export default function Home() {
   return (
@@ -282,6 +293,51 @@ export default function Home() {
           }
         ]}
       />
+
+      {/* 
+        DETAIL LIST SECTION
+        ===================
+        Displays wedding details and information using the DetailList component.
+        Features right-aligned detail cards with decorative dividers over a 
+        grayscale animated background.
+        
+        Styling:
+        - 'w-full': Full width of viewport
+        - 'py-16': Vertical padding for section spacing
+      */}
+      <div className="w-full py-16">
+        <DetailList
+          title="Wedding Details"
+          accent="Important Information"
+          backgroundImage="/images/silhouette.gif"  // TODO: Replace with your actual GIF path
+          details={[
+            // Detail 1: Accommodations
+            {
+              dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
+              title: "Accommodations",
+              text: "We have reserved rooms at the Grand Hotel for our guests. Please mention the Smith-Jones wedding when booking to receive the special rate. Rooms are available for Friday and Saturday nights.",
+            },
+            // Detail 2: Registry
+            {
+              dividerImage: "/images/icons/rings.png",  // TODO: Replace with your divider image
+              title: "Registry",
+              text: "Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we have registered at Macy's and Bed Bath & Beyond.",
+            },
+            // Detail 3: Transportation
+            {
+              dividerImage: "/images/icons/camera.png",  // TODO: Replace with your divider image
+              title: "Transportation",
+              text: "Shuttle service will be provided between the hotel and ceremony/reception venues. Please check the schedule in your welcome packet for specific pickup and drop-off times.",
+            },
+            // Detail 4: Dress Code
+            {
+              dividerImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with your divider image
+              title: "Dress Code",
+              text: "Cocktail attire is requested for the evening reception. Please avoid wearing white to respect the bride. The ceremony will be held outdoors, so comfortable shoes are recommended.",
+            },
+          ]}
+        />
+      </div>
     </div>
   );
 }
