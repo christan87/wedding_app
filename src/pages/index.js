@@ -62,6 +62,7 @@ import HeroImage from "@/components/public/HeroImage";
 import EventCalendar from "@/components/public/EventCalendar/EventCalendar";
 import DetailList from "@/components/public/Details/DetailList";
 import RSVP from "@/components/public/RSVP/RSVP";
+import DateFooter from "@/components/public/Footer/DateFooter";
 
 /**
  * HOME COMPONENT
@@ -351,9 +352,31 @@ export default function Home() {
         - day: Day for RSVP deadline
       */}
       <RSVP
-        backgroundImage="/images/image_001.jpg"
-        month="May"
+        backgroundImage="/images/image_003.jpg"
+        month="MAY"
         day="15"
+      />
+
+      {/* 
+        DATEFOOTER SECTION
+        ==================
+        Displays wedding date footer with grayscale background.
+        
+        Props explained:
+        - backgroundImage: Path to the background image
+        - month: Month of the wedding
+        - day: Day of the wedding
+        - year: Year of the wedding
+        - groom: Groom's name
+        - bride: Bride's name
+      */}
+      <DateFooter
+        backgroundImage="/images/image_004.jpg"
+        month="06"
+        day="09"
+        year="2026"
+        groom="Chris"
+        bride="Jenn"
       />
     </div>
   );

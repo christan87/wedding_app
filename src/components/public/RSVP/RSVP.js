@@ -103,9 +103,9 @@ export default function RSVP({
       */}
       <div className="relative z-10 flex flex-col items-center justify-center px-4 py-16 text-center">
         {/* "please" text */}
-        <div className="mb-4">
-          <span className="windsong-medium text-4xl md:text-5xl text-white drop-shadow-lg">
-            please
+        <div className="mb-4 align-text-bottom">
+          <span className="windsong-medium  text-4xl md:text-5xl text-white drop-shadow-lg">
+            Please
           </span>
         </div>
 
@@ -161,7 +161,7 @@ export default function RSVP({
           <p className="cormorant-garamond-regular text-lg md:text-xl text-white drop-shadow-md mb-4">
             Please click the RSVP button and fill out the form to confirm your attendance.
           </p>
-          <p className="cormorant-garamond-semibold text-xl md:text-2xl text-white drop-shadow-lg">
+          <p className="windsong-medium text-xl md:text-2xl text-white drop-shadow-lg">
             Thank You!
           </p>
         </div>
