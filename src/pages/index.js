@@ -253,7 +253,7 @@ export default function Home() {
             iconImage: "/images/icons/rings.png",  // TODO: Replace with ceremony icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "3:00 PM",
-            event: "Wedding Ceremony",
+            event: "Ceremony",
             location: "St. Mary's Church",
           },
           // Example Event 2: Reception (flipped layout - icon left, text right)
@@ -309,7 +309,7 @@ export default function Home() {
       */}
       <div className="w-full">
         <DetailList
-          title="Wedding Details"
+          title="Details"
           accent="The"
           backgroundImage="/images/image_002.jpg"  // TODO: Replace with your actual GIF path
           details={[

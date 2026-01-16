@@ -170,7 +170,7 @@ export default function DetailList({
           <div className="mb-12 text-left">
             <AnimatedText
               animation="type"
-              className="cormorant-garamond-regular pl-2 md:pl-10 text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
+              className="cormorant-garamond-regular pl-10 md:pl-10 text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
               duration={1000}
               delay={200}
               triggerOnScroll={true}
