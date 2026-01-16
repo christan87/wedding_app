@@ -123,6 +123,7 @@ export default function RSVPForm() {
     accommodations: null,
     accommodationsText: '',
     song: '',
+    message: '',
   });
 
   /**
@@ -380,6 +381,7 @@ export default function RSVPForm() {
           accommodations: null,
           accommodationsText: '',
           song: '',
+          message: '',
         });
         
         // Redirect to home page after 2 seconds
@@ -820,6 +822,33 @@ export default function RSVPForm() {
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Request a song for the reception"
+          />
+        </div>
+
+        {/* 
+          MESSAGE
+          
+          Optional textarea for guests to leave a message for the couple.
+          Not required.
+        */}
+        <div className="form-group">
+          <label className="flex items-center gap-3 mb-2 text-lg font-medium text-gray-700">
+            <Image
+              src={iconImage}
+              alt="Message"
+              width={24}
+              height={24}
+              className="object-contain"
+            />
+            Leave us a message or share your excitement!
+          </label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            rows="4"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Share your thoughts, well wishes, or anything you'd like to tell us..."
           />
         </div>
 

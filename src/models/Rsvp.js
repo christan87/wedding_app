@@ -187,6 +187,11 @@ const RsvpSchema = {
     required: false,
     trim: true,
   },
+  message: {
+    type: String,
+    required: false,
+    trim: true,
+  },
   approved: {
     type: Boolean,
     default: false,
@@ -396,6 +401,7 @@ export function createRsvpObject(data) {
     
     // Optional fields
     song: data.song?.trim() || '',                      // Remove whitespace
+    message: data.message?.trim() || '',                // Remove whitespace
     
     // Admin approval (default: false)
     approved: Boolean(data.approved),                   // Ensure boolean

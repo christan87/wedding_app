@@ -58,9 +58,7 @@ import { useAuth, SignOutButton } from '@clerk/nextjs';
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: HomeIcon },
   { name: 'Guests', href: '/admin/guests', icon: UsersIcon },
-  { name: 'Events', href: '/admin/events', icon: CalendarIcon },
   { name: 'RSVP', href: '/admin/rsvp', icon: EnvelopeIcon },
-  { name: 'Settings', href: '/admin/settings', icon: CogIcon },
 ];
 
 function HomeIcon({ className }) {

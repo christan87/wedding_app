@@ -381,6 +381,12 @@ export default function AdminRSVPPage() {
                               <p className="text-sm text-gray-600">{rsvp.song || 'None'}</p>
                             </div>
 
+                            {/* Message */}
+                            <div className="md:col-span-2">
+                              <span className="text-sm font-semibold text-gray-700">Message:</span>
+                              <p className="text-sm text-gray-600 whitespace-pre-wrap">{rsvp.message || 'None'}</p>
+                            </div>
+
                             {/* Timestamps */}
                             <div>
                               <span className="text-sm font-semibold text-gray-700">Submitted:</span>
