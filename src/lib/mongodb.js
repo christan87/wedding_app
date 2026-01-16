@@ -74,27 +74,18 @@ export async function connectToDatabase() {
   }
 
   // Create a new MongoDB client with connection options
+  // Note: Keep options minimal for Netlify serverless compatibility
   const client = new MongoClient(MONGODB_URI, {
     // Connection pool settings
     maxPoolSize: 10, // Maximum number of connections in the pool
-    minPoolSize: 2,  // Minimum number of connections to maintain
+    minPoolSize: 1,  // Minimum number of connections to maintain (reduced for serverless)
     // Timeout settings
-    serverSelectionTimeoutMS: 10000, // Timeout for selecting a server (increased for production)
+    serverSelectionTimeoutMS: 10000, // Timeout for selecting a server
     socketTimeoutMS: 45000, // Timeout for socket operations
     connectTimeoutMS: 10000, // Timeout for initial connection
-    // TLS/SSL settings for production
-    tls: true,
-    tlsAllowInvalidCertificates: false,
-    tlsAllowInvalidHostnames: false,
     // Retry settings
     retryWrites: true,
     retryReads: true,
-    // Server API version for stability
-    serverApi: {
-      version: '1',
-      strict: false,
-      deprecationErrors: false,
-    },
   });
 
   // Connect to MongoDB
