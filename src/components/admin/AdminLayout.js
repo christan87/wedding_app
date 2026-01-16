@@ -151,55 +151,6 @@ export default function AdminLayout({ children }) {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Mobile sidebar overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Mobile sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-rose-600">Wedding Admin</h1>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-          >
-            <XIcon className="w-6 h-6" />
-          </button>
-        </div>
-        <nav className="px-2 py-4 space-y-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={() => setSidebarOpen(false)}
-                className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive(item.href)
-                    ? 'bg-rose-50 text-rose-700'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                <Icon className="w-5 h-5 mr-3" />
-                {item.name}
-              </Link>
-            );
-          })}
-        </nav>
-        {userId && (
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-            <SignOutButton>
-              <button className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-                Sign Out
-              </button>
-            </SignOutButton>
-          </div>
-        )}
-      </div>
 
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
@@ -240,15 +191,52 @@ export default function AdminLayout({ children }) {
 
       {/* Main content */}
       <div className="lg:pl-64">
-        {/* Top bar for mobile */}
-        <div className="sticky top-0 z-30 flex items-center h-16 px-4 bg-white border-b border-gray-200 lg:hidden">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-          >
-            <MenuIcon className="w-6 h-6" />
-          </button>
-          <h1 className="ml-4 text-lg font-semibold text-gray-900">Wedding Admin</h1>
+        {/* Top bar for mobile with dropdown */}
+        <div className="sticky top-0 z-30 bg-white border-b border-gray-200 lg:hidden">
+          <div className="flex items-center h-16 px-4">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+            >
+              {sidebarOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+            </button>
+            <h1 className="ml-4 text-lg font-semibold text-gray-900">Wedding Admin</h1>
+          </div>
+          
+          {/* Mobile dropdown menu */}
+          {sidebarOpen && (
+            <div className="border-t border-gray-200 bg-white shadow-lg">
+              <nav className="px-2 py-2 space-y-1">
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setSidebarOpen(false)}
+                      className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        isActive(item.href)
+                          ? 'bg-rose-50 text-rose-700'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <Icon className="w-5 h-5 mr-3" />
+                      {item.name}
+                    </Link>
+                  );
+                })}
+              </nav>
+              {userId && (
+                <div className="px-2 pb-2 pt-2 border-t border-gray-200">
+                  <SignOutButton>
+                    <button className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                      Sign Out
+                    </button>
+                  </SignOutButton>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Page content */}

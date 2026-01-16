@@ -252,13 +252,13 @@ export default function AdminRSVPPage() {
                   {rsvps.map((rsvp) => (
                     <div key={rsvp._id} className="hover:bg-gray-50 transition-colors">
                       {/* Main Row */}
-                      <div className="flex items-center justify-between px-6 py-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 gap-3">
                         {/* Left: Expand Button + Info */}
-                        <div className="flex items-center gap-4 flex-1">
+                        <div className="flex items-start gap-3 flex-1 min-w-0">
                           {/* Expand/Collapse Button */}
                           <button
                             onClick={() => toggleExpanded(rsvp._id)}
-                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                            className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 mt-1"
                           >
                             <svg
                               className={`w-5 h-5 transition-transform ${
@@ -279,10 +279,13 @@ export default function AdminRSVPPage() {
 
                           {/* Name, Email, Attending */}
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-3">
-                              <h3 className="font-semibold text-gray-800 truncate">
-                                {rsvp.name}
-                              </h3>
+                            <h3 className="font-semibold text-gray-800 truncate mb-1">
+                              {rsvp.name}
+                            </h3>
+                            <p className="text-sm text-gray-600 truncate mb-2">
+                              {rsvp.email}
+                            </p>
+                            <div className="flex flex-wrap items-center gap-2">
                               {rsvp.approved && (
                                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                   Approved
@@ -298,26 +301,23 @@ export default function AdminRSVPPage() {
                                 </span>
                               )}
                             </div>
-                            <p className="text-sm text-gray-600 truncate">
-                              {rsvp.email}
-                            </p>
                           </div>
                         </div>
 
                         {/* Right: Action Buttons */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center pl-9 md:pl-0 gap-2 sm:flex-shrink-0">
                           {/* Approve/Revoke Button */}
                           {rsvp.approved ? (
                             <button
                               onClick={() => handleRevoke(rsvp._id)}
-                              className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-sm font-medium"
+                              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-xs sm:text-sm font-medium"
                             >
                               Revoke
                             </button>
                           ) : (
                             <button
                               onClick={() => handleApprove(rsvp._id)}
-                              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-xs sm:text-sm font-medium"
                             >
                               Approve
                             </button>
@@ -326,7 +326,7 @@ export default function AdminRSVPPage() {
                           {/* Delete Button */}
                           <button
                             onClick={() => handleDelete(rsvp._id)}
-                            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                            className="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium"
                           >
                             Delete
                           </button>

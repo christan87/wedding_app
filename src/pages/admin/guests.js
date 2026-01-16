@@ -169,7 +169,7 @@ export default function AdminGuestsPage() {
           {!loading && !error && (
             <>
               {/* Stats and Copy Sections */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 {/* Total Guests Card */}
                 <div className="bg-white rounded-lg shadow p-6">
                   <h3 className="text-sm font-semibold text-gray-700 mb-2">Total Guests</h3>
@@ -220,68 +220,101 @@ export default function AdminGuestsPage() {
                 </div>
               </div>
 
-              {/* Guest Table */}
+              {/* Guest List */}
               <div className="bg-white rounded-lg shadow overflow-hidden">
-                <div className="overflow-x-auto">
-                  {guests.length === 0 ? (
-                    <div className="text-center py-12 text-gray-500">
-                      No approved guests yet
-                    </div>
-                  ) : (
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Name
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Email
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Phone
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Guest Count
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Guest Name
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
-                        {guests.map((guest) => (
-                          <tr key={guest._id} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm font-medium text-gray-900">
-                                {guest.name}
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">
-                                {guest.email}
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">
-                                {guest.phone}
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                {guest.guests ? '2' : '1'}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">
-                                {guest.guests ? guest.guestName || 'Not provided' : '-'}
-                              </div>
-                            </td>
+                {guests.length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    No approved guests yet
+                  </div>
+                ) : (
+                  <>
+                    {/* Desktop Table View */}
+                    <div className="hidden md:block overflow-x-auto">
+                      <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Name
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Email
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Phone
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Guest Count
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Guest Name
+                            </th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
-                </div>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {guests.map((guest) => (
+                            <tr key={guest._id} className="hover:bg-gray-50">
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm font-medium text-gray-900">
+                                  {guest.name}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-600">
+                                  {guest.email}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-600">
+                                  {guest.phone}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                  {guest.guests ? '2' : '1'}
+                                </span>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-600">
+                                  {guest.guests ? guest.guestName || 'Not provided' : '-'}
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="md:hidden divide-y divide-gray-200">
+                      {guests.map((guest) => (
+                        <div key={guest._id} className="p-4 hover:bg-gray-50">
+                          <div className="flex items-start justify-between mb-2">
+                            <h3 className="font-semibold text-gray-900">{guest.name}</h3>
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                              {guest.guests ? '2' : '1'} guest{guest.guests ? 's' : ''}
+                            </span>
+                          </div>
+                          <div className="space-y-1 text-sm">
+                            <div className="flex items-start">
+                              <span className="text-gray-500 w-16 shrink-0">Email:</span>
+                              <span className="text-gray-900 break-all">{guest.email}</span>
+                            </div>
+                            <div className="flex items-start">
+                              <span className="text-gray-500 w-16 shrink-0">Phone:</span>
+                              <span className="text-gray-900">{guest.phone}</span>
+                            </div>
+                            {guest.guests && (
+                              <div className="flex items-start">
+                                <span className="text-gray-500 w-16 shrink-0">Guest:</span>
+                                <span className="text-gray-900">{guest.guestName || 'Not provided'}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </>
           )}
