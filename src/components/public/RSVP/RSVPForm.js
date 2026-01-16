@@ -79,6 +79,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import ToastNotification, { useToast } from '@/components/public/ToastNotification';
 
 /**
  * RSVP FORM COMPONENT
@@ -148,6 +150,20 @@ export default function RSVPForm() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   
   /**
+   * TOAST NOTIFICATION
+   * 
+   * Hook for managing toast notifications (success/error messages).
+   */
+  const { toast, showToast, hideToast } = useToast();
+  
+  /**
+   * ROUTER
+   * 
+   * Next.js router for redirecting after successful form submission.
+   */
+  const router = useRouter();
+  
+  /**
    * ICON IMAGE PATH
    * 
    * Path to the icon image used for all form field labels.
@@ -193,15 +209,26 @@ export default function RSVPForm() {
    * How it works:
    * 1. Receives the field name and boolean value (true or false)
    * 2. Updates formData state with the new value
+   * 3. Special handling: If attending is set to false, also set guests to false
    * 
    * @param {string} name - The field name (e.g., 'attending')
    * @param {boolean} value - The boolean value (true or false)
    */
   const handleRadioChange = (name, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    // If user selects "not attending", automatically set guests to false
+    if (name === 'attending' && value === false) {
+      setFormData((prev) => ({
+        ...prev,
+        attending: false,
+        guests: false,
+        guestName: '', // Also clear guest name
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   /**
@@ -237,13 +264,44 @@ export default function RSVPForm() {
     } else {
       // For checkboxes, extract the restriction name (e.g., 'vegetarian')
       const restrictionName = name.replace('dietaryRestrictions.', '');
-      setFormData((prev) => ({
-        ...prev,
-        dietaryRestrictions: {
-          ...prev.dietaryRestrictions,
-          [restrictionName]: checked,
-        },
-      }));
+      
+      // Special handling for 'none' checkbox
+      if (restrictionName === 'none') {
+        // If checking 'none', uncheck all other options
+        if (checked) {
+          setFormData((prev) => ({
+            ...prev,
+            dietaryRestrictions: {
+              none: true,
+              vegetarian: false,
+              vegan: false,
+              glutenFree: false,
+              nutAllergy: false,
+              shellfishAllergy: false,
+              other: '',
+            },
+          }));
+        } else {
+          // If unchecking 'none', just update that field
+          setFormData((prev) => ({
+            ...prev,
+            dietaryRestrictions: {
+              ...prev.dietaryRestrictions,
+              none: false,
+            },
+          }));
+        }
+      } else {
+        // For other checkboxes, if 'none' is checked, uncheck it first
+        setFormData((prev) => ({
+          ...prev,
+          dietaryRestrictions: {
+            ...prev.dietaryRestrictions,
+            none: false, // Uncheck 'none' when selecting other options
+            [restrictionName]: checked,
+          },
+        }));
+      }
     }
   };
 
@@ -296,6 +354,9 @@ export default function RSVPForm() {
 
       // Check if the submission was successful
       if (result.success) {
+        // Show success toast notification
+        showToast('success', 'Thank you for your RSVP! Redirecting...');
+        
         // Show success message to the user
         setSubmitSuccess(true);
         
@@ -320,13 +381,22 @@ export default function RSVPForm() {
           accommodationsText: '',
           song: '',
         });
+        
+        // Redirect to home page after 2 seconds
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
       } else {
         // Display validation errors from the server
         setErrors(result.errors || [result.error]);
+        // Show error toast
+        showToast('error', 'Please fix the errors and try again.');
       }
     } catch (error) {
       // Handle network errors or other unexpected issues
       setErrors(['Failed to submit RSVP. Please try again.']);
+      // Show error toast
+      showToast('error', 'Failed to submit RSVP. Please try again.');
     } finally {
       // Always set submitting back to false, whether successful or not
       setIsSubmitting(false);
@@ -339,24 +409,6 @@ export default function RSVPForm() {
   
   return (
     <div className="w-full max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-lg">
-
-      {/* Success Message - Only shows after successful submission */}
-      {submitSuccess && (
-        <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          Thank you for your RSVP! We look forward to celebrating with you.
-        </div>
-      )}
-
-      {/* Error Messages - Only shows if there are validation errors */}
-      {errors.length > 0 && (
-        <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-          <ul className="list-disc list-inside">
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-        </div>
-      )}
 
       {/* 
         MAIN FORM
@@ -495,12 +547,14 @@ export default function RSVPForm() {
         </div>
 
         {/* 
-          GUESTS RADIO BUTTONS
+          GUESTS RADIO BUTTONS (CONDITIONAL)
           
           Yes/No choice for bringing additional guests.
-          Required field.
+          Only appears if user is attending (attending === true).
+          Required field when visible.
           If user selects "Yes", the guest name field appears below.
         */}
+        {formData.attending === true && (
         <div className="form-group">
           <label className="flex items-center gap-3 mb-3 text-lg font-medium text-gray-700">
             <Image
@@ -536,6 +590,7 @@ export default function RSVPForm() {
             </label>
           </div>
         </div>
+        )}
 
         {/* 
           GUEST NAME FIELD (CONDITIONAL)
@@ -601,53 +656,58 @@ export default function RSVPForm() {
               />
               <span className="text-gray-700">None</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className={`flex items-center gap-2 ${formData.dietaryRestrictions.none ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
               <input
                 type="checkbox"
                 name="dietaryRestrictions.vegetarian"
                 checked={formData.dietaryRestrictions.vegetarian}
                 onChange={handleDietaryChange}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                disabled={formData.dietaryRestrictions.none}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <span className="text-gray-700">Vegetarian</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className={`flex items-center gap-2 ${formData.dietaryRestrictions.none ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
               <input
                 type="checkbox"
                 name="dietaryRestrictions.vegan"
                 checked={formData.dietaryRestrictions.vegan}
                 onChange={handleDietaryChange}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                disabled={formData.dietaryRestrictions.none}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <span className="text-gray-700">Vegan</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className={`flex items-center gap-2 ${formData.dietaryRestrictions.none ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
               <input
                 type="checkbox"
                 name="dietaryRestrictions.glutenFree"
                 checked={formData.dietaryRestrictions.glutenFree}
                 onChange={handleDietaryChange}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                disabled={formData.dietaryRestrictions.none}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <span className="text-gray-700">Gluten-Free</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className={`flex items-center gap-2 ${formData.dietaryRestrictions.none ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
               <input
                 type="checkbox"
                 name="dietaryRestrictions.nutAllergy"
                 checked={formData.dietaryRestrictions.nutAllergy}
                 onChange={handleDietaryChange}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                disabled={formData.dietaryRestrictions.none}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <span className="text-gray-700">Nut Allergy</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className={`flex items-center gap-2 ${formData.dietaryRestrictions.none ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
               <input
                 type="checkbox"
                 name="dietaryRestrictions.shellfishAllergy"
                 checked={formData.dietaryRestrictions.shellfishAllergy}
                 onChange={handleDietaryChange}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                disabled={formData.dietaryRestrictions.none}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <span className="text-gray-700">Shellfish Allergy</span>
             </label>
@@ -661,7 +721,8 @@ export default function RSVPForm() {
                 name="dietaryRestrictions.other"
                 value={formData.dietaryRestrictions.other}
                 onChange={handleDietaryChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                disabled={formData.dietaryRestrictions.none}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100"
                 placeholder="Any other dietary restrictions"
               />
             </div>
@@ -779,6 +840,15 @@ export default function RSVPForm() {
           </button>
         </div>
       </form>
+      
+      {/* Toast Notification */}
+      <ToastNotification
+        visible={toast.visible}
+        type={toast.type}
+        message={toast.message}
+        onClose={hideToast}
+        duration={5000}
+      />
     </div>
   );
 }

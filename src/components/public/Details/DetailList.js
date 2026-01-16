@@ -167,10 +167,10 @@ export default function DetailList({
             Main title with typewriter animation effect.
             Centered with responsive sizing and styling.
           */}
-          <div className="mb-12 pl-10 text-left">
+          <div className="mb-12 text-left">
             <AnimatedText
               animation="type"
-              className="cormorant-garamond-regular text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
+              className="cormorant-garamond-regular pl-2 md:pl-10 text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
               duration={1000}
               delay={200}
               triggerOnScroll={true}

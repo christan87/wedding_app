@@ -39,22 +39,47 @@
  * ============================================================================
  */
 
-import { useAuth } from '@clerk/nextjs';
+import { useAuth, useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import AccessDeniedMessage from './AccessDeniedMessage';
+
+/**
+ * WHITELIST
+ * 
+ * Array of approved email addresses that have access to admin pages.
+ * Only users with emails in this list can access protected content.
+ * 
+ * To add a new admin:
+ * 1. Add their email address to this array
+ * 2. Ensure they have a Clerk account with that email
+ */
+const WHITELIST = [
+  'christan.price2010@gmail.com',
+  'designsbyjmj@gmail.com'
+  // Add more approved emails here
+];
 
 /**
  * PROTECTEDPAGE COMPONENT
  * 
- * Wrapper component that checks authentication before rendering children.
+ * Wrapper component that checks authentication AND whitelist before rendering children.
  * 
- * @param {ReactNode} children - The protected content to render if authenticated
+ * Now performs two checks:
+ * 1. Is the user logged in? (authentication)
+ * 2. Is the user's email on the whitelist? (authorization)
+ * 
+ * @param {ReactNode} children - The protected content to render if authenticated and authorized
  */
 export default function ProtectedPage({ children }) {
-  // ========== GET AUTH STATUS ==========
+  // ========== GET AUTH STATUS AND USER INFO ==========
   // isLoaded: true when Clerk has finished checking authentication
   // userId: the logged-in user's ID, or null if not logged in
   const { isLoaded, userId } = useAuth();
+  
+  // Get user information including email
+  // user.primaryEmailAddress.emailAddress contains the user's email
+  const { user } = useUser();
   
   // Router for redirecting unauthenticated users
   const router = useRouter();
@@ -89,7 +114,23 @@ export default function ProtectedPage({ children }) {
     return null;
   }
 
-  // ========== AUTHENTICATED ==========
-  // User is logged in, render the protected content
+  // ========== CHECK WHITELIST ==========
+  // User is authenticated, now check if they're on the whitelist
+  const userEmail = user?.primaryEmailAddress?.emailAddress;
+  const isWhitelisted = userEmail && WHITELIST.includes(userEmail.toLowerCase());
+  
+  // If user is not on whitelist, show access denied message
+  if (!isWhitelisted) {
+    return (
+      <AccessDeniedMessage
+        title="Access Denied"
+        message="Your account does not have permission to access this admin page. Please contact the administrator if you believe this is an error."
+        contactEmail="christan.price2010@gmail.com"
+      />
+    );
+  }
+
+  // ========== AUTHENTICATED AND AUTHORIZED ==========
+  // User is logged in AND on the whitelist, render the protected content
   return <>{children}</>;
 }
