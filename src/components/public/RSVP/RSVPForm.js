@@ -216,13 +216,25 @@ export default function RSVPForm() {
    * @param {boolean} value - The boolean value (true or false)
    */
   const handleRadioChange = (name, value) => {
-    // If user selects "not attending", automatically set guests to false
+    // If user selects "not attending", automatically set default values for hidden fields
     if (name === 'attending' && value === false) {
       setFormData((prev) => ({
         ...prev,
         attending: false,
         guests: false,
-        guestName: '', // Also clear guest name
+        guestName: '',
+        dietaryRestrictions: {
+          none: true,
+          vegetarian: false,
+          vegan: false,
+          glutenFree: false,
+          nutAllergy: false,
+          shellfishAllergy: false,
+          other: '',
+        },
+        accommodations: false,
+        accommodationsText: '',
+        song: '',
       }));
     } else {
       setFormData((prev) => ({
@@ -370,13 +382,34 @@ export default function RSVPForm() {
         }
       }
       
+      // Prepare submission data with defaults for hidden fields when not attending
+      const submissionData = { ...formData };
+      
+      // If user is not attending, set default values for fields they didn't see
+      if (formData.attending === false) {
+        submissionData.guests = false;
+        submissionData.guestName = '';
+        submissionData.dietaryRestrictions = {
+          none: true,
+          vegetarian: false,
+          vegan: false,
+          glutenFree: false,
+          nutAllergy: false,
+          shellfishAllergy: false,
+          other: '',
+        };
+        submissionData.accommodations = false;
+        submissionData.accommodationsText = '';
+        submissionData.song = '';
+      }
+      
       // Send POST request to the API endpoint
       const response = await fetch('/api/rsvps', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
       // Parse the JSON response from the server
@@ -659,12 +692,14 @@ export default function RSVPForm() {
         )}
 
         {/* 
-          DIETARY RESTRICTIONS
+          DIETARY RESTRICTIONS (CONDITIONAL)
           
           Multiple checkboxes for different dietary needs.
           Optional field - user can select multiple options or none.
           Includes a text input for custom restrictions.
+          Only appears if user is attending (attending === true).
         */}
+        {formData.attending === true && (
         <div className="form-group">
           <label className="flex items-center gap-3 mb-3 text-lg font-medium text-gray-700">
             <Image
@@ -759,80 +794,88 @@ export default function RSVPForm() {
             </div>
           </div>
         </div>
-
-        {/* 
-          ACCOMMODATIONS RADIO BUTTONS
-          
-          Yes/No choice for needing special accommodations.
-          Required field.
-          If user selects "Yes", a text area appears for details.
-        */}
-        <div className="form-group">
-          <label className="flex items-center gap-3 mb-3 text-lg font-medium text-gray-700">
-            <Image
-              src={iconImage}
-              alt="Accommodations"
-              width={24}
-              height={24}
-              className="object-contain"
-            />
-            Do you need accommodations? *
-          </label>
-          <div className="flex gap-6 ml-9">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="accommodations"
-                checked={formData.accommodations === true}
-                onChange={() => handleRadioChange('accommodations', true)}
-                className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
-                required
-              />
-              <span className="text-gray-700">Yes</span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="accommodations"
-                checked={formData.accommodations === false}
-                onChange={() => handleRadioChange('accommodations', false)}
-                className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
-              />
-              <span className="text-gray-700">No</span>
-            </label>
-          </div>
-        </div>
-
-        {/* 
-          ACCOMMODATIONS TEXT (CONDITIONAL)
-          
-          Text area for describing accommodation needs.
-          Only appears if user selected "Yes" for accommodations.
-          Required if accommodations is true.
-        */}
-        {formData.accommodations === true && (
-          <div className="form-group ml-9 p-4 bg-gray-50 rounded-lg">
-            <label className="flex items-center gap-3 mb-2 text-lg font-medium text-gray-700">
-              Accommodation Details *
-            </label>
-            <textarea
-              name="accommodationsText"
-              value={formData.accommodationsText}
-              onChange={handleInputChange}
-              rows="4"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Please describe your accommodation needs"
-              required={formData.accommodations === true}
-            />
-          </div>
         )}
 
         {/* 
-          SONG REQUEST
+          ACCOMMODATIONS RADIO BUTTONS (CONDITIONAL)
+          
+          Yes/No choice for needing special accommodations.
+          Required field when visible.
+          If user selects "Yes", a text area appears for details.
+          Only appears if user is attending (attending === true).
+        */}
+        {formData.attending === true && (
+        <>
+          <div className="form-group">
+            <label className="flex items-center gap-3 mb-3 text-lg font-medium text-gray-700">
+              <Image
+                src={iconImage}
+                alt="Accommodations"
+                width={24}
+                height={24}
+                className="object-contain"
+              />
+              Do you need accommodations? *
+            </label>
+            <div className="flex gap-6 ml-9">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="accommodations"
+                  checked={formData.accommodations === true}
+                  onChange={() => handleRadioChange('accommodations', true)}
+                  className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <span className="text-gray-700">Yes</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="accommodations"
+                  checked={formData.accommodations === false}
+                  onChange={() => handleRadioChange('accommodations', false)}
+                  className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                />
+                <span className="text-gray-700">No</span>
+              </label>
+            </div>
+          </div>
+
+          {/* 
+            ACCOMMODATIONS TEXT (CONDITIONAL)
+            
+            Text area for describing accommodation needs.
+            Only appears if user selected "Yes" for accommodations.
+            Required if accommodations is true.
+          */}
+          {formData.accommodations === true && (
+            <div className="form-group ml-9 p-4 bg-gray-50 rounded-lg">
+              <label className="flex items-center gap-3 mb-2 text-lg font-medium text-gray-700">
+                Accommodation Details *
+              </label>
+              <textarea
+                name="accommodationsText"
+                value={formData.accommodationsText}
+                onChange={handleInputChange}
+                rows="4"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Please describe your accommodation needs"
+                required={formData.accommodations === true}
+              />
+            </div>
+          )}
+        </>
+        )}
+
+        {/* 
+          SONG REQUEST (CONDITIONAL)
           
           Optional text input for requesting a song at the reception.
           Not required.
+          Only appears if user is attending (attending === true).
         */}
+        {formData.attending === true && (
         <div className="form-group">
           <label className="flex items-center gap-3 mb-2 text-lg font-medium text-gray-700">
             <Image
@@ -853,6 +896,7 @@ export default function RSVPForm() {
             placeholder="Request a song for the reception"
           />
         </div>
+        )}
 
         {/* 
           MESSAGE

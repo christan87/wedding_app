@@ -34,6 +34,7 @@
  * ============================================================================
  */
 
+import { useState, useEffect } from 'react';
 import { SignOutButton } from '@clerk/nextjs';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ProtectedPage from '@/components/admin/ProtectedPage';
@@ -45,6 +46,61 @@ import ProtectedPage from '@/components/admin/ProtectedPage';
  * Shows statistics and quick actions for wedding management.
  */
 export default function AdminDashboard() {
+  // State for storing RSVPs from database
+  const [rsvps, setRsvps] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  /**
+   * FETCH RSVPS
+   * 
+   * Fetches all RSVPs from the database when component mounts.
+   */
+  useEffect(() => {
+    fetchRsvps();
+  }, []);
+
+  /**
+   * Fetch all RSVPs from the API
+   */
+  const fetchRsvps = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await fetch('/api/rsvps');
+      const data = await response.json();
+      
+      if (data.success) {
+        setRsvps(data.data);
+      } else {
+        setError('Failed to load RSVPs');
+      }
+    } catch (err) {
+      setError('Error loading RSVPs: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
+   * CALCULATE TOTAL GUEST COUNT
+   * 
+   * Counts total attendees from approved RSVPs:
+   * - Each RSVP counts as 1
+   * - If guests=true, add 1 more (total 2 for that RSVP)
+   */
+  const getTotalGuestCount = () => {
+    const approvedGuests = rsvps.filter(rsvp => rsvp.approved === true);
+    return approvedGuests.reduce((total, guest) => {
+      let count = 1;
+      if (guest.guests) {
+        count += 1;
+      }
+      return total + count;
+    }, 0);
+  };
+
   return (
     // ProtectedPage: Redirects to /admin/login if not authenticated
     <ProtectedPage>
@@ -58,29 +114,59 @@ export default function AdminDashboard() {
           </div>
 
           {/* Statistics Cards Grid */}
-          {/* Responsive: 1 column on mobile, 2 on tablet, 3 on desktop */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Guests Card */}
+          {/* Responsive: 1 column on mobile, 2 columns on larger screens */}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Total RSVPs Card */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900">Guests</h3>
-              <p className="mt-2 text-3xl font-bold text-rose-600">0</p>
-              <p className="mt-1 text-sm text-gray-500">Total invited</p>
-            </div>
-
-            {/* RSVPs Card */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900">RSVPs</h3>
-              <p className="mt-2 text-3xl font-bold text-rose-600">0</p>
+              <h3 className="text-lg font-medium text-gray-900">Total RSVPs</h3>
+              {loading ? (
+                <div className="mt-2 h-9 bg-gray-200 animate-pulse rounded"></div>
+              ) : (
+                <p className="mt-2 text-3xl font-bold text-blue-600">{rsvps.length}</p>
+              )}
               <p className="mt-1 text-sm text-gray-500">Responses received</p>
             </div>
 
-            {/* Events Card */}
+            {/* Approved Guests Card */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900">Events</h3>
-              <p className="mt-2 text-3xl font-bold text-rose-600">0</p>
-              <p className="mt-1 text-sm text-gray-500">Scheduled</p>
+              <h3 className="text-lg font-medium text-gray-900">Approved Guests</h3>
+              {loading ? (
+                <div className="mt-2 h-9 bg-gray-200 animate-pulse rounded"></div>
+              ) : (
+                <p className="mt-2 text-3xl font-bold text-green-600">{getTotalGuestCount()}</p>
+              )}
+              <p className="mt-1 text-sm text-gray-500">Total attendees</p>
             </div>
+
+            {/* Attending Card */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900">Attending</h3>
+              {loading ? (
+                <div className="mt-2 h-9 bg-gray-200 animate-pulse rounded"></div>
+              ) : (
+                <p className="mt-2 text-3xl font-bold text-rose-600">{rsvps.filter(r => r.attending).length}</p>
+              )}
+              <p className="mt-1 text-sm text-gray-500">Confirmed yes</p>
+            </div>
+
+            {/* Approved RSVPs Card
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900">Approved</h3>
+              {loading ? (
+                <div className="mt-2 h-9 bg-gray-200 animate-pulse rounded"></div>
+              ) : (
+                <p className="mt-2 text-3xl font-bold text-purple-600">{rsvps.filter(r => r.approved).length}</p>
+              )}
+              <p className="mt-1 text-sm text-gray-500">Approved RSVPs</p>
+            </div> */}
           </div>
+
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+              {error}
+            </div>
+          )}
 
           {/* Quick Actions Section */}
           <div className="bg-white rounded-lg shadow p-6">

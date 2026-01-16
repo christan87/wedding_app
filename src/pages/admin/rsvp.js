@@ -43,6 +43,12 @@ export default function AdminRSVPPage() {
   
   // State for tracking which RSVP details are expanded
   const [expandedIds, setExpandedIds] = useState(new Set());
+  
+  // State for filter selection
+  const [filter, setFilter] = useState('all');
+  
+  // State for dropdown visibility
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   /**
    * FETCH RSVPS
@@ -188,6 +194,61 @@ export default function AdminRSVPPage() {
     setExpandedIds(newExpanded);
   };
 
+  /**
+   * MASS DELETE NOT ATTENDING
+   * 
+   * Deletes all RSVPs marked as not attending.
+   */
+  const handleMassDeleteNotAttending = async () => {
+    const notAttendingRsvps = rsvps.filter(rsvp => !rsvp.attending);
+    
+    if (notAttendingRsvps.length === 0) {
+      alert('No "not attending" RSVPs to delete.');
+      return;
+    }
+
+    if (!confirm(`Are you sure you want to delete ${notAttendingRsvps.length} "not attending" RSVP(s)? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      // Delete all not attending RSVPs
+      const deletePromises = notAttendingRsvps.map(rsvp =>
+        fetch(`/api/rsvps/${rsvp._id}`, { method: 'DELETE' })
+      );
+
+      await Promise.all(deletePromises);
+
+      // Refresh the list
+      fetchRsvps();
+      alert(`Successfully deleted ${notAttendingRsvps.length} RSVP(s).`);
+    } catch (err) {
+      alert('Error deleting RSVPs: ' + err.message);
+    }
+  };
+
+  /**
+   * FILTER RSVPS
+   * 
+   * Filters RSVPs based on selected filter.
+   */
+  const getFilteredRsvps = () => {
+    switch (filter) {
+      case 'attending':
+        return rsvps.filter(rsvp => rsvp.attending);
+      case 'not-attending':
+        return rsvps.filter(rsvp => !rsvp.attending);
+      case 'approved':
+        return rsvps.filter(rsvp => rsvp.approved);
+      case 'not-approved':
+        return rsvps.filter(rsvp => !rsvp.approved);
+      default:
+        return rsvps;
+    }
+  };
+
+  const filteredRsvps = getFilteredRsvps();
+
   return (
     <ProtectedPage>
       <AdminLayout>
@@ -201,6 +262,107 @@ export default function AdminRSVPPage() {
               Manage wedding RSVP submissions
             </p>
           </div>
+
+          {/* Filter Navigation */}
+          {!loading && !error && (
+            <div className="mb-6 bg-white rounded-lg shadow p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                {/* Filter Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium flex items-center gap-2 min-w-[200px] justify-between"
+                  >
+                    <span>
+                      {filter === 'all' && `All (${rsvps.length})`}
+                      {filter === 'attending' && `Attending (${rsvps.filter(r => r.attending).length})`}
+                      {filter === 'not-attending' && `Not Attending (${rsvps.filter(r => !r.attending).length})`}
+                      {filter === 'approved' && `Approved (${rsvps.filter(r => r.approved).length})`}
+                      {filter === 'not-approved' && `Not Approved (${rsvps.filter(r => !r.approved).length})`}
+                    </span>
+                    <svg
+                      className={`w-5 h-5 transition-transform ${
+                        isDropdownOpen ? 'rotate-180' : ''
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 text-gray-700 rounded-lg shadow-lg z-10">
+                      <button
+                        onClick={() => {
+                          setFilter('all');
+                          setIsDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors first:rounded-t-lg"
+                      >
+                        All ({rsvps.length})
+                      </button>
+                      <button
+                        onClick={() => {
+                          setFilter('attending');
+                          setIsDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors"
+                      >
+                        Attending ({rsvps.filter(r => r.attending).length})
+                      </button>
+                      <button
+                        onClick={() => {
+                          setFilter('not-attending');
+                          setIsDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors"
+                      >
+                        Not Attending ({rsvps.filter(r => !r.attending).length})
+                      </button>
+                      <button
+                        onClick={() => {
+                          setFilter('approved');
+                          setIsDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors"
+                      >
+                        Approved ({rsvps.filter(r => r.approved).length})
+                      </button>
+                      <button
+                        onClick={() => {
+                          setFilter('not-approved');
+                          setIsDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors last:rounded-b-lg"
+                      >
+                        Not Approved ({rsvps.filter(r => !r.approved).length})
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Mass Delete Button */}
+                <button
+                  onClick={handleMassDeleteNotAttending}
+                  disabled={rsvps.filter(r => !r.attending).length === 0}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2 justify-center sm:justify-start"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                  Delete All Not Attending
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Loading State */}
           {loading && (
@@ -224,8 +386,8 @@ export default function AdminRSVPPage() {
               <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
                 <div className="flex gap-6 text-sm">
                   <div>
-                    <span className="font-semibold text-gray-700">Total RSVPs:</span>{' '}
-                    <span className="text-gray-600">{rsvps.length}</span>
+                    <span className="font-semibold text-gray-700">Showing:</span>{' '}
+                    <span className="text-gray-600">{filteredRsvps.length} of {rsvps.length}</span>
                   </div>
                   <div>
                     <span className="font-semibold text-gray-700">Approved:</span>{' '}
@@ -243,13 +405,13 @@ export default function AdminRSVPPage() {
               </div>
 
               {/* RSVP Rows */}
-              {rsvps.length === 0 ? (
+              {filteredRsvps.length === 0 ? (
                 <div className="text-center py-12 text-gray-500">
-                  No RSVPs yet
+                  No RSVPs match the selected filter
                 </div>
               ) : (
                 <div className="divide-y divide-gray-200">
-                  {rsvps.map((rsvp) => (
+                  {filteredRsvps.map((rsvp) => (
                     <div key={rsvp._id} className="hover:bg-gray-50 transition-colors">
                       {/* Main Row */}
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 gap-3">
@@ -306,21 +468,23 @@ export default function AdminRSVPPage() {
 
                         {/* Right: Action Buttons */}
                         <div className="flex items-center pl-9 md:pl-0 gap-2 sm:flex-shrink-0">
-                          {/* Approve/Revoke Button */}
-                          {rsvp.approved ? (
-                            <button
-                              onClick={() => handleRevoke(rsvp._id)}
-                              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-xs sm:text-sm font-medium"
-                            >
-                              Revoke
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() => handleApprove(rsvp._id)}
-                              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-xs sm:text-sm font-medium"
-                            >
-                              Approve
-                            </button>
+                          {/* Approve/Revoke Button - Only show for attending guests */}
+                          {rsvp.attending && (
+                            rsvp.approved ? (
+                              <button
+                                onClick={() => handleRevoke(rsvp._id)}
+                                className="px-3 py-1.5 sm:px-4 sm:py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-xs sm:text-sm font-medium"
+                              >
+                                Revoke
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => handleApprove(rsvp._id)}
+                                className="px-3 py-1.5 sm:px-4 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-xs sm:text-sm font-medium"
+                              >
+                                Approve
+                              </button>
+                            )
                           )}
 
                           {/* Delete Button */}

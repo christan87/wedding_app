@@ -41,6 +41,7 @@ export default function AdminGuestsPage() {
   // State for copy feedback
   const [copiedEmails, setCopiedEmails] = useState(false);
   const [copiedPhones, setCopiedPhones] = useState(false);
+  const [copiedItem, setCopiedItem] = useState(null);
 
   /**
    * FETCH APPROVED RSVPS
@@ -136,6 +137,21 @@ export default function AdminGuestsPage() {
     }
   };
 
+  /**
+   * COPY INDIVIDUAL ITEM
+   * 
+   * Copies individual email or phone to clipboard
+   */
+  const copyIndividualItem = async (text, id) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedItem(id);
+      setTimeout(() => setCopiedItem(null), 1500);
+    } catch (err) {
+      alert('Failed to copy to clipboard');
+    }
+  };
+
   return (
     <ProtectedPage>
       <AdminLayout>
@@ -220,6 +236,19 @@ export default function AdminGuestsPage() {
                 </div>
               </div>
 
+              {/* Info Banner */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div className="text-sm text-blue-800">
+                    <p className="font-medium mb-1">Quick Copy Feature</p>
+                    <p>Click on any email address or phone number to copy it to your clipboard.</p>
+                  </div>
+                </div>
+              </div>
+
               {/* Guest List */}
               <div className="bg-white rounded-lg shadow overflow-hidden">
                 {guests.length === 0 ? (
@@ -259,14 +288,30 @@ export default function AdminGuestsPage() {
                                 </div>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-600">
-                                  {guest.email}
-                                </div>
+                                <button
+                                  onClick={() => copyIndividualItem(guest.email, `email-${guest._id}`)}
+                                  className="text-sm text-blue-600 hover:text-blue-800 hover:underline cursor-pointer text-left transition-colors"
+                                  title="Click to copy"
+                                >
+                                  {copiedItem === `email-${guest._id}` ? (
+                                    <span className="text-green-600 font-medium">✓ Copied!</span>
+                                  ) : (
+                                    guest.email
+                                  )}
+                                </button>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-600">
-                                  {guest.phone}
-                                </div>
+                                <button
+                                  onClick={() => copyIndividualItem(guest.phone, `phone-${guest._id}`)}
+                                  className="text-sm text-blue-600 hover:text-blue-800 hover:underline cursor-pointer text-left transition-colors"
+                                  title="Click to copy"
+                                >
+                                  {copiedItem === `phone-${guest._id}` ? (
+                                    <span className="text-green-600 font-medium">✓ Copied!</span>
+                                  ) : (
+                                    guest.phone
+                                  )}
+                                </button>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -297,11 +342,31 @@ export default function AdminGuestsPage() {
                           <div className="space-y-1 text-sm">
                             <div className="flex items-start">
                               <span className="text-gray-500 w-16 shrink-0">Email:</span>
-                              <span className="text-gray-900 break-all">{guest.email}</span>
+                              <button
+                                onClick={() => copyIndividualItem(guest.email, `email-mobile-${guest._id}`)}
+                                className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer text-left break-all transition-colors"
+                                title="Click to copy"
+                              >
+                                {copiedItem === `email-mobile-${guest._id}` ? (
+                                  <span className="text-green-600 font-medium">✓ Copied!</span>
+                                ) : (
+                                  guest.email
+                                )}
+                              </button>
                             </div>
                             <div className="flex items-start">
                               <span className="text-gray-500 w-16 shrink-0">Phone:</span>
-                              <span className="text-gray-900">{guest.phone}</span>
+                              <button
+                                onClick={() => copyIndividualItem(guest.phone, `phone-mobile-${guest._id}`)}
+                                className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer text-left transition-colors"
+                                title="Click to copy"
+                              >
+                                {copiedItem === `phone-mobile-${guest._id}` ? (
+                                  <span className="text-green-600 font-medium">✓ Copied!</span>
+                                ) : (
+                                  guest.phone
+                                )}
+                              </button>
                             </div>
                             {guest.guests && (
                               <div className="flex items-start">
