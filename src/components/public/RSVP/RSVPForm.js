@@ -341,6 +341,35 @@ export default function RSVPForm() {
     setIsSubmitting(true);
 
     try {
+      // Check if an RSVP already exists for this email
+      const checkResponse = await fetch(`/api/rsvps/check-email?email=${encodeURIComponent(formData.email)}`);
+      const checkResult = await checkResponse.json();
+      
+      // If RSVP exists, ask user for confirmation to replace it
+      if (checkResult.success && checkResult.exists) {
+        const confirmed = window.confirm(
+          `An RSVP has already been submitted for ${formData.email}. ` +
+          `Submitting this form will replace your previous RSVP. ` +
+          `Would you like to continue?`
+        );
+        
+        // If user cancels, redirect to home
+        if (!confirmed) {
+          setIsSubmitting(false);
+          router.push('/');
+          return;
+        }
+        
+        // If user confirms, delete the old RSVP first
+        const deleteResponse = await fetch(`/api/rsvps/${checkResult.rsvp._id}`, {
+          method: 'DELETE',
+        });
+        
+        if (!deleteResponse.ok) {
+          throw new Error('Failed to delete previous RSVP');
+        }
+      }
+      
       // Send POST request to the API endpoint
       const response = await fetch('/api/rsvps', {
         method: 'POST',
