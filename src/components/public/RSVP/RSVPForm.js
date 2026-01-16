@@ -154,7 +154,9 @@ export default function RSVPForm() {
    * This provides a consistent visual design across the form.
    */
   const iconImage = '/images/icons/text_heart.png';
-
+  const iconImageMusic = '/images/icons/musicIcon.png';
+  const iconImageplating = '/images/icons/platingIcon2.png';
+  const iconImageEmail = '/images/icons/emailIcon.png';
   // ============================================================================
   // EVENT HANDLERS
   // ============================================================================
@@ -336,10 +338,7 @@ export default function RSVPForm() {
   // ============================================================================
   
   return (
-    <div className="w-full max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg">
-      <h2 className="text-4xl font-serif text-center mb-8 text-gray-800">
-        RSVP Form
-      </h2>
+    <div className="w-full max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-lg">
 
       {/* Success Message - Only shows after successful submission */}
       {submitSuccess && (
@@ -383,7 +382,7 @@ export default function RSVPForm() {
               height={24}
               className="object-contain"
             />
-            Full Name *
+            Your Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -405,13 +404,13 @@ export default function RSVPForm() {
         <div className="form-group">
           <label className="flex items-center gap-3 mb-2 text-lg font-medium text-gray-700">
             <Image
-              src={iconImage}
+              src={iconImageEmail}
               alt="Email"
               width={24}
               height={24}
               className="object-contain"
             />
-            Email Address *
+            Email Address <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
@@ -439,7 +438,7 @@ export default function RSVPForm() {
               height={24}
               className="object-contain"
             />
-            Phone Number *
+            Phone Number <span className="text-red-500">*</span>
           </label>
           <input
             type="tel"
@@ -468,7 +467,7 @@ export default function RSVPForm() {
               height={24}
               className="object-contain"
             />
-            Will you be attending? *
+            Will you honor us with your presence on this special day? <span className="text-red-500">*</span>
           </label>
           <div className="flex gap-6 ml-9">
             <label className="flex items-center gap-2 cursor-pointer">
@@ -511,7 +510,7 @@ export default function RSVPForm() {
               height={24}
               className="object-contain"
             />
-            Will you be bringing a guest? *
+            Will you be bringing a guest? <span className="text-red-500">*</span>
           </label>
           <div className="flex gap-6 ml-9">
             <label className="flex items-center gap-2 cursor-pointer">
@@ -523,7 +522,7 @@ export default function RSVPForm() {
                 className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
                 required
               />
-              <span className="text-gray-700">Yes</span>
+              <span className="text-gray-700">Yes, I'll be bringing a guest!</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -533,7 +532,7 @@ export default function RSVPForm() {
                 onChange={() => handleRadioChange('guests', false)}
                 className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
               />
-              <span className="text-gray-700">No</span>
+              <span className="text-gray-700">No, I'll be attending on my own.</span>
             </label>
           </div>
         </div>
@@ -559,7 +558,7 @@ export default function RSVPForm() {
                 height={20}
                 className="object-contain"
               />
-              Guest Name *
+              Kindly let us know the name of your guest <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -583,13 +582,13 @@ export default function RSVPForm() {
         <div className="form-group">
           <label className="flex items-center gap-3 mb-3 text-lg font-medium text-gray-700">
             <Image
-              src={iconImage}
+              src={iconImageplating}
               alt="Dietary Restrictions"
               width={24}
               height={24}
               className="object-contain"
             />
-            Dietary Restrictions
+            Do you have any dietary restrictions or special preferences we should know about? <span className="text-red-500">*</span>
           </label>
           <div className="ml-9 space-y-2">
             <label className="flex items-center gap-2 cursor-pointer">
@@ -745,13 +744,13 @@ export default function RSVPForm() {
         <div className="form-group">
           <label className="flex items-center gap-3 mb-2 text-lg font-medium text-gray-700">
             <Image
-              src={iconImage}
+              src={iconImageMusic}
               alt="Song Request"
               width={24}
               height={24}
               className="object-contain"
             />
-            Song Request
+            Tell us a song that will get you dancing - we'll try to play it for you!
           </label>
           <input
             type="text"

@@ -73,7 +73,7 @@ export default function RSVPFormMessage({
      * - 'px-4 md:px-8': Responsive padding
      * - 'py-8': Vertical padding
      */
-    <div className="w-full px-4 md:px-8 py-8">
+    <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-8">
       {/* Wedding title - large text */}
       <h2 className="cormorant-garamond-bold text-4xl md:text-5xl text-gray-700 drop-shadow-md mb-6">
         {groom} & {bride}'s Wedding
