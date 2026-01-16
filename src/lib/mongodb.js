@@ -79,8 +79,22 @@ export async function connectToDatabase() {
     maxPoolSize: 10, // Maximum number of connections in the pool
     minPoolSize: 2,  // Minimum number of connections to maintain
     // Timeout settings
-    serverSelectionTimeoutMS: 5000, // Timeout for selecting a server
+    serverSelectionTimeoutMS: 10000, // Timeout for selecting a server (increased for production)
     socketTimeoutMS: 45000, // Timeout for socket operations
+    connectTimeoutMS: 10000, // Timeout for initial connection
+    // TLS/SSL settings for production
+    tls: true,
+    tlsAllowInvalidCertificates: false,
+    tlsAllowInvalidHostnames: false,
+    // Retry settings
+    retryWrites: true,
+    retryReads: true,
+    // Server API version for stability
+    serverApi: {
+      version: '1',
+      strict: false,
+      deprecationErrors: false,
+    },
   });
 
   // Connect to MongoDB

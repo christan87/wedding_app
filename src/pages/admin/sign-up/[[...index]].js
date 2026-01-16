@@ -42,7 +42,18 @@ export default function AdminSignUp() {
         </div>
 
         {/* Clerk SignUp Component */}
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-lg p-8 flex justify-center">
+          <style jsx global>{`
+            .cl-rootBox {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
+            .cl-card {
+              margin: 0 auto;
+            }
+          `}</style>
           <SignUp
             path="/admin/sign-up"
             routing="path"
