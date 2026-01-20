@@ -11,6 +11,8 @@
   NODE_MEMORY_AVAILABLE = "2048"
   SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
   AWS_NODEJS_CONNECTION_REUSE_ENABLED = "1"
+  # TLS settings for MongoDB Atlas compatibility
+  NODE_TLS_REJECT_UNAUTHORIZED = "1"
 
 # ============================================================================
 # PLUGINS

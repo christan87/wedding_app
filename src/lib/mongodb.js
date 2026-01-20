@@ -35,7 +35,7 @@
  * ============================================================================
  */
 
-import { MongoClient } from 'mongodb';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
 // MongoDB connection string from environment variables
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -94,6 +94,12 @@ export async function connectToDatabase() {
 
   // Create a new MongoDB client with serverless-optimized options
   const client = new MongoClient(MONGODB_URI, {
+    // MongoDB Atlas Stable API (recommended for Atlas connections)
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
     // Connection pool settings (optimized for serverless)
     maxPoolSize: 10, // Maximum number of connections in the pool
     minPoolSize: 0,  // No minimum connections (serverless-friendly)
