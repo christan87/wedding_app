@@ -41,17 +41,13 @@ import { MongoClient } from 'mongodb';
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB || 'wedding-app';
 
-// Validate that the MongoDB URI is defined
-if (!MONGODB_URI) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  );
-}
-
 /**
  * Global variable to cache the MongoDB client connection.
  * In development, Next.js hot reloading can cause multiple connections.
  * Using a global variable prevents creating too many connections.
+ * 
+ * In serverless environments (Netlify), this cache may not persist between
+ * cold starts, but it helps reuse connections within the same container.
  */
 let cachedClient = null;
 let cachedDb = null;
@@ -62,46 +58,77 @@ let cachedDb = null;
  * Establishes a connection to MongoDB and returns the client and database.
  * Uses connection pooling to reuse existing connections.
  * 
+ * SERVERLESS COMPATIBILITY:
+ * - Validates environment variables at runtime (not module load time)
+ * - Uses shorter timeouts suitable for serverless cold starts
+ * - Checks connection health before reusing cached connections
+ * 
  * @returns {Promise<{client: MongoClient, db: Db}>} MongoDB client and database
+ * @throws {Error} If MONGODB_URI is not defined or connection fails
  */
 export async function connectToDatabase() {
-  // If we already have a cached connection, return it
-  if (cachedClient && cachedDb) {
-    return {
-      client: cachedClient,
-      db: cachedDb,
-    };
+  // Validate environment variable at runtime (not module load time)
+  // This allows proper error handling in API routes
+  if (!MONGODB_URI) {
+    throw new Error(
+      'MONGODB_URI environment variable is not defined. Please add it to your Netlify environment variables.'
+    );
   }
 
-  // Create a new MongoDB client with connection options
-  // Note: Keep options minimal for Netlify serverless compatibility
+  // If we have a cached connection, verify it's still alive
+  if (cachedClient && cachedDb) {
+    try {
+      // Ping the database to check if connection is still alive
+      await cachedClient.db('admin').command({ ping: 1 });
+      return {
+        client: cachedClient,
+        db: cachedDb,
+      };
+    } catch (error) {
+      // Connection is stale, clear cache and reconnect
+      console.warn('Cached MongoDB connection is stale, reconnecting...', error.message);
+      cachedClient = null;
+      cachedDb = null;
+    }
+  }
+
+  // Create a new MongoDB client with serverless-optimized options
   const client = new MongoClient(MONGODB_URI, {
-    // Connection pool settings
+    // Connection pool settings (optimized for serverless)
     maxPoolSize: 10, // Maximum number of connections in the pool
-    minPoolSize: 1,  // Minimum number of connections to maintain (reduced for serverless)
-    // Timeout settings
-    serverSelectionTimeoutMS: 10000, // Timeout for selecting a server
-    socketTimeoutMS: 45000, // Timeout for socket operations
-    connectTimeoutMS: 10000, // Timeout for initial connection
+    minPoolSize: 0,  // No minimum connections (serverless-friendly)
+    maxIdleTimeMS: 10000, // Close idle connections after 10 seconds
+    // Timeout settings (shorter for serverless cold starts)
+    serverSelectionTimeoutMS: 5000, // 5 second timeout for selecting a server
+    socketTimeoutMS: 45000, // 45 second timeout for socket operations
+    connectTimeoutMS: 10000, // 10 second timeout for initial connection
     // Retry settings
     retryWrites: true,
     retryReads: true,
   });
 
-  // Connect to MongoDB
-  await client.connect();
+  try {
+    // Connect to MongoDB
+    await client.connect();
 
-  // Get the database
-  const db = client.db(MONGODB_DB);
+    // Get the database
+    const db = client.db(MONGODB_DB);
 
-  // Cache the connection for reuse
-  cachedClient = client;
-  cachedDb = db;
+    // Cache the connection for reuse
+    cachedClient = client;
+    cachedDb = db;
 
-  return {
-    client: cachedClient,
-    db: cachedDb,
-  };
+    console.log('MongoDB connected successfully');
+
+    return {
+      client: cachedClient,
+      db: cachedDb,
+    };
+  } catch (error) {
+    // Provide detailed error message for debugging
+    console.error('MongoDB connection error:', error);
+    throw new Error(`Failed to connect to MongoDB: ${error.message}`);
+  }
 }
 
 /**
