@@ -59,7 +59,7 @@ export default function RSVP() {
         - bride: Bride's name
       */}
       <PageBanner
-        backgroundImage="/images/image_001.jpg"
+        backgroundImage="/images/final/IMG_006.jpg"
         title="Save the date"
         groom="Chris"
         bride="Jenn"
@@ -79,9 +79,9 @@ export default function RSVP() {
         - text: Additional message for guests
       */}
       <RSVPFormMessage
-        location="Grand Ballroom, The Plaza Hotel"
+        location="Oakland Rose Garden"
         date="June 9, 2026"
-        time="3:00 PM"
+        time="4:30 PM"
         groom="Chris"
         bride="Jenn"
         text="Please confirm your attendance by filling out the form below. We kindly request that you RSVP by May 15, 2026. If you have any dietary restrictions or special requirements, please let us know in the comments section."

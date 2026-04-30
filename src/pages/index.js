@@ -108,7 +108,7 @@ export default function Home() {
       */}
       <HeroImage
         imageDisplayProps={{
-          src: "/images/image_001.jpg",
+          src: "/images/final/IMG_001.jpg",
           alt: "Wedding background",
           animation: "slide-up",
         }}
@@ -139,7 +139,7 @@ export default function Home() {
           duration: 2000,
         }}
         fuzzyText1Props={{
-          text: "Chris",
+          text: "Christan",
           className: "parisienne-regular text-4xl md:text-6xl text-white drop-shadow-md",
           delay: 1200,
           duration: 1200,
@@ -151,7 +151,7 @@ export default function Home() {
           duration: 1200,
         }}
         fuzzyText3Props={{
-          text: "Jenn",
+          text: "Jennifer",
           className: "parisienne-regular text-4xl md:text-6xl text-white drop-shadow-md",
           delay: 1200,
           duration: 1200,
@@ -188,7 +188,7 @@ export default function Home() {
             duration: 1000,
           },
           row2RightProps: {
-            text: "AT 3:00 PM",
+            text: "AT 4:30 PM",
             className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
@@ -233,9 +233,9 @@ export default function Home() {
         NOTE: Replace the image paths with your actual images in /public/images/
       */}
       <EventCalendar
-        backgroundSrc="/images/silhouette.gif"  // TODO: Replace with your actual GIF path
+        backgroundSrc="/images/final/IMG_005.jpg"  // TODO: Replace with your actual GIF path
         backgroundAlt="Animated grayscale background"
-        backgroundOpacity={0.1}  // 10% opacity for subtle effect
+        backgroundOpacity={0.3}  // 10% opacity for subtle effect
         height="h-full"  // Fixed height section (384px)
         title={{           
           animation:"type",
@@ -311,7 +311,8 @@ export default function Home() {
         <DetailList
           title="Details"
           accent="The"
-          backgroundImage="/images/image_002.jpg"  // TODO: Replace with your actual GIF path
+          backgroundImage="/images/final/IMG_002.jpg"  // TODO: Replace with your actual GIF path
+          backgroundOpacity={0.5}  // 10% opacity for subtle effect
           details={[
             // Detail 1: Accommodations
             {

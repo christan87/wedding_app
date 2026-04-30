@@ -85,6 +85,7 @@ export default function DetailList({
   title,
   accent,
   backgroundImage,
+  backgroundOpacity = 0.1,
   details = [],
   className = '',
 }) {
@@ -118,7 +119,7 @@ export default function DetailList({
       <GrayscaleBackground
         src={backgroundImage}
         alt="Detail list background"
-        opacity={0.1}
+        opacity={backgroundOpacity}
         height="h-full"
         fixed={false}
         zIndex={0}
