@@ -64,6 +64,17 @@ import DetailList from "@/components/public/Details/DetailList";
 import RSVP from "@/components/public/RSVP/RSVP";
 import DateFooter from "@/components/public/Footer/DateFooter";
 
+// Images
+const images = {
+  img_001: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574576/wedding/IMG_001_oxnafm.jpg",
+  img_002: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574576/wedding/IMG_002_coe0j4.jpg",
+  img_003: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574577/wedding/IMG_003_q7vuk5.jpg",
+  img_004: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574336/wedding/IMG_004_nla7sy.jpg",
+  img_005: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_005_cic4vn.jpg",
+  img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
+  img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
+}
+
 /**
  * HOME COMPONENT
  * 
@@ -108,7 +119,7 @@ export default function Home() {
       */}
       <HeroImage
         imageDisplayProps={{
-          src: "/images/final/IMG_001.jpg",
+          src: images.img_001,
           alt: "Wedding background",
           animation: "slide-up",
         }}
@@ -233,7 +244,7 @@ export default function Home() {
         NOTE: Replace the image paths with your actual images in /public/images/
       */}
       <EventCalendar
-        backgroundSrc="/images/final/IMG_005.jpg"  // TODO: Replace with your actual GIF path
+        backgroundSrc={images.img_005}  // TODO: Replace with your actual GIF path
         backgroundAlt="Animated grayscale background"
         backgroundOpacity={0.3}  // 10% opacity for subtle effect
         height="h-full"  // Fixed height section (384px)
@@ -311,7 +322,7 @@ export default function Home() {
         <DetailList
           title="Details"
           accent="The"
-          backgroundImage="/images/final/IMG_002.jpg"  // TODO: Replace with your actual GIF path
+          backgroundImage={images.img_002} // TODO: Replace with your actual GIF path
           backgroundOpacity={0.5}  // 10% opacity for subtle effect
           details={[
             // Detail 1: Accommodations

@@ -35,6 +35,17 @@ import PageBanner from "@/components/public/PageBanner";
 import RSVPFormMessage from "@/components/public/RSVP/RSVPFormMessage";
 import RSVPForm from "@/components/public/RSVP/RSVPForm";
 
+// Images
+const images = {
+  img_001: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574576/wedding/IMG_001_oxnafm.jpg",
+  img_002: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574576/wedding/IMG_002_coe0j4.jpg",
+  img_003: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574577/wedding/IMG_003_q7vuk5.jpg",
+  img_004: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574336/wedding/IMG_004_nla7sy.jpg",
+  img_005: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_005_cic4vn.jpg",
+  img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
+  img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
+}
+
 /**
  * RSVP COMPONENT
  * 
@@ -59,7 +70,7 @@ export default function RSVP() {
         - bride: Bride's name
       */}
       <PageBanner
-        backgroundImage="/images/final/IMG_006.jpg"
+        backgroundImage={images.img_006}
         title="Save the date"
         groom="Chris"
         bride="Jenn"
