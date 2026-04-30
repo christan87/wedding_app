@@ -142,8 +142,9 @@ export default function GrayscaleBackground({
          * - fill: Makes image fill its parent container
          * - className="object-cover": Crops image to cover container
          *   without distorting aspect ratio
-         * - unoptimized: Required for GIFs to preserve animation
-         *   (Next.js optimization would convert GIF to static image)
+         * - unoptimized: Only true for GIFs (preserves animation)
+         *   Static images use Next.js optimization for better performance
+         * - sizes: Helps browser choose correct image size
          * - priority={false}: Load normally (not critical for page load)
          */}
         <Image
@@ -151,7 +152,8 @@ export default function GrayscaleBackground({
           alt={alt}
           fill
           className="object-cover"
-          unoptimized // Required for GIFs to animate properly
+          unoptimized={src?.toLowerCase().endsWith('.gif')}
+          sizes="100vw"
           priority={false}
         />
       </div>

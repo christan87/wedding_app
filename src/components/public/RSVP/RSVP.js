@@ -88,7 +88,7 @@ export default function RSVP({
               fill
               className="object-cover"
               priority
-              unoptimized
+              sizes="100vw"
             />
           </div>
           {/* Dark overlay for text contrast */}

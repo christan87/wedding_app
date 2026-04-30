@@ -98,7 +98,7 @@ export default function DetailCard({
                 alt="Decorative divider element"
                 fill
                 className="object-contain"
-                unoptimized
+                sizes="32px"
               />
             </div>
           )}

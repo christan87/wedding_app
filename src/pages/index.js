@@ -122,6 +122,7 @@ export default function Home() {
           src: images.img_001,
           alt: "Wedding background",
           animation: "slide-up",
+          priority: true,
         }}
         opacityAnimationProps={{
           image: "/images/heart_white.png",
@@ -263,7 +264,7 @@ export default function Home() {
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
             iconImage: "/images/icons/rings.png",  // TODO: Replace with ceremony icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "3:00 PM",
+            time: "4:30 PM",
             event: "Ceremony",
             location: "St. Mary's Church",
           },
@@ -273,27 +274,27 @@ export default function Home() {
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
             iconImage: "/images/icons/martini.png",  // TODO: Replace with reception icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "4:30 PM",
+            time: "6:00 PM",
             event: "Cocktails",
-            location: "Grand Ballroom",
+            location: "Eve's Waterfront",
           },
           {
             flip: false,
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
             iconImage: "/images/icons/camera.png",  // TODO: Replace with reception icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "5:00 PM",
+            time: "6:30 PM",
             event: "Photos",
-            location: "Grand Ballroom",
+            location: "Eve's Waterfront",
           },
           {
             flip: true,
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
             iconImage: "/images/icons/plating.png",  // TODO: Replace with reception icon
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "6:30 PM",
+            time: "7:00 PM",
             event: "Dinner",
-            location: "Grand Ballroom",
+            location: "Eve's Waterfront",
           },
           {
             flip: false,
@@ -302,7 +303,7 @@ export default function Home() {
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "8:00 PM",
             event: "Party",
-            location: "Grand Ballroom",
+            location: "Eve's Waterfront",
           }
         ]}
       />
@@ -329,7 +330,7 @@ export default function Home() {
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Accommodations",
-              text: "We have reserved rooms at the Grand Hotel for our guests. Please mention the Smith-Jones wedding when booking to receive the special rate. Rooms are available for Friday and Saturday nights.",
+              text: "If you think you or a guest may have issues standing for extended periods, please let us know and we will do our best to accommodate you.",
             },
             // Detail 2: Registry
             {
@@ -341,13 +342,13 @@ export default function Home() {
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Transportation",
-              text: "Shuttle service will be provided between the hotel and ceremony/reception venues. Please check the schedule in your welcome packet for specific pickup and drop-off times.",
+              text: "Transportation to and from the ceremony and reception will not be provided unfortunately. Please arrange your own transportation or coordinate with other guests.",
             },
             // Detail 4: Dress Code
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Dress Code",
-              text: "Cocktail attire is requested for the evening reception. Please avoid wearing white to respect the bride. The ceremony will be held outdoors, so comfortable shoes are recommended.",
+              text: "Dress attire is requested for the ceremony and evening reception. Please avoid wearing white to respect the bride (our colors are red and gold). The ceremony will be held outdoors, so comfortable shoes are recommended.",
             },
           ]}
         />

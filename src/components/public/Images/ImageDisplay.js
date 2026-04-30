@@ -213,12 +213,8 @@ export default function ImageDisplay({
     transitionDuration: `${duration}ms`,
   };
 
-  // ========== EXTERNAL URL CHECK ==========
-  // Next.js Image optimization doesn't work with external URLs by default
-  // If it's an external URL, we disable optimization (unoptimized: true)
-  const isExternalUrl = src?.startsWith('http://') || src?.startsWith('https://');
-
   // ========== RENDER ==========
+  // Note: External URLs (Cloudinary) are now optimized via remotePatterns in next.config.mjs
   return (
     <div ref={ref} className={`${containerClassName} ${fill ? 'w-full h-full' : ''}`}>
       {/* FILL MODE: Image fills its parent container */}
@@ -233,7 +229,7 @@ export default function ImageDisplay({
             fill
             priority={priority}
             className="object-cover"
-            {...(isExternalUrl && { unoptimized: true })}
+            sizes="100vw"
           />
         </div>
       ) : (
@@ -246,7 +242,7 @@ export default function ImageDisplay({
           priority={priority}
           className={`${animationClasses} ${className}`}
           style={transitionStyle}
-          {...(isExternalUrl && { unoptimized: true })}
+          sizes={width > 768 ? "50vw" : "100vw"}
         />
       )}
     </div>

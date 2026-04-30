@@ -140,7 +140,7 @@ export default function EventCalendarCard({
               alt="Decorative rule element"
               fill
               className="object-contain"
-              unoptimized
+              sizes="24px"
             />
           </div>
         )}
@@ -189,7 +189,7 @@ export default function EventCalendarCard({
             alt="Divider ornament"
             fill
             className="object-contain"
-            unoptimized
+            sizes="48px"
           />
         </div>
       )}
@@ -224,7 +224,7 @@ export default function EventCalendarCard({
               alt="Event icon"
               fill
               className="object-contain"
-              unoptimized
+              sizes="64px"
             />
           </div>
         )}
