@@ -63,6 +63,7 @@ import EventCalendar from "@/components/public/EventCalendar/EventCalendar";
 import DetailList from "@/components/public/Details/DetailList";
 import RSVP from "@/components/public/RSVP/RSVP";
 import DateFooter from "@/components/public/Footer/DateFooter";
+import GiftCarousel from "@/components/public/GiftCarousel";
 
 // Images
 const images = {
@@ -384,12 +385,37 @@ export default function Home() {
         - bride: Bride's name
       */}
       <DateFooter
-        backgroundImage="/images/image_004.jpg"
+        backgroundImage={images.img_006}
         month="06"
         day="09"
         year="2026"
         groom="Chris"
         bride="Jenn"
+      />
+
+      {/* 
+        GIFT CAROUSEL SECTION
+        =====================
+        Displays gift registry items in a horizontal carousel.
+        
+        Props explained:
+        - items: Array of gift objects with name, image, and optional link
+        - itemsPerView: Number of items visible at once
+        - size: Size preset ('sm', 'md', 'lg')
+        - title: Optional title above the carousel
+        - showArrows: Show navigation arrows
+        - showDots: Show dot indicators
+      */}
+      <GiftCarousel
+        items={[
+          { name: "Amazon Registry", image: "/images/qr_code.jpg", link: "https://www.amazon.com/wedding/guest-view/1DJLGQVKXGA75" }
+        ]}
+        itemsPerView={1}
+        size="lg"
+        title="Our Gift Registry"
+        showArrows={true}
+        showDots={true}
+        className="bg-gray-50"
       />
     </div>
   );
