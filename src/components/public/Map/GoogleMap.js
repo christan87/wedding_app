@@ -162,9 +162,24 @@ export default function GoogleMap({
     );
   }
 
+  // ========== HEIGHT MAPPING ==========
+  // Convert Tailwind height classes to pixel values for Google Maps
+  const heightMap = {
+    'h-48': '192px',
+    'h-56': '224px',
+    'h-64': '256px',
+    'h-72': '288px',
+    'h-80': '320px',
+    'h-96': '384px',
+  };
+  const containerHeight = heightMap[height] || '320px';
+
   // ========== RENDER ==========
   return (
-    <div className={`w-full ${height} ${className} rounded-lg overflow-hidden`}>
+    <div 
+      className={`w-full ${className} rounded-lg`}
+      style={{ height: containerHeight }}
+    >
         <GoogleMapComponent
           mapContainerStyle={{ width: '100%', height: '100%' }}
           center={coordinates}
@@ -175,6 +190,11 @@ export default function GoogleMap({
             mapTypeControl: true,
             fullscreenControl: true,
             zoomControl: true,
+            streetViewControlOptions: {
+              position: typeof window !== 'undefined' && window.google 
+                ? window.google.maps.ControlPosition.RIGHT_BOTTOM 
+                : undefined,
+            },
           }}
         >
           {/* Marker at the location */}
