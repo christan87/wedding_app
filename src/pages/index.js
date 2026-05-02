@@ -64,6 +64,7 @@ import DetailList from "@/components/public/Details/DetailList";
 import RSVP from "@/components/public/RSVP/RSVP";
 import DateFooter from "@/components/public/Footer/DateFooter";
 import GiftCarousel from "@/components/public/GiftCarousel";
+import GoogleMapSection from "@/components/public/Map/GoogleMapSection";
 
 // Images
 const images = {
@@ -267,7 +268,7 @@ export default function Home() {
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "4:30 PM",
             event: "Ceremony",
-            location: "St. Mary's Church",
+            location: "The Oakland Rose Garden",
           },
           // Example Event 2: Reception (flipped layout - icon left, text right)
           {
@@ -394,29 +395,52 @@ export default function Home() {
       />
 
       {/* 
-        GIFT CAROUSEL SECTION
-        =====================
-        Displays gift registry items in a horizontal carousel.
-        
-        Props explained:
-        - items: Array of gift objects with name, image, and optional link
-        - itemsPerView: Number of items visible at once
-        - size: Size preset ('sm', 'md', 'lg')
-        - title: Optional title above the carousel
-        - showArrows: Show navigation arrows
-        - showDots: Show dot indicators
+        GIFT & MAP SECTION
+        ==================
+        Two-column layout on desktop, stacked on mobile.
+        - Left/Top: Gift carousel with registry items
+        - Right/Bottom: Google Maps with event locations
       */}
-      <GiftCarousel
-        items={[
-          { name: "Amazon Registry", image: "/images/qr_code.jpg", link: "https://www.amazon.com/wedding/guest-view/1DJLGQVKXGA75" }
-        ]}
-        itemsPerView={1}
-        size="lg"
-        title="Our Gift Registry"
-        showArrows={true}
-        showDots={true}
-        className="bg-gray-50"
-      />
+      <div className="flex flex-col lg:flex-row bg-gray-50">
+        {/* 
+          GIFT CAROUSEL
+          =============
+          Displays gift registry items in a horizontal carousel.
+        */}
+        <div className="w-full lg:w-1/2">
+          <GiftCarousel
+            items={[
+              { 
+                name: "Amazon Registry", 
+                image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777674754/wedding/qr_code_xch02z.jpg", 
+                link: "https://www.amazon.com/wedding/guest-view/1DJLGQVKXGA75" 
+              }
+            ]}
+            itemsPerView={1}
+            size="lg"
+            title="Our Gift Registry"
+            showArrows={true}
+            showDots={true}
+          />
+        </div>
+
+        {/* 
+          GOOGLE MAP SECTION
+          ==================
+          Displays event locations with tabbed navigation.
+        */}
+        <div className="w-full lg:w-1/2">
+          <GoogleMapSection
+            title="Event Locations"
+            locations={[
+              { name: "Ceremony", address: "Morcom Rose Garden, 700 Jean St, Oakland, CA 94610" },
+              { name: "Reception", address: "Eve's Waterfront, 15 Embarcadero West, Oakland, CA 94607" },
+            ]}
+            mapHeight="h-64"
+            zoom={17}
+          />
+        </div>
+      </div>
     </div>
   );
 }
