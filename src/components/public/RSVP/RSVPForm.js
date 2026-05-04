@@ -81,6 +81,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import ToastNotification, { useToast } from '@/components/public/ToastNotification';
+import GiftCarousel from '@/components/public/GiftCarousel';
 
 /**
  * RSVP FORM COMPONENT
@@ -924,6 +925,31 @@ export default function RSVPForm() {
             placeholder="Share your thoughts, well wishes, or anything you'd like to tell us..."
           />
         </div>
+
+        {/* 
+          GIFT CAROUSEL (CONDITIONAL)
+          
+          Displays gift registry when user selects "No, I can't make it".
+          Encourages guests who can't attend to still send a gift.
+        */}
+        {formData.attending === false && (
+          <div className="py-4">
+            <GiftCarousel
+              items={[
+                { 
+                  name: "Amazon Registry", 
+                  image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777674754/wedding/qr_code_xch02z.jpg", 
+                  link: "https://www.amazon.com/wedding/guest-view/1DJLGQVKXGA75" 
+                }
+              ]}
+              itemsPerView={1}
+              size="md"
+              title="We'll Miss You! Consider Sending a Gift"
+              showArrows={false}
+              showDots={false}
+            />
+          </div>
+        )}
 
         {/* 
           SUBMIT BUTTON

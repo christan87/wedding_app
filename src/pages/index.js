@@ -75,6 +75,7 @@ const images = {
   img_005: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_005_cic4vn.jpg",
   img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
   img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
+  img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg"
 }
 
 /**
@@ -147,7 +148,7 @@ export default function Home() {
           duration: 1000,
         }}
         bottomTextProps={{
-          text: "Together with the families",
+          text: "Together with their families",
           className: "cormorant-garamond-light text-xl md:text-2xl text-white drop-shadow-md",
           delay: 800,
           duration: 2000,
@@ -268,7 +269,7 @@ export default function Home() {
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "4:30 PM",
             event: "Ceremony",
-            location: "The Oakland Rose Garden",
+            location: "The Morcom Rose Garden",
           },
           // Example Event 2: Reception (flipped layout - icon left, text right)
           {

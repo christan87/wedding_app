@@ -88,7 +88,7 @@ export default function PageBanner({
             />
           </div>
           {/* Dark overlay for text contrast */}
-          <div className="absolute inset-0 bg-black/40 z-0" />
+          <div className="absolute inset-0 bg-black/20 z-0" />
         </>
       )}
 

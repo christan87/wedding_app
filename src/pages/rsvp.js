@@ -44,6 +44,7 @@ const images = {
   img_005: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_005_cic4vn.jpg",
   img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
   img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
+  img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg"
 }
 
 /**
@@ -70,10 +71,10 @@ export default function RSVP() {
         - bride: Bride's name
       */}
       <PageBanner
-        backgroundImage={images.img_006}
+        backgroundImage={images.img_008}
         title="Save the date"
-        groom="Chris"
-        bride="Jenn"
+        groom="Christan"
+        bride="Jennifer"
       />
 
       {/* 
@@ -90,11 +91,9 @@ export default function RSVP() {
         - text: Additional message for guests
       */}
       <RSVPFormMessage
-        location="Oakland Rose Garden"
-        date="June 9, 2026"
-        time="4:30 PM"
-        groom="Chris"
-        bride="Jenn"
+
+        groom="Christan"
+        bride="Jennifer"
         text="Please confirm your attendance by filling out the form below. We kindly request that you RSVP by May 15, 2026. If you have any dietary restrictions or special requirements, please let us know in the comments section."
       />
 
