@@ -216,21 +216,20 @@ export default function TextBanner({
 
   return (
     // ========== MAIN CONTAINER ==========
-    // Uses CSS Grid with 3 columns: 1fr auto 1fr
-    // This ensures the center column (auto) fits the widest content
-    // and all center columns share the same width across rows
-    // Left/right columns (1fr) take equal remaining space
+    // Uses CSS Grid with 3 columns to ensure row1 and row3 align with row2's center
+    // grid-cols-[auto_auto_auto]: Each column sizes to fit its content
+    // The center column stays consistent across all rows
     // ref: Used by IntersectionObserver to detect visibility
     <div 
       ref={containerRef}
-      className={`w-full flex flex-col items-center ${className}`}
+      className={`grid grid-cols-[auto_auto_auto] items-center justify-center ${className}`}
     >
       {/* ========== ROW 1: CENTER TEXT ONLY ==========
           Uses fuzzy-slide animation
-          Centered within the flex column container
+          Spans only the center column (col-start-2) to align with row2CenterProps
       */}
       {row1Props && row1Text && (
-        <div className="flex justify-center items-center">
+        <div className="col-start-2 flex justify-center items-center">
           <AnimatedText
             animation="fuzzy-slide"
             className={row1ClassName}
@@ -248,92 +247,88 @@ export default function TextBanner({
           Left: fuzzy-slide text with animated borders
           Center: slide-up text
           Right: fuzzy-slide text with animated borders
-          All columns fit their content
+          Each item in its own grid column
       */}
-      {(row2LeftProps || row2CenterProps || row2RightProps) && (
-        <div className="flex items-center justify-center">
-          {/* LEFT COLUMN: Text with top and bottom borders */}
-          {row2LeftProps && row2LeftText && (
-            <div className="flex flex-col items-center justify-center px-4">
-              {/* Top border - slides up with center text, full width of content */}
-              <div 
-                className={`w-full h-px bg-${borderColor} mb-2`}
-                style={borderStyle}
-              ></div>
-              
-              {/* Left text with fuzzy-slide animation */}
-              <AnimatedText
-                animation="fuzzy-slide"
-                className={row2LeftClassName}
-                delay={row2LeftDelay}
-                duration={row2LeftDuration}
-                triggerOnScroll={false}
-                {...restRow2LeftProps}
-              >
-                {row2LeftText}
-              </AnimatedText>
-              
-              {/* Bottom border - slides up with center text, full width of content */}
-              <div 
-                className={`w-full h-px bg-${borderColor} mt-2`}
-                style={borderStyle}
-              ></div>
-            </div>
-          )}
+      {/* LEFT COLUMN: Text with top and bottom borders */}
+      {row2LeftProps && row2LeftText && (
+        <div className="col-start-1 flex flex-col items-center justify-center px-4">
+          {/* Top border - slides up with center text, full width of content */}
+          <div 
+            className={`w-full h-px bg-${borderColor} mb-2`}
+            style={borderStyle}
+          ></div>
+          
+          {/* Left text with fuzzy-slide animation */}
+          <AnimatedText
+            animation="fuzzy-slide"
+            className={row2LeftClassName}
+            delay={row2LeftDelay}
+            duration={row2LeftDuration}
+            triggerOnScroll={false}
+            {...restRow2LeftProps}
+          >
+            {row2LeftText}
+          </AnimatedText>
+          
+          {/* Bottom border - slides up with center text, full width of content */}
+          <div 
+            className={`w-full h-px bg-${borderColor} mt-2`}
+            style={borderStyle}
+          ></div>
+        </div>
+      )}
 
-          {/* CENTER COLUMN: Text with slide-up animation */}
-          {row2CenterProps && row2CenterText && (
-            <div className="flex justify-center items-center px-4">
-              <AnimatedText
-                animation="slide-up"
-                className={row2CenterClassName}
-                delay={row2CenterDelay}
-                duration={row2CenterDuration}
-                triggerOnScroll={false}
-                {...restRow2CenterProps}
-              >
-                {row2CenterText}
-              </AnimatedText>
-            </div>
-          )}
+      {/* CENTER COLUMN: Text with slide-up animation */}
+      {row2CenterProps && row2CenterText && (
+        <div className="col-start-2 flex justify-center items-center px-4">
+          <AnimatedText
+            animation="slide-up"
+            className={row2CenterClassName}
+            delay={row2CenterDelay}
+            duration={row2CenterDuration}
+            triggerOnScroll={false}
+            {...restRow2CenterProps}
+          >
+            {row2CenterText}
+          </AnimatedText>
+        </div>
+      )}
 
-          {/* RIGHT COLUMN: Text with top and bottom borders */}
-          {row2RightProps && row2RightText && (
-            <div className="flex flex-col items-center justify-center px-4">
-              {/* Top border - slides up with center text, full width of content */}
-              <div 
-                className={`w-full h-px bg-${borderColor} mb-2`}
-                style={borderStyle}
-              ></div>
-              
-              {/* Right text with fuzzy-slide animation */}
-              <AnimatedText
-                animation="fuzzy-slide"
-                className={row2RightClassName}
-                delay={row2RightDelay}
-                duration={row2RightDuration}
-                triggerOnScroll={false}
-                {...restRow2RightProps}
-              >
-                {row2RightText}
-              </AnimatedText>
-              
-              {/* Bottom border - slides up with center text, full width of content */}
-              <div 
-                className={`w-full h-px bg-${borderColor} mt-2`}
-                style={borderStyle}
-              ></div>
-            </div>
-          )}
+      {/* RIGHT COLUMN: Text with top and bottom borders */}
+      {row2RightProps && row2RightText && (
+        <div className="col-start-3 flex flex-col items-center justify-center px-4">
+          {/* Top border - slides up with center text, full width of content */}
+          <div 
+            className={`w-full h-px bg-${borderColor} mb-2`}
+            style={borderStyle}
+          ></div>
+          
+          {/* Right text with fuzzy-slide animation */}
+          <AnimatedText
+            animation="fuzzy-slide"
+            className={row2RightClassName}
+            delay={row2RightDelay}
+            duration={row2RightDuration}
+            triggerOnScroll={false}
+            {...restRow2RightProps}
+          >
+            {row2RightText}
+          </AnimatedText>
+          
+          {/* Bottom border - slides up with center text, full width of content */}
+          <div 
+            className={`w-full h-px bg-${borderColor} mt-2`}
+            style={borderStyle}
+          ></div>
         </div>
       )}
 
       {/* ========== ROW 3: CENTER TEXT ONLY ==========
           Uses fuzzy-slide animation
-          Centered within the flex column container
+          Spans only the center column (col-start-2) to align with row2CenterProps
       */}
       {row3Props && row3Text && (
-        <div className="flex justify-center items-center">
+        <div className="col-start-2 flex justify-center items-center">
           <AnimatedText
             animation="fuzzy-slide"
             className={row3ClassName}
