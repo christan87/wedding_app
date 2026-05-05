@@ -122,7 +122,7 @@ export default function EventCalendarCard({
     <div className="flex flex-col h-full items-center">
       {/* Row 1: Time display - flex-1 to fill space, content at bottom center */}
       <div className="flex-1 flex items-end justify-center w-full">
-        <span className="cormorant-garamond-regular text-lg md:text-xl text-gray-700 drop-shadow-md whitespace-nowrap">
+        <span className="cormorant-garamond-regular text-lg md:text-xl text-gray-700 drop-shadow-md text-center md:whitespace-nowrap">
           {time}
         </span>
       </div>
@@ -152,10 +152,10 @@ export default function EventCalendarCard({
       {/* Row 3: Event name and location - flex-1 to fill space, content at top center */}
       <div className="flex-1 flex items-start justify-center w-full">
         <div className="flex flex-col items-center">
-          <span className="cormorant-garamond-semibold text-base md:text-lg text-gray-700 drop-shadow-md whitespace-nowrap">
+          <span className="cormorant-garamond-semibold text-base md:text-lg text-gray-700 drop-shadow-md text-center md:whitespace-nowrap">
             {event}
           </span>
-          <span className="cormorant-garamond-light text-sm md:text-base text-gray-700/80 drop-shadow-sm whitespace-nowrap">
+          <span className="cormorant-garamond-light text-sm md:text-base text-gray-700/80 drop-shadow-sm text-center md:whitespace-nowrap">
             {location}
           </span>
         </div>
@@ -252,7 +252,7 @@ export default function EventCalendarCard({
      * Using symmetric columns (1fr_auto_1fr) ensures Col 2 is always
      * centered across all cards, creating a flowing visual display.
      */
-    <div className="grid grid-cols-[1fr_auto_1fr] gap-2 md:gap-4 min-h-[150px] md:min-h-[200px]">
+    <div className="grid grid-cols-[1fr_auto_1fr] justify-items-center gap-2 md:gap-4 min-h-[150px] md:min-h-[200px]">
       {/* 
         Column order depends on flip prop:
         - flip=false: TextColumn | DividerColumn | IconColumn
