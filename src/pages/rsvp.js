@@ -45,8 +45,28 @@ const images = {
   img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
   img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
   img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg",
-  img_009: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg"
+  img_009: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778003539/wedding/IMG_9289_ih5dtj.jpg",
+  img_010: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778003672/wedding/IMG_9316_decnuc.jpg",
+  img_011: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778004923/wedding/IMG_9187_edited_uh1paw.jpg",
+  img_012: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778004546/wedding/morecom_rose_garden_ffe04d.jpg",
+  img_013: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778004546/wedding/ocean_ihlcvh.jpg"
 }
+
+/** 
+ * img_001: Holding hands on beack looking at eachother
+ * img_002: Back view head resting on shoulder with ring in view
+ * img_003: Sitting on rock together looking at camera
+ * img_004: Ring in sand with heart drawn around it
+ * img_005: Ring in shell on sand
+ * img_006: Back view of us holding hands on beack looking at eachother
+ * img_007: Ring in sand with heart drawn around it
+ * img_008: Banner image with me holding Jenny
+ * img_009: Sitting on rock together looking at eachother
+ * img_010: Standin as I kiss her forehead
+ * img_011: Us kissing as she shows off the ring
+ * img_012: Morecom rose garden
+ * img_013: Ocean view
+*/
 
 /**
  * RSVP COMPONENT
@@ -72,10 +92,10 @@ export default function RSVP() {
         - bride: Bride's name
       */}
       <PageBanner
-        backgroundImage={images.img_008}
+        backgroundImage={images.img_013}
         title="Save the date"
-        groom="Christan"
-        bride="Jennifer"
+        groom=""
+        bride=""
       />
 
       {/* 
@@ -95,7 +115,7 @@ export default function RSVP() {
 
         groom="Christan"
         bride="Jennifer"
-        text="Please confirm your attendance by filling out the form below. We kindly request that you RSVP by May 15, 2026. If you have any dietary restrictions or special requirements, please let us know in the comments section."
+        text="Please confirm your attendance by filling out the form below. We kindly request that you RSVP by May 19, 2026. If you have any dietary restrictions or special requirements, please let us know in the comments section. If you’re unable to attend, we warmly invite you to complete the form to share a message or request our mailing address."
       />
 
       {/* 

@@ -192,6 +192,14 @@ const RsvpSchema = {
     required: false,
     trim: true,
   },
+  requestAddress: {
+    type: Boolean,
+    default: false,
+  },
+  addressSent: {
+    type: Boolean,
+    default: false,
+  },
   approved: {
     type: Boolean,
     default: false,
@@ -402,6 +410,10 @@ export function createRsvpObject(data) {
     // Optional fields
     song: data.song?.trim() || '',                      // Remove whitespace
     message: data.message?.trim() || '',                // Remove whitespace
+    
+    // Address request
+    requestAddress: Boolean(data.requestAddress),       // Ensure boolean
+    addressSent: Boolean(data.addressSent),             // Ensure boolean
     
     // Admin approval (default: false)
     approved: Boolean(data.approved),                   // Ensure boolean

@@ -117,7 +117,7 @@ async function handleGet(req, res, id) {
  * Only updates fields that are provided in the request body.
  */
 async function handlePut(req, res, id) {
-  const { guestName, email, attending, numberOfGuests, dietaryRestrictions, comments, approved } = req.body;
+  const { guestName, email, attending, numberOfGuests, dietaryRestrictions, comments, approved, requestAddress, addressSent } = req.body;
 
   // Check if RSVP exists
   const existingRsvp = await getRsvpById(id);
@@ -147,6 +147,8 @@ async function handlePut(req, res, id) {
   if (dietaryRestrictions !== undefined) updateData.dietaryRestrictions = dietaryRestrictions;
   if (comments !== undefined) updateData.comments = comments;
   if (approved !== undefined) updateData.approved = Boolean(approved);
+  if (requestAddress !== undefined) updateData.requestAddress = Boolean(requestAddress);
+  if (addressSent !== undefined) updateData.addressSent = Boolean(addressSent);
 
   // Check if there's anything to update
   if (Object.keys(updateData).length === 0) {

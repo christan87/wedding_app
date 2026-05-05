@@ -72,7 +72,7 @@ export default function RSVP({
      * - 'min-h-screen': Minimum full viewport height
      * - 'flex items-center justify-center': Center content
      */
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative w-full min-h-screen md:py-0 lg:py-50 flex items-center justify-center overflow-hidden">
       {/* 
         BACKGROUND IMAGE
         ================

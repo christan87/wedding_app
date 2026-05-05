@@ -76,8 +76,28 @@ const images = {
   img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
   img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
   img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg",
-  img_009: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg"
+  img_009: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778003539/wedding/IMG_9289_ih5dtj.jpg",
+  img_010: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778003672/wedding/IMG_9316_decnuc.jpg",
+  img_011: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778004923/wedding/IMG_9187_edited_uh1paw.jpg",
+  img_012: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778004546/wedding/morecom_rose_garden_ffe04d.jpg",
+  img_013: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1778004546/wedding/ocean_ihlcvh.jpg"
 }
+
+/** 
+ * img_001: Holding hands on beack looking at eachother
+ * img_002: Back view head resting on shoulder with ring in view
+ * img_003: Sitting on rock together looking at camera
+ * img_004: Ring in sand with heart drawn around it
+ * img_005: Ring in shell on sand
+ * img_006: Back view of us holding hands on beack looking at eachother
+ * img_007: Ring in sand with heart drawn around it
+ * img_008: Banner image with me holding Jenny
+ * img_009: Sitting on rock together looking at eachother
+ * img_010: Standing as I kiss her forehead
+ * img_011: Us kissing as she shows off the ring
+ * img_012: Morecom rose garden
+ * img_013: Ocean view
+*/
 
 /**
  * HOME COMPONENT
@@ -149,7 +169,7 @@ export default function Home() {
           duration: 1000,
         }}
         bottomTextProps={{
-          text: "Together with their families",
+          text: "Together with their loved ones",
           className: "cormorant-garamond-light text-xl md:text-2xl text-white drop-shadow-md",
           delay: 800,
           duration: 2000,
@@ -249,10 +269,11 @@ export default function Home() {
         NOTE: Replace the image paths with your actual images in /public/images/
       */}
       <EventCalendar
-        backgroundSrc={images.img_005}  // TODO: Replace with your actual GIF path
+        backgroundSrc={images.img_009}  // TODO: Replace with your actual GIF path
         backgroundAlt="Animated grayscale background"
         backgroundOpacity={0.3}  // 10% opacity for subtle effect
         height="h-full"  // Fixed height section (384px)
+        className="md:py-0 lg:py-25"
         title={{           
           animation:"type",
           className:"cormorant-garamond-regular text-5xl md:text-6xl text-gray-700 drop-shadow-lg",
@@ -270,7 +291,7 @@ export default function Home() {
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "4:30 PM",
             event: "Ceremony",
-            location: "The Morcom Rose Garden",
+            location: "The Morcom Rose Garden (Oakland)",
           },
           // Example Event 2: Reception (flipped layout - icon left, text right)
 
@@ -323,7 +344,7 @@ export default function Home() {
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Registry",
-              text: "Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we're registered with Amazon (link at the bottom of the page). You can also contribute via paypal or cashapp.",
+              text: "Your presence is gift enough. If you’d like to honor us further, we’re registered on Amazon (link below), or you’re welcome to contribute via Venmo or Cash App.",
             },
             // Detail 3: Transportation
             {
@@ -335,7 +356,7 @@ export default function Home() {
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Dress Code",
-              text: "Dress attire is requested for the ceremony and evening reception. Please avoid wearing white to respect the bride (our colors are red, gold and pink). The ceremony will be held outdoors, so comfortable shoes are recommended.",
+              text: "We kindly ask guests to wear dress attire for the ceremony and evening reception. Please avoid white in honor of the bride (our colors are red, gold, and pink). As the ceremony will be outdoors, comfortable shoes are encouraged.",
             },
           ]}
         />
@@ -352,7 +373,7 @@ export default function Home() {
         - day: Day for RSVP deadline
       */}
       <RSVP
-        backgroundImage={images.img_009}
+        backgroundImage={images.img_011}
         month="MAY"
         day="15"
       />

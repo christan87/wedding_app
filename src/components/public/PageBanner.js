@@ -104,9 +104,11 @@ export default function PageBanner({
         </h1>
 
         {/* Groom and Bride names */}
-        <p className="cormorant-garamond-regular text-3xl md:text-4xl text-white drop-shadow-lg">
-          {groom} <span className="windsong-medium">and </span> {bride}
-        </p>
+        {groom && bride && (
+          <p className="cormorant-garamond-regular text-3xl md:text-4xl text-white drop-shadow-lg">
+            {groom} <span className="windsong-medium">and </span> {bride}
+          </p>
+        )}
       </div>
     </div>
   );

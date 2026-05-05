@@ -125,6 +125,7 @@ export default function RSVPForm() {
     accommodationsText: '',
     song: '',
     message: '',
+    requestAddress: false,
   });
 
   /**
@@ -960,6 +961,27 @@ export default function RSVPForm() {
             />
           </div>
         )}
+
+        {/* 
+          REQUEST ADDRESS CHECKBOX
+          
+          Allows the user to request the couple's address to send a card/gift.
+          Always visible. Checked = true, unchecked = false.
+        */}
+        <div className="form-group">
+          <label className="flex items-center gap-3 cursor-pointer text-lg font-medium text-gray-700">
+            <input
+              type="checkbox"
+              name="requestAddress"
+              checked={formData.requestAddress === true}
+              onChange={(e) => setFormData(prev => ({ ...prev, requestAddress: e.target.checked }))}
+              className="w-5 h-5 text-blue-600 focus:ring-blue-500 rounded"
+            />
+            {formData.requestAddress
+              ? "Thank you! We'll reach out soon with our address."
+              : "Would you like our address to send a card?"}
+          </label>
+        </div>
 
         {/* 
           SUBMIT BUTTON

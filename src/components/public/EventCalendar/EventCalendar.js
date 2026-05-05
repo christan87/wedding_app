@@ -149,6 +149,7 @@ export default function EventCalendar({
         height="h-full"
         fixed={false}
         zIndex={0}
+        position="top"
         className="absolute inset-0"
       />
 

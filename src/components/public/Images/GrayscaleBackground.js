@@ -51,6 +51,7 @@
  *                          Can use Tailwind classes like 'h-screen', 'h-64', etc.
  * @param {boolean} fixed - If true, background stays fixed while scrolling (default: false)
  * @param {number|string} zIndex - z-index for layering (default: 0)
+ * @param {string} position - Image position: 'top', 'center', or 'bottom' (default: 'center')
  * 
  * USAGE EXAMPLE:
  * ==============
@@ -93,7 +94,16 @@ export default function GrayscaleBackground({
   height = 'h-96',
   fixed = false,
   zIndex = 0,
+  position = 'center',
 }) {
+  // ========== POSITION MAPPING ==========
+  // Map position prop to Tailwind object-position class
+  const positionClasses = {
+    top: 'object-top',
+    center: 'object-center',
+    bottom: 'object-bottom',
+  };
+  const objectPosition = positionClasses[position] || 'object-center';
   // ========== VALIDATION ==========
   // Ensure opacity is within valid range (0 to 1)
   // If user passes a value outside this range, clamp it
@@ -151,7 +161,7 @@ export default function GrayscaleBackground({
           src={src}
           alt={alt}
           fill
-          className="object-cover"
+          className={`object-cover ${objectPosition}`}
           unoptimized={src?.toLowerCase().endsWith('.gif')}
           sizes="100vw"
           priority={false}
