@@ -93,7 +93,7 @@ export default function RSVP() {
       */}
       <PageBanner
         backgroundImage={images.img_013}
-        title="Save the date"
+        title="Save the Date"
         groom=""
         bride=""
       />
