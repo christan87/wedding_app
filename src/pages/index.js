@@ -75,7 +75,8 @@ const images = {
   img_005: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_005_cic4vn.jpg",
   img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
   img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
-  img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg"
+  img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg",
+  img_009: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg"
 }
 
 /**
@@ -272,24 +273,7 @@ export default function Home() {
             location: "The Morcom Rose Garden",
           },
           // Example Event 2: Reception (flipped layout - icon left, text right)
-          {
-            flip: true,
-            dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
-            iconImage: "/images/icons/martini.png",  // TODO: Replace with reception icon
-            ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "6:00 PM",
-            event: "Cocktails",
-            location: "Eve's Waterfront",
-          },
-          {
-            flip: false,
-            dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
-            iconImage: "/images/icons/camera.png",  // TODO: Replace with reception icon
-            ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
-            time: "6:30 PM",
-            event: "Photos",
-            location: "Eve's Waterfront",
-          },
+
           {
             flip: true,
             dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
@@ -297,7 +281,7 @@ export default function Home() {
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "7:00 PM",
             event: "Dinner",
-            location: "Eve's Waterfront",
+            location: "Eve's Waterfront (Oakland)",
           },
           {
             flip: false,
@@ -306,7 +290,7 @@ export default function Home() {
             ruleImage: "/images/icons/heart_rule_center.png",  // TODO: Replace with rule decoration
             time: "8:00 PM",
             event: "Party",
-            location: "Eve's Waterfront",
+            location: "Eve's Waterfront (Oakland)",
           }
         ]}
       />
@@ -339,19 +323,19 @@ export default function Home() {
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Registry",
-              text: "Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we have registered at Macy's and Bed Bath & Beyond.",
+              text: "Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we're registered with Amazon (link at the bottom of the page). You can also contribute via paypal or cashapp.",
             },
             // Detail 3: Transportation
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Transportation",
-              text: "Transportation to and from the ceremony and reception will not be provided unfortunately. Please arrange your own transportation or coordinate with other guests.",
+              text: "We’re so grateful to celebrate with you! Please note that transportation to and from the ceremony and reception will not be provided, so we kindly ask guests to arrange their own travel or coordinate with others attending.",
             },
             // Detail 4: Dress Code
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Dress Code",
-              text: "Dress attire is requested for the ceremony and evening reception. Please avoid wearing white to respect the bride (our colors are red and gold). The ceremony will be held outdoors, so comfortable shoes are recommended.",
+              text: "Dress attire is requested for the ceremony and evening reception. Please avoid wearing white to respect the bride (our colors are red, gold and pink). The ceremony will be held outdoors, so comfortable shoes are recommended.",
             },
           ]}
         />
@@ -368,7 +352,7 @@ export default function Home() {
         - day: Day for RSVP deadline
       */}
       <RSVP
-        backgroundImage="/images/image_003.jpg"
+        backgroundImage={images.img_009}
         month="MAY"
         day="15"
       />
@@ -393,6 +377,11 @@ export default function Home() {
         year="2026"
         groom="Chris"
         bride="Jenn"
+        scripture={{
+          quote: "I have found the one whom my soul loves",
+          reference: "Song of Solomon 3:4",
+          hashtag: "#ThePriceIsRight"
+        }}
       />
 
       {/* 
@@ -415,6 +404,16 @@ export default function Home() {
                 name: "Amazon Registry", 
                 image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777674754/wedding/qr_code_xch02z.jpg", 
                 link: "https://www.amazon.com/wedding/guest-view/1DJLGQVKXGA75" 
+              },
+              { 
+                name: "Venmo", 
+                image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777938476/wedding/qr_code_venmo_ltu15q.jpg", 
+                link: "https://venmo.com/code?user_id=3202101157036032762&created=1777936173&printed=true" 
+              },
+              { 
+                name: "CashApp", 
+                image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777938476/wedding/qr_code_cashapp_ukfy3g.jpg", 
+                link: "https://cash.app/$1225chrisp1987?qr=1" 
               }
             ]}
             itemsPerView={1}

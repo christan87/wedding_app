@@ -44,7 +44,8 @@ const images = {
   img_005: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_005_cic4vn.jpg",
   img_006: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_006_zde3ey.jpg",
   img_007: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg",
-  img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg"
+  img_008: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777933150/wedding/IMG_9203_banner_zpuwhp.jpg",
+  img_009: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777574337/wedding/IMG_007_uctkwj.jpg"
 }
 
 /**

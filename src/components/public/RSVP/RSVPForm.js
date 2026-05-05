@@ -940,13 +940,23 @@ export default function RSVPForm() {
                   name: "Amazon Registry", 
                   image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777674754/wedding/qr_code_xch02z.jpg", 
                   link: "https://www.amazon.com/wedding/guest-view/1DJLGQVKXGA75" 
+                },
+                { 
+                  name: "Venmo", 
+                  image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777938476/wedding/qr_code_venmo_ltu15q.jpg", 
+                  link: "https://venmo.com/code?user_id=3202101157036032762&created=1777936173&printed=true" 
+                },
+                { 
+                  name: "CashApp", 
+                  image: "https://res.cloudinary.com/dxnxtxxep/image/upload/v1777938476/wedding/qr_code_cashapp_ukfy3g.jpg", 
+                  link: "https://cash.app/$1225chrisp1987?qr=1" 
                 }
               ]}
               itemsPerView={1}
               size="md"
               title="We'll Miss You! Consider Sending a Gift"
-              showArrows={false}
-              showDots={false}
+              showArrows={true}
+              showDots={true}
             />
           </div>
         )}
