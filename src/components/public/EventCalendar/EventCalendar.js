@@ -167,14 +167,14 @@ export default function EventCalendar({
         - 'px-4 md:px-8': Horizontal padding for responsiveness
         - 'py-8': Vertical padding
       */}
-      <div className="relative z-10 flex flex-col items-center px-4 md:px-8 py-8">
-        {/* 
+      <div className="relative z-10 flex flex-col items-center px-4 md:px-8 lg:px-16 xl:px-24 py-8 lg:py-12 xl:py-16">
+        {/*
           Program Header
           ===============
           Animated "Program" title at the top of the event calendar.
           Uses typewriter animation for elegant entrance effect.
         */}
-        <div className="mb-8">
+        <div className="mb-8 lg:mb-12">
           <AnimatedText
             animation={title.animation}
             className={title.className}
@@ -185,17 +185,14 @@ export default function EventCalendar({
             {title.text}
           </AnimatedText>
         </div>
-        {/* 
+        {/*
           Cards Wrapper
           ==============
           Contains the actual event cards with a max width for readability.
           Cards are stacked vertically with no spacing between them so that
           the Col 2 dividers of each card align and flow visually.
-          
-          Styling:
-          - 'w-full max-w-2xl': Full width up to 672px maximum
         */}
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl">
           {/* 
             Map through events array and render EventCalendarCard for each
             The 'key' prop uses the index, but in production you might want

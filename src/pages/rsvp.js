@@ -131,7 +131,7 @@ export default function RSVP() {
         =================
         RSVPForm component with all fields from the MongoDB model
       */}
-      <div className="w-full px-4 md:px-8 py-12">
+      <div className="w-full px-4 md:px-8 lg:px-16 xl:px-24 py-12 lg:py-16 xl:py-20">
         <RSVPForm />
       </div>
     </div>

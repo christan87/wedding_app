@@ -70,8 +70,8 @@ export default function PageBanner({
      * - 'h-64 md:h-80': Responsive height (256px mobile, 320px desktop)
      * - 'overflow-hidden': Prevents image overflow
      */
-    <div className="relative w-full h-64 md:h-80 overflow-hidden">
-      {/* 
+    <div className="relative w-full h-64 md:h-80 lg:h-96 xl:h-112 overflow-hidden">
+      {/*
         BACKGROUND IMAGE
         ================
         Full banner background with dark overlay for text readability
@@ -94,20 +94,20 @@ export default function PageBanner({
         </>
       )}
 
-      {/* 
+      {/*
         CONTENT SECTION
         ===============
         Text content positioned to the left
       */}
-      <div className="relative z-10 flex flex-col justify-center h-full px-8 md:px-16">
+      <div className="relative z-10 flex flex-col justify-center h-full px-8 md:px-16 lg:px-24 xl:px-32">
         {/* Title - large text */}
-        <h1 className="windsong-medium text-5xl md:text-7xl text-white drop-shadow-2xl mb-2">
+        <h1 className="windsong-medium text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-white drop-shadow-2xl mb-2">
           {title}
         </h1>
 
         {/* Groom and Bride names */}
         {groom && bride && (
-          <p className="cormorant-garamond-regular text-3xl md:text-4xl text-white drop-shadow-lg">
+          <p className="cormorant-garamond-regular text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-white drop-shadow-lg">
             {groom} <span className="windsong-medium">and </span> {bride}
           </p>
         )}
@@ -115,8 +115,8 @@ export default function PageBanner({
 
       {/* Hashtag - stylish accent in bottom-right corner */}
       {hashtag && (
-        <div className="absolute bottom-4 right-6 md:bottom-6 md:right-10 z-10">
-          <p className="cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-lg">
+        <div className="absolute bottom-4 right-6 md:bottom-6 md:right-10 lg:bottom-8 lg:right-16 xl:right-20 z-10">
+          <p className="cormorant-garamond-regular text-xl md:text-2xl lg:text-3xl text-white drop-shadow-lg">
             {hashtag}
           </p>
         </div>

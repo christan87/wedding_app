@@ -86,10 +86,10 @@ export default function GoogleMapSection({
 
   // ========== RENDER ==========
   return (
-    <div className={`w-full py-8 ${className}`}>
+    <div className={`w-full py-8 lg:py-12 xl:py-16 ${className}`}>
       {/* TITLE SECTION */}
       {title && (
-        <h2 className="cormorant-garamond-semibold text-3xl md:text-4xl text-gray-700 text-center mb-6 drop-shadow-md">
+        <h2 className="cormorant-garamond-semibold text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-gray-700 text-center mb-6 lg:mb-8 drop-shadow-md">
           {title}
         </h2>
       )}
@@ -118,16 +118,16 @@ export default function GoogleMapSection({
 
       {/* LOCATION INFO */}
       <div className="text-center mb-4">
-        <h3 className="cormorant-garamond-semibold text-xl text-gray-700">
+        <h3 className="cormorant-garamond-semibold text-xl lg:text-2xl xl:text-2xl text-gray-700">
           {activeLocation.name}
         </h3>
-        <p className="cormorant-garamond-regular text-gray-600 mt-1">
+        <p className="cormorant-garamond-regular text-base lg:text-lg xl:text-xl text-gray-600 mt-1">
           {activeLocation.address}
         </p>
       </div>
 
       {/* MAP */}
-      <div className="px-4 md:px-8">
+      <div className="px-4 md:px-8 lg:px-12 xl:px-16">
         <GoogleMap
           address={activeLocation.address}
           height={mapHeight}

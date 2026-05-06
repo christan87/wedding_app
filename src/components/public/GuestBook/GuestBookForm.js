@@ -143,7 +143,7 @@ export default function GuestBookForm({ onSignatureAdded }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto">
       {/* Name Input */}
       <div className="mb-4">
         <input
@@ -154,7 +154,7 @@ export default function GuestBookForm({ onSignatureAdded }) {
           placeholder="Your Name"
           required
           maxLength={100}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cormorant-garamond-regular text-lg text-gray-700"
+          className="w-full px-4 py-3 lg:py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cormorant-garamond-regular text-lg lg:text-xl text-gray-700"
         />
       </div>
 

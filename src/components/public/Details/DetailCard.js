@@ -120,11 +120,11 @@ export default function DetailCard({
       */}
       <div className="flex flex-col items-end justify-center w-full px-4">
         {/* Title */}
-        <h3 className="cormorant-garamond-semibold text-lg md:text-xl text-gray-700 drop-shadow-md mb-2">
+        <h3 className="cormorant-garamond-semibold text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-700 drop-shadow-md mb-2">
           {title}
         </h3>
         {/* Text content */}
-        <p className="cormorant-garamond-regular text-sm md:text-base text-gray-600/90 drop-shadow-sm text-right">
+        <p className="cormorant-garamond-regular text-sm md:text-base lg:text-lg xl:text-xl text-gray-600/90 drop-shadow-sm text-right">
           {text}
         </p>
       </div>

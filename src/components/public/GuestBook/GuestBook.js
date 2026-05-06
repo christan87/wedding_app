@@ -70,10 +70,10 @@ export default function GuestBook({ signatures: initialSignatures = [], title = 
   };
 
   return (
-    <section className="w-full py-16 px-4 md:px-8 bg-white">
-      <div className="max-w-4xl mx-auto">
+    <section className="w-full py-16 lg:py-20 xl:py-24 px-4 md:px-8 lg:px-16 xl:px-24 bg-white">
+      <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto">
         {/* Section Title */}
-        <h2 className="cormorant-garamond-bold text-4xl md:text-5xl text-gray-700 text-center mb-12 drop-shadow-md">
+        <h2 className="cormorant-garamond-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-gray-700 text-center mb-12 lg:mb-16 drop-shadow-md">
           {title}
         </h2>
 
@@ -84,7 +84,7 @@ export default function GuestBook({ signatures: initialSignatures = [], title = 
 
         {/* Sort & Search Controls */}
         {signatures.length > 0 && (
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 max-w-2xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto">
             {/* Sort Dropdown */}
             <select
               value={sortBy}
@@ -128,7 +128,7 @@ export default function GuestBook({ signatures: initialSignatures = [], title = 
         ) : (
           <>
             {/* Single Column Cards */}
-            <div className="flex flex-col gap-6 max-w-2xl mx-auto">
+            <div className="flex flex-col gap-6 lg:gap-8 max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto">
               {displayedSignatures.map((sig, index) => (
                 <GuestBookCard
                   key={sig._id || index}

@@ -177,80 +177,80 @@ export default function Home({ signatures }) {
         }}
         leftTextProps={{
           text: "We",
-          className: "windsong-regular text-5xl md:text-7xl text-white drop-shadow-lg",
+          className: "windsong-regular text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-white drop-shadow-lg",
           delay: 500,
           duration: 1000,
         }}
         rightTextProps={{
           text: "Do",
-          className: "windsong-regular text-5xl md:text-7xl text-white drop-shadow-lg",
+          className: "windsong-regular text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-white drop-shadow-lg",
           delay: 500,
           duration: 1000,
         }}
         bottomTextProps={{
           text: "Together with their loved ones",
-          className: "cormorant-garamond-light text-xl md:text-2xl text-white drop-shadow-md",
+          className: "cormorant-garamond-light text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-md",
           delay: 800,
           duration: 2000,
         }}
         fuzzyText1Props={{
           text: "Christan",
-          className: "parisienne-regular text-4xl md:text-6xl text-white drop-shadow-md",
+          className: "parisienne-regular text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-white drop-shadow-md",
           delay: 1200,
           duration: 1200,
         }}
         fuzzyText2Props={{
           text: "and ",
-          className: "windsong-regular text-4xl md:text-6xl text-white drop-shadow-md",
+          className: "windsong-regular text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-white drop-shadow-md",
           delay: 1200,
           duration: 1200,
         }}
         fuzzyText3Props={{
           text: "Jennifer",
-          className: "parisienne-regular text-4xl md:text-6xl text-white drop-shadow-md",
+          className: "parisienne-regular text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-white drop-shadow-md",
           delay: 1200,
           duration: 1200,
         }}
         row5TextProps={{
           text: "Invite You",
-          className: "cormorant-garamond-regular text-lg md:text-xl text-white drop-shadow-md",
+          className: "cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-white drop-shadow-md",
           delay: 1500,
           duration: 1000,
         }}
         row6TextProps={{
           text: "To Their Wedding Celebration",
-          className: "cormorant-garamond-light text-lg md:text-xl text-white drop-shadow-md",
+          className: "cormorant-garamond-light text-lg md:text-xl lg:text-2xl xl:text-2xl text-white drop-shadow-md",
           delay: 1800,
           duration: 1000,
         }}
         textBannerProps={{
           row1Props: {
             text: "JUNE",
-            className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-md",
+            className: "cormorant-garamond-regular text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-md",
             delay: 2000,
             duration: 1000,
           },
           row2LeftProps: {
             text: "TUESDAY",
-            className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-lg",
+            className: "cormorant-garamond-regular text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
           row2CenterProps: {
             text: "09",
-            className: "cormorant-garamond-regular text-4xl md:text-5xl text-white drop-shadow-lg",
+            className: "cormorant-garamond-regular text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
           row2RightProps: {
             text: "AT 4:30 PM",
-            className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-lg",
+            className: "cormorant-garamond-regular text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-lg",
             delay: 2300,
             duration: 1000,
           },
           row3Props: {
             text: "2026",
-            className: "cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-md",
+            className: "cormorant-garamond-regular text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-md",
             delay: 2600,
             duration: 1000,
           },
@@ -293,9 +293,9 @@ export default function Home({ signatures }) {
         backgroundOpacity={0.3}  // 10% opacity for subtle effect
         height="h-full"  // Fixed height section (384px)
         className="md:py-0 lg:py-25"
-        title={{           
+        title={{
           animation:"type",
-          className:"cormorant-garamond-regular text-5xl md:text-6xl text-gray-700 drop-shadow-lg",
+          className:"cormorant-garamond-regular text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-gray-700 drop-shadow-lg",
           duration:1000,
           delay:200,
           triggerOnScroll:true,
@@ -476,7 +476,7 @@ export default function Home({ signatures }) {
               { name: "Ceremony", address: "Morcom Rose Garden, 700 Jean St, Oakland, CA 94610" },
               { name: "Reception", address: "Eve's Waterfront, 15 Embarcadero West, Oakland, CA 94607" },
             ]}
-            mapHeight="h-64"
+            mapHeight="h-64 md:h-80 lg:h-96"
             zoom={17}
           />
         </div>

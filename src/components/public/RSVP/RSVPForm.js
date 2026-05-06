@@ -474,7 +474,7 @@ export default function RSVPForm() {
   // ============================================================================
   
   return (
-    <div className="w-full max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-lg">
+    <div className="w-full max-w-6xl mx-auto p-8 lg:p-12 xl:p-16 bg-white rounded-lg shadow-lg">
 
       {/* 
         MAIN FORM

@@ -146,10 +146,10 @@ export default function GiftCarousel({
 
   // ========== RENDER ==========
   return (
-    <div className={`w-full py-8 ${className}`}>
+    <div className={`w-full py-8 lg:py-12 xl:py-16 ${className}`}>
       {/* TITLE SECTION */}
       {title && (
-        <h2 className="cormorant-garamond-semibold text-3xl md:text-4xl text-gray-700 text-center mb-8 drop-shadow-md">
+        <h2 className="cormorant-garamond-semibold text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-gray-700 text-center mb-8 lg:mb-12 drop-shadow-md">
           {title}
         </h2>
       )}

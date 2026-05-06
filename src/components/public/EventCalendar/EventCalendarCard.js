@@ -122,7 +122,7 @@ export default function EventCalendarCard({
     <div className="flex flex-col h-full items-center">
       {/* Row 1: Time display - flex-1 to fill space, content at bottom center */}
       <div className="flex-1 flex items-end justify-center w-full">
-        <span className="cormorant-garamond-regular text-lg md:text-xl text-gray-700 drop-shadow-md text-center md:whitespace-nowrap">
+        <span className="cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-700 drop-shadow-md text-center md:whitespace-nowrap">
           {time}
         </span>
       </div>
@@ -152,10 +152,10 @@ export default function EventCalendarCard({
       {/* Row 3: Event name and location - flex-1 to fill space, content at top center */}
       <div className="flex-1 flex items-start justify-center w-full">
         <div className="flex flex-col items-center">
-          <span className="cormorant-garamond-semibold text-base md:text-lg text-gray-700 drop-shadow-md text-center md:whitespace-nowrap">
+          <span className="cormorant-garamond-semibold text-base md:text-lg lg:text-xl xl:text-2xl text-gray-700 drop-shadow-md text-center md:whitespace-nowrap">
             {event}
           </span>
-          <span className="cormorant-garamond-light text-sm md:text-base text-gray-700/80 drop-shadow-sm text-center md:whitespace-nowrap">
+          <span className="cormorant-garamond-light text-sm md:text-base lg:text-lg xl:text-xl text-gray-700/80 drop-shadow-sm text-center md:whitespace-nowrap">
             {location}
           </span>
         </div>
@@ -183,13 +183,13 @@ export default function EventCalendarCard({
       
       {/* Row 2: Divider image - fits content, determines column alignment */}
       {dividerImage && (
-        <div className="relative w-12 h-12 shrink-0">
+        <div className="relative w-12 h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 shrink-0">
           <Image
             src={dividerImage}
             alt="Divider ornament"
             fill
             className="object-contain"
-            sizes="48px"
+            sizes="(min-width: 1280px) 80px, (min-width: 1024px) 64px, 48px"
           />
         </div>
       )}
@@ -218,13 +218,13 @@ export default function EventCalendarCard({
       {/* Row 2: Icon image - left justified normally, right justified when flipped */}
       <div className={`flex items-center ${isFlipped ? 'justify-end' : 'justify-start'}`}>
         {iconImage && (
-          <div className="relative w-16 h-16">
+          <div className="relative w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24">
             <Image
               src={iconImage}
               alt="Event icon"
               fill
               className="object-contain"
-              sizes="64px"
+              sizes="(min-width: 1280px) 96px, (min-width: 1024px) 80px, 64px"
             />
           </div>
         )}
@@ -252,7 +252,7 @@ export default function EventCalendarCard({
      * Using symmetric columns (1fr_auto_1fr) ensures Col 2 is always
      * centered across all cards, creating a flowing visual display.
      */
-    <div className="grid grid-cols-[1fr_auto_1fr] justify-items-center gap-2 md:gap-4 min-h-[150px] md:min-h-[200px]">
+    <div className="grid grid-cols-[1fr_auto_1fr] justify-items-center gap-2 md:gap-4 lg:gap-6 xl:gap-8 min-h-[150px] md:min-h-[200px] lg:min-h-[240px] xl:min-h-[260px]">
       {/* 
         Column order depends on flip prop:
         - flip=false: TextColumn | DividerColumn | IconColumn

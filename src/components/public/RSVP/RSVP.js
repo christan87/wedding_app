@@ -139,7 +139,7 @@ export default function RSVP({
 
         {/* "BY" with month and day */}
         <div className="mb-8">
-          <span className="cormorant-garamond-semibold text-3xl md:text-4xl text-white drop-shadow-lg">
+          <span className="cormorant-garamond-semibold text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white drop-shadow-lg">
             BY {month} {day}
           </span>
         </div>
@@ -157,11 +157,11 @@ export default function RSVP({
         </div>
 
         {/* Instructions */}
-        <div className="max-w-2xl">
-          <p className="cormorant-garamond-regular text-lg md:text-xl text-white drop-shadow-md mb-4">
+        <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+          <p className="cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-white drop-shadow-md mb-4">
             Please click the RSVP button and fill out the form to confirm your attendance.
           </p>
-          <p className="windsong-medium text-xl md:text-2xl text-white drop-shadow-lg">
+          <p className="windsong-medium text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-lg">
             Thank You!
           </p>
         </div>

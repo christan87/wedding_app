@@ -115,26 +115,26 @@ export default function DateFooter({
         Content positioned at the bottom of the footer
         Renders scripture if provided, otherwise renders date/names
       */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pb-16 text-center">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 md:px-8 lg:px-16 xl:px-24 pb-16 text-center">
         {scripture ? (
           <>
             {/* Scripture Quote - elegant italic styling */}
-            <div className="mb-6 max-w-3xl">
-              <p className="cormorant-garamond-regular text-3xl md:text-4xl lg:text-5xl text-gray-700 drop-shadow-lg leading-relaxed">
+            <div className="mb-6 max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+              <p className="cormorant-garamond-regular text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-700 drop-shadow-lg leading-relaxed">
                 "{scripture.quote}"
               </p>
             </div>
 
             {/* Scripture Reference - smaller, refined */}
             <div className="mb-4">
-              <p className="cormorant-garamond-medium text-xl md:text-2xl text-gray-600 drop-shadow-md">
+              <p className="cormorant-garamond-medium text-xl md:text-2xl lg:text-3xl xl:text-3xl text-gray-600 drop-shadow-md">
                 — {scripture.reference}
               </p>
             </div>
 
             {/* Hashtag - stylish accent */}
             <div>
-              <p className="cormorant-garamond-regular text-xl md:text-2xl text-gray-700 drop-shadow-lg">
+              <p className="cormorant-garamond-regular text-xl md:text-2xl lg:text-3xl xl:text-3xl text-gray-700 drop-shadow-lg">
                 {scripture.hashtag}
               </p>
             </div>

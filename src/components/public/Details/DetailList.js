@@ -142,36 +142,34 @@ export default function DetailList({
         - 'py-8': Vertical padding
         - 'h-full': Full height of parent
       */}
-      <div className="relative z-10 flex flex-col items-center justify-start px-4 md:px-8 py-8 h-full">
-        {/* 
+      <div className="relative z-10 flex flex-col items-center justify-start px-4 md:px-8 lg:px-16 xl:px-24 py-8 lg:py-12 xl:py-16 h-full">
+        {/*
           Content Wrapper
           ===============
           Contains the accent text, animated title, and detail cards.
           Centered with max width for readability.
         */}
-        <div className="w-full max-w-2xl">
-          {/* 
+        <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+          {/*
             Accent Text
             ===========
             Small accent text displayed above the main title.
-            Styled with cormorant font and subtle appearance.
           */}
           <div className="text-left">
-            <span className="windsong-medium text-2xl md:text-3xl text-gray-600/80 drop-shadow-sm tracking-wider">
+            <span className="windsong-medium text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-600/80 drop-shadow-sm tracking-wider">
               {accent}
             </span>
           </div>
 
-          {/* 
+          {/*
             Animated Title
             ==============
             Main title with typewriter animation effect.
-            Centered with responsive sizing and styling.
           */}
-          <div className="mb-12 text-left">
+          <div className="mb-12 lg:mb-16 text-left">
             <AnimatedText
               animation="type"
-              className="cormorant-garamond-regular pl-10 md:pl-10 text-5xl md:text-6xl text-gray-700 drop-shadow-lg"
+              className="cormorant-garamond-regular pl-10 md:pl-10 text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-gray-700 drop-shadow-lg"
               duration={1000}
               delay={200}
               triggerOnScroll={true}
@@ -180,13 +178,12 @@ export default function DetailList({
             </AnimatedText>
           </div>
 
-          {/* 
+          {/*
             Detail Cards Container
             ======================
             Contains all the DetailCard components.
-            Cards are stacked vertically with spacing between them.
           */}
-          <div className="space-y-8">
+          <div className="space-y-8 lg:space-y-12">
             {details.map((detail, index) => (
               <DetailCard
                 key={index}

@@ -79,48 +79,48 @@ export default function RSVPFormMessage({
      * - 'px-4 md:px-8': Responsive padding
      * - 'py-8': Vertical padding
      */
-    <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-8">
+    <div className="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-8 lg:py-12 xl:py-16">
       {/* Wedding title or Scripture */}
       {scripture ? (
-        <div className="mb-6">
-          <p className="cormorant-garamond-regular text-3xl md:text-4xl text-gray-700 drop-shadow-md leading-relaxed">
+        <div className="mb-6 lg:mb-8">
+          <p className="cormorant-garamond-regular text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-gray-700 drop-shadow-md leading-relaxed">
             "{scripture.quote}"
           </p>
-          <p className="cormorant-garamond-medium text-xl md:text-2xl text-gray-600 drop-shadow-sm mt-2">
+          <p className="cormorant-garamond-medium text-xl md:text-2xl lg:text-3xl xl:text-3xl text-gray-600 drop-shadow-sm mt-2">
             — {scripture.reference}
           </p>
         </div>
       ) : (
-        <h2 className="cormorant-garamond-bold text-4xl md:text-5xl text-gray-700 drop-shadow-md mb-6">
+        <h2 className="cormorant-garamond-bold text-4xl md:text-5xl lg:text-6xl xl:text-6xl text-gray-700 drop-shadow-md mb-6">
           {groom} & {bride}'s Wedding
         </h2>
       )}
 
       {/* Location - slightly smaller text */}
-      <p className="cormorant-garamond-semibold text-2xl md:text-3xl text-gray-600 drop-shadow-sm mb-2">
+      <p className="cormorant-garamond-semibold text-2xl md:text-3xl lg:text-4xl xl:text-4xl text-gray-600 drop-shadow-sm mb-2">
         {location}
       </p>
 
       {/* Date - slightly smaller text */}
-      <p className="cormorant-garamond-semibold text-2xl md:text-3xl text-gray-600 drop-shadow-sm mb-2">
+      <p className="cormorant-garamond-semibold text-2xl md:text-3xl lg:text-4xl xl:text-4xl text-gray-600 drop-shadow-sm mb-2">
         {date}
       </p>
 
       {/* Time - slightly smaller text */}
-      <p className="cormorant-garamond-semibold text-2xl md:text-3xl text-gray-600 drop-shadow-sm mb-6">
+      <p className="cormorant-garamond-semibold text-2xl md:text-3xl lg:text-4xl xl:text-4xl text-gray-600 drop-shadow-sm mb-6">
         {time}
       </p>
 
       {/* Message text - normal font */}
-      <p className="cormorant-garamond-regular text-lg md:text-xl text-gray-600 leading-relaxed">
+      <p className="cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed">
         {text}
       </p>
 
       {/* Signature */}
-      <p className="parisienne-regular text-lg md:text-xl text-gray-600 leading-relaxed mt-4">
+      <p className="parisienne-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
         {signature?.name ?`${signature.name}` : ''}
       </p>
-      <p className="parisienne-regular text-lg md:text-xl text-gray-600 leading-relaxed mt-4">
+      <p className="parisienne-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
         {signature?.title ? `${signature.title}` : ''}
       </p>
     </div>

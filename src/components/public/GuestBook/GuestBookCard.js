@@ -72,7 +72,7 @@ export default function GuestBookCard({ name, message, createdAt }) {
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm border border-gray-100">
       {/* Message - rendered as text only, supports emojis */}
-      <p className="cormorant-garamond-regular text-lg text-gray-700 leading-relaxed mb-2 italic whitespace-pre-wrap" style={{ wordSpacing: '0.05em' }}>
+      <p className="cormorant-garamond-regular text-lg lg:text-xl xl:text-xl text-gray-700 leading-relaxed mb-2 italic whitespace-pre-wrap" style={{ wordSpacing: '0.05em' }}>
         &ldquo;{convertEmoticons(displayMessage)}&rdquo;
       </p>
 
@@ -88,11 +88,11 @@ export default function GuestBookCard({ name, message, createdAt }) {
 
       {/* Name and Date */}
       <div className="flex items-center justify-between mt-2">
-        <p className="cormorant-garamond-semibold text-base text-gray-800">
+        <p className="cormorant-garamond-semibold text-base lg:text-lg xl:text-lg text-gray-800">
           — {convertEmoticons(name)}
         </p>
         {formattedDate && (
-          <p className="cormorant-garamond-regular text-sm text-gray-500">
+          <p className="cormorant-garamond-regular text-sm lg:text-base xl:text-base text-gray-500">
             {formattedDate}
           </p>
         )}
