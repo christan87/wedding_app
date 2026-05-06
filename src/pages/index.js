@@ -394,7 +394,7 @@ export default function Home({ signatures }) {
       <RSVP
         backgroundImage={images.img_011}
         month="MAY"
-        day="15"
+        day="19"
       />
 
       {/* 
