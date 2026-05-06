@@ -41,8 +41,8 @@ function sanitize(input) {
 function validateInput(name, message) {
   if (!name.trim()) return 'Name is required.';
   if (!message.trim()) return 'Message is required.';
-  if (name.length > 100) return 'Name must be 100 characters or fewer.';
-  if (message.length > 500) return 'Message must be 500 characters or fewer.';
+  if (name.length > 200) return 'Name must be 200 characters or fewer.';
+  if (message.length > 2000) return 'Message must be 2000 characters or fewer.';
 
   // Check for suspicious patterns
   const suspiciousPatterns = [
@@ -168,7 +168,7 @@ export default function GuestBookForm({ onSignatureAdded }) {
           placeholder="Leave a message for the couple... emojis welcome! 🎉💍"
           required
           rows="3"
-          maxLength={500}
+          maxLength={2000}
           className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cormorant-garamond-regular text-lg text-gray-700 resize-none"
         />
 
@@ -224,7 +224,7 @@ export default function GuestBookForm({ onSignatureAdded }) {
         )}
 
         <p className="text-right text-sm text-gray-400 mt-1">
-          {formData.message.length}/500
+          {formData.message.length}/2000
         </p>
       </div>
 

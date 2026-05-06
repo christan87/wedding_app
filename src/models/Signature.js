@@ -50,14 +50,14 @@ export function validateSignature(data) {
 
   if (!data.name || typeof data.name !== 'string' || !data.name.trim()) {
     errors.push('Name is required');
-  } else if (data.name.length > 100) {
-    errors.push('Name must be 100 characters or fewer');
+  } else if (data.name.length > 200) {
+    errors.push('Name must be 200 characters or fewer');
   }
 
   if (!data.message || typeof data.message !== 'string' || !data.message.trim()) {
     errors.push('Message is required');
-  } else if (data.message.length > 500) {
-    errors.push('Message must be 500 characters or fewer');
+  } else if (data.message.length > 2000) {
+    errors.push('Message must be 2000 characters or fewer');
   }
 
   // Check for malicious content
