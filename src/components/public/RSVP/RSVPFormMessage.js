@@ -120,7 +120,7 @@ export default function RSVPFormMessage({
       <p className="parisienne-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
         {signature?.name ?`${signature.name}` : ''}
       </p>
-      <p className="parisienne-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
+      <p className="windsong-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
         {signature?.title ? `${signature.title}` : ''}
       </p>
     </div>
