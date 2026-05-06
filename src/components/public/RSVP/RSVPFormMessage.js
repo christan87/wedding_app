@@ -79,7 +79,7 @@ export default function RSVPFormMessage({
      * - 'px-4 md:px-8': Responsive padding
      * - 'py-8': Vertical padding
      */
-    <div className="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-8 lg:py-12 xl:py-16">
+    <div className="w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-8 lg:py-12 xl:py-16">
       {/* Wedding title or Scripture */}
       {scripture ? (
         <div className="mb-6 lg:mb-8">
