@@ -14,6 +14,10 @@
 
 import { createSignature, getSignatures } from '@/services/signatureService';
 import { validateSignature, createSignatureObject } from '@/models/Signature';
+import { createRateLimiter, getIp } from '@/lib/rateLimiter';
+
+// 5 submissions per IP per 15 minutes
+const signatureLimiter = createRateLimiter({ max: 5, windowMs: 15 * 60 * 1000 });
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -66,6 +70,14 @@ async function handleGet(req, res) {
  * Creates a new signature after validation.
  */
 async function handlePost(req, res) {
+  const { success } = signatureLimiter(getIp(req));
+  if (!success) {
+    return res.status(429).json({
+      success: false,
+      error: 'Too many requests. Please wait a few minutes before trying again.',
+    });
+  }
+
   const validation = validateSignature(req.body);
 
   if (!validation.isValid) {

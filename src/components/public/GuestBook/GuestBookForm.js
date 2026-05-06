@@ -133,7 +133,7 @@ export default function GuestBookForm({ onSignatureAdded }) {
           onSignatureAdded(data.data);
         }
       } else {
-        setError(data.errors?.join(', ') || 'Failed to sign guest book');
+        setError(data.error || data.errors?.join(', ') || 'Failed to sign guest book');
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');

@@ -83,6 +83,60 @@ import { useRouter } from 'next/router';
 import ToastNotification, { useToast } from '@/components/public/ToastNotification';
 import GiftCarousel from '@/components/public/GiftCarousel';
 
+function sanitize(input) {
+  if (!input) return '';
+  return input
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/javascript:/gi, '')
+    .replace(/on\w+\s*=/gi, '')
+    .replace(/data:/gi, '')
+    .trim();
+}
+
+const SUSPICIOUS_PATTERNS = [
+  /<script/i,
+  /<iframe/i,
+  /<object/i,
+  /<embed/i,
+  /<link/i,
+  /javascript:/i,
+  /on\w+\s*=/i,
+];
+
+function hasSuspiciousContent(...values) {
+  return values.some((val) =>
+    val && SUSPICIOUS_PATTERNS.some((pattern) => pattern.test(val))
+  );
+}
+
+function validateRsvpInput(data) {
+  if (!data.name.trim()) return 'Name is required.';
+  if (data.name.length > 200) return 'Name must be 200 characters or fewer.';
+
+  if (!data.email.trim()) return 'Email is required.';
+  if (data.email.length > 200) return 'Email must be 200 characters or fewer.';
+
+  if (!data.phone.trim()) return 'Phone number is required.';
+  if (data.phone.length > 30) return 'Phone number must be 30 characters or fewer.';
+
+  if (data.guestName && data.guestName.length > 200) return 'Guest name must be 200 characters or fewer.';
+  if (data.accommodationsText && data.accommodationsText.length > 1000) return 'Accommodation details must be 1000 characters or fewer.';
+  if (data.song && data.song.length > 200) return 'Song request must be 200 characters or fewer.';
+  if (data.message && data.message.length > 2000) return 'Message must be 2000 characters or fewer.';
+  if (data.dietaryRestrictions?.other && data.dietaryRestrictions.other.length > 200) return 'Dietary restriction details must be 200 characters or fewer.';
+
+  if (hasSuspiciousContent(
+    data.name, data.email, data.phone, data.guestName,
+    data.accommodationsText, data.song, data.message,
+    data.dietaryRestrictions?.other
+  )) {
+    return 'Invalid characters detected. Please use only plain text.';
+  }
+
+  return null;
+}
+
 /**
  * RSVP FORM COMPONENT
  * 
@@ -350,45 +404,68 @@ export default function RSVPForm() {
     
     // Clear any previous error messages
     setErrors([]);
-    
+
+    // Sanitize all text inputs before processing
+    const sanitizedData = {
+      ...formData,
+      name: sanitize(formData.name),
+      email: sanitize(formData.email),
+      phone: sanitize(formData.phone),
+      guestName: sanitize(formData.guestName),
+      accommodationsText: sanitize(formData.accommodationsText),
+      song: sanitize(formData.song),
+      message: sanitize(formData.message),
+      dietaryRestrictions: {
+        ...formData.dietaryRestrictions,
+        other: sanitize(formData.dietaryRestrictions.other),
+      },
+    };
+
+    const inputError = validateRsvpInput(sanitizedData);
+    if (inputError) {
+      setErrors([inputError]);
+      showToast('error', inputError);
+      return;
+    }
+
     // Set submitting state to true (disables submit button)
     setIsSubmitting(true);
 
     try {
       // Check if an RSVP already exists for this email
-      const checkResponse = await fetch(`/api/rsvps/check-email?email=${encodeURIComponent(formData.email)}`);
+      const checkResponse = await fetch(`/api/rsvps/check-email?email=${encodeURIComponent(sanitizedData.email)}`);
       const checkResult = await checkResponse.json();
       
       // If RSVP exists, ask user for confirmation to replace it
       if (checkResult.success && checkResult.exists) {
         const confirmed = window.confirm(
-          `An RSVP has already been submitted for ${formData.email}. ` +
+          `An RSVP has already been submitted for ${sanitizedData.email}. ` +
           `Submitting this form will replace your previous RSVP. ` +
           `Would you like to continue?`
         );
-        
+
         // If user cancels, redirect to home
         if (!confirmed) {
           setIsSubmitting(false);
           router.push('/');
           return;
         }
-        
+
         // If user confirms, delete the old RSVP first
         const deleteResponse = await fetch(`/api/rsvps/${checkResult.rsvp._id}`, {
           method: 'DELETE',
         });
-        
+
         if (!deleteResponse.ok) {
           throw new Error('Failed to delete previous RSVP');
         }
       }
-      
+
       // Prepare submission data with defaults for hidden fields when not attending
-      const submissionData = { ...formData };
-      
+      const submissionData = { ...sanitizedData };
+
       // If user is not attending, set default values for fields they didn't see
-      if (formData.attending === false) {
+      if (sanitizedData.attending === false) {
         submissionData.guests = false;
         submissionData.guestName = '';
         submissionData.dietaryRestrictions = {

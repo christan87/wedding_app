@@ -75,6 +75,10 @@
 
 import { createRsvp, getRsvps } from '@/services/rsvpService';
 import { validateRsvp, createRsvpObject } from '@/models/Rsvp';
+import { createRateLimiter, getIp } from '@/lib/rateLimiter';
+
+// 3 submissions per IP per 15 minutes
+const rsvpLimiter = createRateLimiter({ max: 3, windowMs: 15 * 60 * 1000 });
 
 /**
  * API HANDLER
@@ -231,6 +235,14 @@ async function handleGet(req, res) {
  * @param {Object} res - Response object
  */
 async function handlePost(req, res) {
+  const { success } = rsvpLimiter(getIp(req));
+  if (!success) {
+    return res.status(429).json({
+      success: false,
+      error: 'Too many requests. Please wait a few minutes before trying again.',
+    });
+  }
+
   // Validate RSVP data using the model's validation function
   // This checks all required fields and formats
   const validation = validateRsvp(req.body);
