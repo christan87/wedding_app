@@ -326,6 +326,20 @@ function GiftItem({ item, width, height, textSize }) {
       <p className={`mt-3 cormorant-garamond-medium ${textSize} text-gray-700 text-center max-w-[${width}px]`}>
         {name}
       </p>
+      {/* instruction */}
+      {link && (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block cursor-pointer group"
+          aria-label={`View ${name} on external site`}
+        >
+          <p className={`mt-1 cormorant-garamond-regular ${textSize} text-gray-500 hover:text-blue-800 text-center max-w-[${width}px]`}>
+            Click to open
+          </p>
+        </a>
+      )}
     </div>
   );
 }
