@@ -159,6 +159,7 @@ export default function GiftCarousel({
         {/* LEFT ARROW */}
         {showArrows && items.length > itemsPerView && (
           <button
+            type="button"
             onClick={handlePrev}
             className="z-10 p-2 md:p-3 bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200 hover:scale-110 mr-2"
             aria-label="Previous items"
@@ -204,6 +205,7 @@ export default function GiftCarousel({
         {/* RIGHT ARROW */}
         {showArrows && items.length > itemsPerView && (
           <button
+            type="button"
             onClick={handleNext}
             className="z-10 p-2 md:p-3 bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200 hover:scale-110 ml-2"
             aria-label="Next items"
@@ -227,6 +229,7 @@ export default function GiftCarousel({
           {Array.from({ length: totalPages }).map((_, pageIndex) => (
             <button
               key={pageIndex}
+              type="button"
               onClick={() => goToPage(pageIndex)}
               className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                 currentPage === pageIndex
