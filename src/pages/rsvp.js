@@ -96,6 +96,7 @@ export default function RSVP() {
         title="Save the Date"
         groom=""
         bride=""
+        hashtag= "#ThePriceIsRight"
       />
 
       {/* 
@@ -112,10 +113,17 @@ export default function RSVP() {
         - text: Additional message for guests
       */}
       <RSVPFormMessage
-
+        scripture={{
+          quote: "Let all that you do be done in love.",
+          reference: "1 Corinthians 16:14"
+        }}
         groom="Christan"
         bride="Jennifer"
-        text="Please confirm your attendance by filling out the form below. We kindly request that you RSVP by May 19, 2026. If you have any dietary restrictions or special requirements, please let us know in the comments section. If you’re unable to attend, we warmly invite you to complete the form to share a message or request our mailing address."
+        text="Please confirm your attendance by completing the form below no later than May 19, 2026. Kindly include any dietary restrictions or special requests in the comments section. If you are unable to attend, you are still welcome to complete the form to share a message or request our mailing address to send a card."
+        signature={{
+          name: "Love XOXO",
+          title: "Chris & Jenn"
+        }}
       />
 
       {/* 

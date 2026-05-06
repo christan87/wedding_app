@@ -33,6 +33,7 @@
  * @param {string} title - Title text to display (e.g., "RSVP")
  * @param {string} bride - Bride's name (e.g., "Jenn")
  * @param {string} groom - Groom's name (e.g., "Chris")
+ * @param {string} hashtag - Optional hashtag text displayed in bottom-right corner
  * 
  * USAGE EXAMPLE:
  * ==============
@@ -58,6 +59,7 @@ export default function PageBanner({
   title,
   bride,
   groom,
+  hashtag,
 }) {
   // ========== RENDER ==========
   return (
@@ -110,6 +112,15 @@ export default function PageBanner({
           </p>
         )}
       </div>
+
+      {/* Hashtag - stylish accent in bottom-right corner */}
+      {hashtag && (
+        <div className="absolute bottom-4 right-6 md:bottom-6 md:right-10 z-10">
+          <p className="cormorant-garamond-regular text-xl md:text-2xl text-white drop-shadow-lg">
+            {hashtag}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

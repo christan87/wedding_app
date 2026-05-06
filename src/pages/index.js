@@ -65,6 +65,8 @@ import RSVP from "@/components/public/RSVP/RSVP";
 import DateFooter from "@/components/public/Footer/DateFooter";
 import GiftCarousel from "@/components/public/GiftCarousel";
 import GoogleMapSection from "@/components/public/Map/GoogleMapSection";
+import GuestBook from "@/components/public/GuestBook/GuestBook";
+import { getSignatures } from '@/services/signatureService';
 
 // Images
 const images = {
@@ -112,7 +114,24 @@ const images = {
  * 3. EventCalendar section below with wedding events
  * 4. DetailList section with wedding details and information
  */
-export default function Home() {
+export async function getServerSideProps() {
+  try {
+    const signatures = await getSignatures();
+    return {
+      props: {
+        signatures: JSON.parse(JSON.stringify(signatures)),
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        signatures: [],
+      },
+    };
+  }
+}
+
+export default function Home({ signatures }) {
   return (
     // Full-screen container - no padding needed as HeroImage fills the space
     <div className="min-h-screen bg-white">
@@ -338,25 +357,25 @@ export default function Home() {
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Accommodations",
-              text: "If you think you or a guest may have issues standing for extended periods, please let us know and we will do our best to accommodate you.",
+              text: "If you or a guest may need seating, please let us know—we’re happy to help. Seating is limited, with benches available throughout the rose gardens.",
             },
             // Detail 2: Registry
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Registry",
-              text: "Your presence is gift enough. If you’d like to honor us further, we’re registered on Amazon (link below), or you’re welcome to contribute via Venmo or Cash App.",
+              text: "Your presence is our greatest gift. For those who wish, our registry is below, or you can contribute to our honeymoon via Venmo or Cash App.",
             },
             // Detail 3: Transportation
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Transportation",
-              text: "We’re so grateful to celebrate with you! Please note that transportation to and from the ceremony and reception will not be provided, so we kindly ask guests to arrange their own travel or coordinate with others attending.",
+              text: "Please note that transportation to and from the ceremony and reception will not be provided—guests are kindly asked to arrange their own travel or coordinate with others",
             },
             // Detail 4: Dress Code
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Dress Code",
-              text: "We kindly ask guests to wear dress attire for the ceremony and evening reception. Please avoid white in honor of the bride (our colors are red, gold, and pink). As the ceremony will be outdoors, comfortable shoes are encouraged.",
+              text: "Dress attire requested. Please avoid white in honor of the bride. The ceremony will be outdoors, so comfortable shoes are encouraged. Our colors are red, gold, and pink",
             },
           ]}
         />
@@ -401,7 +420,7 @@ export default function Home() {
         scripture={{
           quote: "I have found the one whom my soul loves",
           reference: "Song of Solomon 3:4",
-          hashtag: "#ThePriceIsRight"
+          
         }}
       />
 
@@ -462,6 +481,16 @@ export default function Home() {
           />
         </div>
       </div>
+
+      {/* 
+        GUEST BOOK SECTION
+        ==================
+        Displays guest book signatures and form for guests to sign.
+      */}
+      <GuestBook
+        signatures={signatures}
+        title="Guest Book"
+      />
     </div>
   );
 }

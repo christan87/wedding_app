@@ -103,11 +103,11 @@ export default function RSVP({
       */}
       <div className="relative z-10 flex flex-col items-center justify-center px-4 py-16 text-center">
         {/* "please" text */}
-        <div className="mb-4 align-text-bottom">
+        {/* <div className="mb-4 align-text-bottom">
           <span className="windsong-medium  text-4xl md:text-5xl text-white drop-shadow-lg">
             Please
           </span>
-        </div>
+        </div> */}
 
         {/* "RS" text - extremely large */}
         <div className="mb-0">

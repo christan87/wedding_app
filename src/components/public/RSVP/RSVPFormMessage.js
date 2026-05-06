@@ -37,6 +37,10 @@
  * @param {string} groom - Groom's name (e.g., "Chris")
  * @param {string} bride - Bride's name (e.g., "Jenn")
  * @param {string} text - Additional message text
+ * @param {Object} scripture - Optional scripture object { quote, reference }
+ *   If provided, replaces the "{groom} & {bride}'s Wedding" title
+ * @param {Object} signature - Optional signature object { name, title }
+ *   If provided, adds a signature line at the bottom
  * 
  * USAGE EXAMPLE:
  * ==============
@@ -64,6 +68,8 @@ export default function RSVPFormMessage({
   groom,
   bride,
   text,
+  scripture,
+  signature,
 }) {
   // ========== RENDER ==========
   return (
@@ -74,10 +80,21 @@ export default function RSVPFormMessage({
      * - 'py-8': Vertical padding
      */
     <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-8">
-      {/* Wedding title - large text */}
-      <h2 className="cormorant-garamond-bold text-4xl md:text-5xl text-gray-700 drop-shadow-md mb-6">
-        {groom} & {bride}'s Wedding
-      </h2>
+      {/* Wedding title or Scripture */}
+      {scripture ? (
+        <div className="mb-6">
+          <p className="cormorant-garamond-regular text-3xl md:text-4xl text-gray-700 drop-shadow-md leading-relaxed">
+            "{scripture.quote}"
+          </p>
+          <p className="cormorant-garamond-medium text-xl md:text-2xl text-gray-600 drop-shadow-sm mt-2">
+            — {scripture.reference}
+          </p>
+        </div>
+      ) : (
+        <h2 className="cormorant-garamond-bold text-4xl md:text-5xl text-gray-700 drop-shadow-md mb-6">
+          {groom} & {bride}'s Wedding
+        </h2>
+      )}
 
       {/* Location - slightly smaller text */}
       <p className="cormorant-garamond-semibold text-2xl md:text-3xl text-gray-600 drop-shadow-sm mb-2">
@@ -97,6 +114,14 @@ export default function RSVPFormMessage({
       {/* Message text - normal font */}
       <p className="cormorant-garamond-regular text-lg md:text-xl text-gray-600 leading-relaxed">
         {text}
+      </p>
+
+      {/* Signature */}
+      <p className="parisienne-regular text-lg md:text-xl text-gray-600 leading-relaxed mt-4">
+        {signature?.name ?`${signature.name}` : ''}
+      </p>
+      <p className="parisienne-regular text-lg md:text-xl text-gray-600 leading-relaxed mt-4">
+        {signature?.title ? `${signature.title}` : ''}
       </p>
     </div>
   );
