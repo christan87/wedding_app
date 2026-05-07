@@ -489,7 +489,7 @@ export default function Home({ signatures }) {
       */}
       <GuestBook
         signatures={signatures}
-        title="Guest Book"
+        title="Virtual Guest Book"
       />
     </div>
   );
