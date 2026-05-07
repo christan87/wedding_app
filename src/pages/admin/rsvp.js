@@ -580,6 +580,16 @@ export default function AdminRSVPPage() {
                                   Not Attending
                                 </span>
                               )}
+                              {rsvp.attending && rsvp.attendingCeremony === true && (
+                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                                  Ceremony
+                                </span>
+                              )}
+                              {rsvp.attending && rsvp.attendingReception === true && (
+                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-pink-100 text-pink-800">
+                                  Reception
+                                </span>
+                              )}
                               {rsvp.requestAddress && !rsvp.addressSent && (
                                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                                   Address Requested
@@ -644,6 +654,26 @@ export default function AdminRSVPPage() {
                               <span className="text-sm font-semibold text-gray-700">Phone:</span>
                               <p className="text-sm text-gray-600">{rsvp.phone || 'N/A'}</p>
                             </div>
+
+                            {/* Ceremony */}
+                            {rsvp.attending && (
+                              <div>
+                                <span className="text-sm font-semibold text-gray-700">Attending Ceremony:</span>
+                                <p className="text-sm text-gray-600">
+                                  {rsvp.attendingCeremony === true ? 'Yes' : rsvp.attendingCeremony === false ? 'No' : 'N/A'}
+                                </p>
+                              </div>
+                            )}
+
+                            {/* Reception */}
+                            {rsvp.attending && (
+                              <div>
+                                <span className="text-sm font-semibold text-gray-700">Attending Reception:</span>
+                                <p className="text-sm text-gray-600">
+                                  {rsvp.attendingReception === true ? 'Yes' : rsvp.attendingReception === false ? 'No' : 'N/A'}
+                                </p>
+                              </div>
+                            )}
 
                             {/* Guests */}
                             <div>

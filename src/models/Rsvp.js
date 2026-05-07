@@ -134,6 +134,14 @@ const RsvpSchema = {
     type: Boolean,
     required: true,
   },
+  attendingCeremony: {
+    type: Boolean,
+    required: false,
+  },
+  attendingReception: {
+    type: Boolean,
+    required: false,
+  },
   guests: {
     type: Boolean,
     required: true,
@@ -303,6 +311,16 @@ export function validateRsvp(data) {
     errors.push('Attending status is required');
   }
 
+  // Check ceremony/reception attendance when attending
+  if (data.attending === true) {
+    if (typeof data.attendingCeremony !== 'boolean') {
+      errors.push('Ceremony attendance is required');
+    }
+    if (typeof data.attendingReception !== 'boolean') {
+      errors.push('Reception attendance is required');
+    }
+  }
+
   // Check guests: must be a boolean (true or false)
   if (typeof data.guests !== 'boolean') {
     errors.push('Guests status is required');
@@ -391,6 +409,8 @@ export function createRsvpObject(data) {
     
     // Attendance information (converted to boolean)
     attending: Boolean(data.attending),                 // Ensure boolean
+    attendingCeremony: data.attendingCeremony != null ? Boolean(data.attendingCeremony) : null,
+    attendingReception: data.attendingReception != null ? Boolean(data.attendingReception) : null,
     guests: Boolean(data.guests),                       // Ensure boolean
     guestName: data.guestName?.trim() || '',            // Remove whitespace
     // Dietary restrictions (nested object with boolean flags)

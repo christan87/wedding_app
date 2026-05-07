@@ -149,6 +149,28 @@ export default function AdminDashboard() {
               <p className="mt-1 text-sm text-gray-500">Confirmed yes</p>
             </div>
 
+            {/* Ceremony Card */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900">Ceremony</h3>
+              {loading ? (
+                <div className="mt-2 h-9 bg-gray-200 animate-pulse rounded"></div>
+              ) : (
+                <p className="mt-2 text-3xl font-bold text-indigo-600">{rsvps.filter(r => r.attendingCeremony === true).length}</p>
+              )}
+              <p className="mt-1 text-sm text-gray-500">Attending ceremony</p>
+            </div>
+
+            {/* Reception Card */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900">Reception</h3>
+              {loading ? (
+                <div className="mt-2 h-9 bg-gray-200 animate-pulse rounded"></div>
+              ) : (
+                <p className="mt-2 text-3xl font-bold text-pink-600">{rsvps.filter(r => r.attendingReception === true).length}</p>
+              )}
+              <p className="mt-1 text-sm text-gray-500">Attending reception</p>
+            </div>
+
             {/* Approved RSVPs Card
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900">Approved</h3>

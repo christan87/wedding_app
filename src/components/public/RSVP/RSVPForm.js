@@ -164,6 +164,8 @@ export default function RSVPForm() {
     email: '',
     phone: '',
     attending: null,
+    attendingCeremony: null,
+    attendingReception: null,
     guests: null,
     guestName: '',
     dietaryRestrictions: {
@@ -277,6 +279,8 @@ export default function RSVPForm() {
       setFormData((prev) => ({
         ...prev,
         attending: false,
+        attendingCeremony: null,
+        attendingReception: null,
         guests: false,
         guestName: '',
         dietaryRestrictions: {
@@ -508,6 +512,8 @@ export default function RSVPForm() {
           email: '',
           phone: '',
           attending: null,
+          attendingCeremony: null,
+          attendingReception: null,
           guests: null,
           guestName: '',
           dietaryRestrictions: {
@@ -689,9 +695,87 @@ export default function RSVPForm() {
           </div>
         </div>
 
-        {/* 
+        {/* ATTENDING CEREMONY */}
+        {formData.attending === true && (
+        <div className="form-group">
+          <label className="flex items-center gap-3 mb-3 text-lg font-medium text-gray-700">
+            <Image
+              src={iconImage}
+              alt="Ceremony"
+              width={24}
+              height={24}
+              className="object-contain"
+            />
+            Will you be attending the ceremony? <span className="text-red-500">*</span>
+          </label>
+          <div className="flex gap-6 ml-9">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="attendingCeremony"
+                checked={formData.attendingCeremony === true}
+                onChange={() => handleRadioChange('attendingCeremony', true)}
+                className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <span className="text-gray-700">Yes</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="attendingCeremony"
+                checked={formData.attendingCeremony === false}
+                onChange={() => handleRadioChange('attendingCeremony', false)}
+                className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
+              />
+              <span className="text-gray-700">No</span>
+            </label>
+          </div>
+        </div>
+        )}
+
+        {/* ATTENDING RECEPTION */}
+        {formData.attending === true && (
+        <div className="form-group">
+          <label className="flex items-center gap-3 mb-3 text-lg font-medium text-gray-700">
+            <Image
+              src={iconImage}
+              alt="Reception"
+              width={24}
+              height={24}
+              className="object-contain"
+            />
+            Will you be attending the reception? <span className="text-red-500">*</span>
+          </label>
+          <div className="flex gap-6 ml-9">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="attendingReception"
+                checked={formData.attendingReception === true}
+                onChange={() => handleRadioChange('attendingReception', true)}
+                className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <span className="text-gray-700">Yes</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="attendingReception"
+                checked={formData.attendingReception === false}
+                onChange={() => handleRadioChange('attendingReception', false)}
+                className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
+              />
+              <span className="text-gray-700">No</span>
+            </label>
+          </div>
+        </div>
+        )}
+
+        {/*
           GUESTS RADIO BUTTONS (CONDITIONAL)
-          
+
           Yes/No choice for bringing additional guests.
           Only appears if user is attending (attending === true).
           Required field when visible.
