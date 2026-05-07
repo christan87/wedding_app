@@ -369,13 +369,13 @@ export default function Home({ signatures }) {
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Transportation",
-              text: "Please note that transportation to and from the ceremony and reception will not be provided—guests are kindly asked to arrange their own travel or coordinate with others",
+              text: "Please note that transportation to and from the ceremony and reception will not be provided—guests are kindly asked to arrange their own travel or coordinate with others.",
             },
             // Detail 4: Dress Code
             {
               dividerImage: "/images/icons/waxseal.png",  // TODO: Replace with your divider image
               title: "Dress Code",
-              text: "Dress attire requested. Please avoid white in honor of the bride. The ceremony will be outdoors, so comfortable shoes are encouraged. Our colors are red, gold, and pink",
+              text: "Dress attire requested. Please avoid white in honor of the bride. The ceremony will be outdoors, so comfortable shoes are encouraged. Our colors are red, gold, and pink.",
             },
           ]}
         />

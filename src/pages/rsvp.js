@@ -121,8 +121,8 @@ export default function RSVP() {
         bride="Jennifer"
         text="Please confirm your attendance by completing the form below no later than May 19, 2026. Kindly include any dietary restrictions or special requests in the comments section. If you are unable to attend, you are still welcome to complete the form to share a message or request our mailing address to send a card."
         signature={{
-          name: "Love XOXO",
-          title: "Chris & Jenn"
+          name: "Love Always, Christan and Jennifer",
+          title: ""
         }}
       />
 
@@ -131,7 +131,7 @@ export default function RSVP() {
         =================
         RSVPForm component with all fields from the MongoDB model
       */}
-      <div className="w-full px-4 md:px-8 lg:px-16 xl:px-24 py-12 lg:py-16 xl:py-20">
+      <div className="w-full pt-0! px-4 md:px-8 lg:px-16 xl:px-24 py-12 lg:py-16 xl:py-20">
         <RSVPForm />
       </div>
     </div>

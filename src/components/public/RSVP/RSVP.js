@@ -161,9 +161,9 @@ export default function RSVP({
           <p className="cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-white drop-shadow-md mb-4">
             Please click the RSVP button and fill out the form to confirm your attendance.
           </p>
-          <p className="windsong-medium text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-lg">
+          {/* <p className="windsong-medium text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-lg">
             Thank You!
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

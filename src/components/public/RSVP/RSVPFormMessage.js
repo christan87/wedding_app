@@ -79,7 +79,7 @@ export default function RSVPFormMessage({
      * - 'px-4 md:px-8': Responsive padding
      * - 'py-8': Vertical padding
      */
-    <div className="w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-8 lg:py-12 xl:py-16">
+    <div className="w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-8 lg:py-12 xl:py-16 pt-0!">
       {/* Wedding title or Scripture */}
       {scripture ? (
         <div className="mb-6 lg:mb-8">
@@ -117,7 +117,7 @@ export default function RSVPFormMessage({
       </p>
 
       {/* Signature */}
-      <p className="parisienne-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
+      <p className="dancing-script-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
         {signature?.name ?`${signature.name}` : ''}
       </p>
       <p className="windsong-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-600 leading-relaxed mt-4">
