@@ -62,6 +62,7 @@ export default function RSVP({
   backgroundImage,
   month,
   day,
+  closed = false,
 }) {
   // ========== RENDER ==========
   return (
@@ -144,27 +145,37 @@ export default function RSVP({
           </span>
         </div>
 
-        {/* RSVP Button */}
-        <div className="mb-8">
-          <AnimatedButton
-            btnText="RSVP"
-            url="/rsvp"
-            animation="fade-up"
-            delay={900}
-            duration={800}
-            triggerOnScroll={true}
-          />
-        </div>
+        {/* RSVP Button or Closed Message */}
+        {closed ? (
+          <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl mb-8">
+            <p className="cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-white drop-shadow-md">
+              RSVPs are now closed. Thank you to everyone who responded! You can still leave us a message on our virtual guest book below.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="mb-8">
+              <AnimatedButton
+                btnText="RSVP"
+                url="/rsvp"
+                animation="fade-up"
+                delay={900}
+                duration={800}
+                triggerOnScroll={true}
+              />
+            </div>
 
-        {/* Instructions */}
-        <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl">
-          <p className="cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-white drop-shadow-md mb-4">
-            Please click the RSVP button and fill out the form to confirm your attendance.
-          </p>
-          {/* <p className="windsong-medium text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-lg">
-            Thank You!
-          </p> */}
-        </div>
+            {/* Instructions */}
+            <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+              <p className="cormorant-garamond-regular text-lg md:text-xl lg:text-2xl xl:text-2xl text-white drop-shadow-md mb-4">
+                Please click the RSVP button and fill out the form to confirm your attendance.
+              </p>
+              {/* <p className="windsong-medium text-xl md:text-2xl lg:text-3xl xl:text-3xl text-white drop-shadow-lg">
+                Thank You!
+              </p> */}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

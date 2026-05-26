@@ -395,6 +395,7 @@ export default function Home({ signatures }) {
         backgroundImage={images.img_011}
         month="MAY"
         day="19"
+        closed={true}
       />
 
       {/* 
