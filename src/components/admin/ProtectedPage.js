@@ -56,7 +56,7 @@ import AccessDeniedMessage from './AccessDeniedMessage';
  */
 const WHITELIST = [
   'christan.price2010@gmail.com',
-  'designsbyjmj@gmail.com'
+  'designs.byjmj@gmail.com'
   // Add more approved emails here
 ];
 
