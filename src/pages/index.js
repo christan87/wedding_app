@@ -65,6 +65,7 @@ import RSVP from "@/components/public/RSVP/RSVP";
 import DateFooter from "@/components/public/Footer/DateFooter";
 import GiftCarousel from "@/components/public/GiftCarousel";
 import GoogleMapSection from "@/components/public/Map/GoogleMapSection";
+import GallerySection from "@/components/public/Gallery/GallerySection";
 import GuestBook from "@/components/public/GuestBook/GuestBook";
 import { getSignatures } from '@/services/signatureService';
 
@@ -483,7 +484,15 @@ export default function Home({ signatures }) {
         </div>
       </div>
 
-      {/* 
+      {/*
+        GALLERY SECTION
+        ===============
+        Renders only when galleryVisible is true in /api/settings/gallery.
+        Fetches photos client-side; returns null when hidden.
+      */}
+      <GallerySection />
+
+      {/*
         GUEST BOOK SECTION
         ==================
         Displays guest book signatures and form for guests to sign.
