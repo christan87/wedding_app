@@ -15,15 +15,21 @@ export default function GalleryUploader({ onUploadComplete, onCloudinaryError })
 
     setErrorMessage(null);
 
-    if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+    const mime = file.type.toLowerCase();
+    const isImage = mime.startsWith('image/') || mime === '' || mime === 'application/octet-stream';
+    const isVideo = mime.startsWith('video/');
+    const ext = file.name.split('.').pop().toLowerCase();
+    const isHeic = ['heic', 'heif'].includes(ext);
+
+    if (!isImage && !isVideo && !isHeic) {
       setErrorMessage('Only image or video files are allowed.');
-      e.target.value = '';
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
-    if (file.size > MAX_BYTES) {
-      setErrorMessage('File must be under 50 MB.');
-      e.target.value = '';
+    if (file.size > 52428800) {
+      setErrorMessage('File is too large. Maximum size is 50 MB.');
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
@@ -36,13 +42,29 @@ export default function GalleryUploader({ onUploadComplete, onCloudinaryError })
     setStatus('uploading');
     setErrorMessage(null);
 
+    // Step 1 — get signed upload params
+    let params;
     try {
-      // Step 1 — get signed upload params
       const paramsRes = await fetch('/api/photos/upload-params');
+      if (!paramsRes.ok) {
+        const text = await paramsRes.text();
+        console.error('upload-params failed:', paramsRes.status, text);
+        setStatus('error');
+        setErrorMessage('Could not start upload. Please try again.');
+        return;
+      }
       const paramsJson = await paramsRes.json();
-      const params = paramsJson.data;
+      params = paramsJson.data;
+    } catch (err) {
+      console.error('upload-params fetch error:', err);
+      setStatus('error');
+      setErrorMessage('Could not start upload. Please check your connection and try again.');
+      return;
+    }
 
-      // Step 2 — upload directly to Cloudinary
+    // Step 2 — upload file directly to Cloudinary
+    let cloudData;
+    try {
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('timestamp', params.timestamp);
@@ -56,36 +78,49 @@ export default function GalleryUploader({ onUploadComplete, onCloudinaryError })
       );
 
       if (!cloudRes.ok) {
+        const text = await cloudRes.text();
+        console.error('Cloudinary upload failed:', cloudRes.status, text);
         onCloudinaryError?.();
         setStatus('error');
         setErrorMessage('There was a storage error. Please try again later.');
         return;
       }
 
-      const cloudData = await cloudRes.json();
-      const { public_id, secure_url, resource_type, width, height, format } = cloudData;
+      cloudData = await cloudRes.json();
+    } catch (err) {
+      console.error('Cloudinary fetch error:', err);
+      onCloudinaryError?.();
+      setStatus('error');
+      setErrorMessage('Upload failed. Please check your connection and try again.');
+      return;
+    }
 
-      // Step 3 — save metadata to MongoDB
+    // Step 3 — save metadata to MongoDB via /api/photos
+    try {
       const saveRes = await fetch('/api/photos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          publicId: public_id,
-          url: secure_url,
-          resourceType: resource_type,
-          width,
-          height,
-          format,
+          publicId:     cloudData.public_id,
+          url:          cloudData.secure_url,
+          resourceType: cloudData.resource_type,
+          width:        cloudData.width,
+          height:       cloudData.height,
+          format:       cloudData.format,
           uploaderName: uploaderName.trim() || undefined,
         }),
       });
 
       const saveJson = await saveRes.json();
-      if (!saveJson.success) throw new Error(saveJson.error || 'Failed to save photo');
+      if (!saveJson.success) {
+        console.error('Photo save failed:', saveJson.error);
+        setStatus('error');
+        setErrorMessage('Photo uploaded but could not be saved. Please contact us.');
+        return;
+      }
 
       setStatus('done');
       onUploadComplete?.();
-
       setTimeout(() => {
         setStatus('idle');
         setSelectedFile(null);
@@ -93,10 +128,10 @@ export default function GalleryUploader({ onUploadComplete, onCloudinaryError })
         setErrorMessage(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
       }, 2000);
-
     } catch (err) {
+      console.error('Photo save fetch error:', err);
       setStatus('error');
-      setErrorMessage('Something went wrong. Please try again.');
+      setErrorMessage('Photo uploaded but could not be saved. Please contact us.');
     }
   };
 
