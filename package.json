@@ -11,6 +11,8 @@
   "dependencies": {
     "@clerk/nextjs": "^6.36.7",
     "@react-google-maps/api": "^2.20.8",
+    "@uploadcare/react-uploader": "^1.15.0",
+    "@uploadcare/rest-client": "^6.18.4",
     "cloudinary": "^2.10.0",
     "lru-cache": "^11.3.6",
     "mongodb": "^7.0.0",

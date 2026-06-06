@@ -74,7 +74,7 @@ export default function GallerySection() {
             </p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-              {photos.map((photo, index) => (
+              {photos.filter(photo => photo.url?.startsWith('https://ucarecdn.com')).map((photo, index) => (
                 <button
                   key={photo._id || index}
                   type="button"
