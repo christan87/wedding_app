@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ucarecdn.com',
+        pathname: '/**',
+      },
     ],
     // Optimize image formats - prefer modern formats for smaller file sizes
     formats: ['image/avif', 'image/webp'],

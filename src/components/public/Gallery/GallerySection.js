@@ -58,6 +58,7 @@ export default function GallerySection() {
 
   if (settingsLoaded && !galleryVisible) return null;
 
+  const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
   const activePhoto = lightboxIndex !== null ? photos[lightboxIndex] : null;
 
   return (
@@ -74,7 +75,9 @@ export default function GallerySection() {
             </p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-              {photos.filter(photo => photo.url?.startsWith('https://ucarecdn.com')).map((photo, index) => (
+              {photos
+                .filter(photo => UUID_REGEX.test(photo.publicId))
+                .map((photo, index) => (
                 <button
                   key={photo._id || index}
                   type="button"

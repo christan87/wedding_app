@@ -8,6 +8,7 @@ export default function GalleryUploader({ onUploadComplete, onCloudinaryError })
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleFileUploadSuccess = async (fileInfo) => {
+    console.log('Uploadcare fileInfo:', JSON.stringify(fileInfo, null, 2));
     setStatus('saving');
     setErrorMessage(null);
 
@@ -79,6 +80,7 @@ export default function GalleryUploader({ onUploadComplete, onCloudinaryError })
           pubkey={process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY}
           multiple={true}
           sourceList="local, camera"
+          store="auto"
           onFileUploadSuccess={handleFileUploadSuccess}
           onFileUploadFailed={handleUploadFailed}
         />
