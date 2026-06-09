@@ -36,6 +36,21 @@
  *   - {string} name - Name of the location (e.g., "Ceremony", "Reception")
  *   - {string} address - Full address of the location
  * 
+ *   locations={[
+    {
+      name: "Ceremony",
+      address: "Morcom Rose Garden, 700 Jean St, Oakland, CA 94610",
+      lat: 37.8077,   // add these if GPS is inaccurate
+      lng: -122.2477,
+      note: "Enter from Jean St — GPS may direct you to the wrong gate.",
+    },
+    {
+      name: "Reception",
+      address: "Eve's Waterfront, 15 Embarcadero West, Oakland, CA 94607",
+    },
+  ]}
+ * 
+ * 
  * @param {string} title - Optional title displayed above the tabs
  * @param {string} className - Additional CSS classes for the container (default: '')
  * @param {string} mapHeight - Height of the map (default: 'h-64')
@@ -124,12 +139,19 @@ export default function GoogleMapSection({
         <p className="cormorant-garamond-regular text-base lg:text-lg xl:text-xl text-gray-600 mt-1">
           {activeLocation.address}
         </p>
+        {activeLocation.note && (
+          <p className="cormorant-garamond-semibold text-base lg:text-lg text-red-600 mt-2">
+            ⚠ {activeLocation.note}
+          </p>
+        )}
       </div>
 
       {/* MAP */}
       <div className="px-4 md:px-8 lg:px-12 xl:px-16">
         <GoogleMap
           address={activeLocation.address}
+          lat={activeLocation.lat}
+          lng={activeLocation.lng}
           height={mapHeight}
           zoom={zoom}
         />
@@ -138,7 +160,11 @@ export default function GoogleMapSection({
       {/* DIRECTIONS LINK */}
       <div className="text-center mt-4">
         <a
-          href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(activeLocation.address)}`}
+          href={`https://www.google.com/maps/dir/?api=1&destination=${
+            typeof activeLocation.lat === 'number' && typeof activeLocation.lng === 'number'
+              ? `${activeLocation.lat},${activeLocation.lng}`
+              : encodeURIComponent(activeLocation.address)
+          }`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 cormorant-garamond-medium transition-colors duration-200"

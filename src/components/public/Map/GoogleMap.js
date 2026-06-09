@@ -60,10 +60,13 @@ import { GoogleMap as GoogleMapComponent, useJsApiLoader, Marker, InfoWindow } f
  */
 export default function GoogleMap({
   address,
+  lat,
+  lng,
   className = '',
   height = 'h-80',
   zoom = 17,
 }) {
+  const hasCoords = typeof lat === 'number' && typeof lng === 'number';
   // ========== API KEY ==========
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -80,9 +83,15 @@ export default function GoogleMap({
   const [showInfoWindow, setShowInfoWindow] = useState(false);
   const [map, setMap] = useState(null);
 
-  // ========== GEOCODE ADDRESS ==========
-  // Convert address to coordinates when component mounts or address changes
+  // ========== SET OR GEOCODE COORDINATES ==========
+  // If lat/lng props provided, use them directly. Otherwise geocode the address.
   useEffect(() => {
+    if (hasCoords) {
+      setCoordinates({ lat, lng });
+      setIsGeocoding(false);
+      return;
+    }
+
     if (!address || !apiKey) return;
 
     const geocodeAddress = async () => {
@@ -110,7 +119,7 @@ export default function GoogleMap({
     };
 
     geocodeAddress();
-  }, [address, apiKey]);
+  }, [address, lat, lng, hasCoords, apiKey]);
 
   // ========== MAP CALLBACKS ==========
   const onMapLoad = useCallback((mapInstance) => {
@@ -132,8 +141,8 @@ export default function GoogleMap({
     );
   }
 
-  // If no address provided, show placeholder
-  if (!address) {
+  // If neither address nor lat/lng provided, show placeholder
+  if (!address && !hasCoords) {
     return (
       <div className={`flex items-center justify-center bg-gray-100 rounded-lg p-4 ${height} ${className}`}>
         <p className="text-gray-500">No address provided</p>
@@ -210,9 +219,9 @@ export default function GoogleMap({
               onCloseClick={() => setShowInfoWindow(false)}
             >
               <div className="p-1">
-                <p className="text-gray-900 text-sm font-medium max-w-[200px]">{address}</p>
+                <p className="text-gray-900 text-sm font-medium max-w-[200px]">{address || `${lat}, ${lng}`}</p>
                 <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${hasCoords ? `${lat},${lng}` : encodeURIComponent(address)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800 text-xs mt-1 inline-block"

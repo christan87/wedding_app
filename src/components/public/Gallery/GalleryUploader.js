@@ -8,7 +8,6 @@ export default function GalleryUploader({ onUploadComplete, onCloudinaryError })
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleFileUploadSuccess = async (fileInfo) => {
-    console.log('Uploadcare fileInfo:', JSON.stringify(fileInfo, null, 2));
     setStatus('saving');
     setErrorMessage(null);
 

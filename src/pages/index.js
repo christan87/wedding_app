@@ -475,7 +475,7 @@ export default function Home({ signatures }) {
           <GoogleMapSection
             title="Event Locations"
             locations={[
-              { name: "Ceremony", address: "Morcom Rose Garden, 700 Jean St, Oakland, CA 94610" },
+              { name: "Ceremony", address: "Morcom Rose Garden, 700 Jean St, Oakland, CA 94610", lat: 37.819474, lng: -122.246337, note: "If you're using a ride share app or inputing the address manually, please select '719 Jean St, Oakland, CA 94610' as your destination as it provides the easiest access to the ceremony. Otherwise, using the directions from the map on this app will lead you to the correct location." },
               { name: "Reception", address: "Eve's Waterfront, 15 Embarcadero West, Oakland, CA 94607" },
             ]}
             mapHeight="h-64 md:h-80 lg:h-96"
